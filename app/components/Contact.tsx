@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import styles from "./Contact.module.css";
 
 /* ─── Deterministic random for particles ─── */
@@ -152,6 +152,10 @@ const SOCIAL_LINKS = [
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
+  const [statusMessage, setStatusMessage] = useState("");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -166,6 +170,41 @@ export default function Contact() {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setSubmitStatus("sending");
+    setStatusMessage("Sending your message...");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "x-contact-form": "virtanis-contact-form",
+        },
+        body: formData,
+      });
+      const result = (await response.json()) as { error?: string };
+
+      if (!response.ok) {
+        throw new Error(result.error || "Could not send your message.");
+      }
+
+      form.reset();
+      setSubmitStatus("success");
+      setStatusMessage("Message sent successfully.");
+    } catch (error) {
+      setSubmitStatus("error");
+      setStatusMessage(
+        error instanceof Error
+          ? error.message
+          : "Could not send your message. Please try again.",
+      );
+    }
+  };
 
   return (
     <section className={styles.contact} id="contact" ref={sectionRef}>
@@ -296,27 +335,31 @@ export default function Contact() {
               <h3 className={styles.formTitle}>Start a Project</h3>
               <p className={styles.formSubtitle}>Tell us about your vision and we&apos;ll bring it to life.</p>
 
-              <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+              <form className={styles.form} onSubmit={handleSubmit}>
                 {/* Name & Email Row */}
                 <div className={styles.formRow}>
                   <div className={styles.inputGroup}>
                     <label className={styles.inputLabel} htmlFor="contact-name">Full Name</label>
                     <input
                       id="contact-name"
+                      name="name"
                       type="text"
                       className={styles.input}
                       placeholder="John Doe"
                       autoComplete="name"
+                      required
                     />
                   </div>
                   <div className={styles.inputGroup}>
                     <label className={styles.inputLabel} htmlFor="contact-email">Email Address</label>
                     <input
                       id="contact-email"
+                      name="email"
                       type="email"
                       className={styles.input}
                       placeholder="john@company.com"
                       autoComplete="email"
+                      required
                     />
                   </div>
                 </div>
@@ -326,9 +369,11 @@ export default function Contact() {
                   <label className={styles.inputLabel} htmlFor="contact-subject">Subject</label>
                   <input
                     id="contact-subject"
+                    name="subject"
                     type="text"
                     className={styles.input}
                     placeholder="Project Inquiry, Partnership, Engineering Request..."
+                    required
                   />
                 </div>
 
@@ -337,16 +382,42 @@ export default function Contact() {
                   <label className={styles.inputLabel} htmlFor="contact-message">Message</label>
                   <textarea
                     id="contact-message"
+                    name="message"
                     className={styles.textarea}
                     placeholder="Tell us about your project, goals, and timeline..."
                     rows={5}
+                    required
                   />
                 </div>
 
                 {/* Submit Button */}
-                <button type="submit" className={styles.submitButton}>
-                  <span>Send Message</span>
+                <button
+                  type="submit"
+                  className={styles.submitButton}
+                  disabled={submitStatus === "sending" || submitStatus === "success"}
+                >
+                  <span>
+                    {submitStatus === "sending"
+                      ? "Sending..."
+                      : submitStatus === "success"
+                        ? "Message sent!"
+                        : "Send Message"}
+                  </span>
                 </button>
+                {statusMessage && (
+                  <p
+                    className={`${styles.formStatus} ${
+                      submitStatus === "success"
+                        ? styles.formStatusSuccess
+                        : submitStatus === "error"
+                          ? styles.formStatusError
+                          : ""
+                    }`}
+                    aria-live="polite"
+                  >
+                    {statusMessage}
+                  </p>
+                )}
               </form>
             </div>
           </div>
