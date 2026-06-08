@@ -28,13 +28,13 @@ interface Project {
 const PROJECTS: Project[] = [
   {
     id: 0,
-    title: "E-commerce Website – Sodimfel",
+    title: "Website Sodimfel",
     category: "Web",
     description:
       "Industrial electrical solutions platform showcasing transformers, substations, power distribution systems, and engineering services through a modern enterprise-grade web experience.",
     technologies: ["React", "Tailwind CSS", "Laravel"],
-    status: "In Progress",
-    link: "https://mtfc.netlify.app",
+    status: "Beta",
+    link: "https://sodimfel-frontend.vercel.app/",
     image: "/projects/sodimfel.png",
     completion: 100,
     aiPowered: true,

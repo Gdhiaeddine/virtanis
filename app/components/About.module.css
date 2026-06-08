@@ -4,7 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
   background: transparent;
   padding: 140px 0;
 }
@@ -693,7 +694,7 @@
   }
 
   .portraitFrame {
-    max-width: 460px;
+    max-width: 360px;
     width: 100%;
   }
 
