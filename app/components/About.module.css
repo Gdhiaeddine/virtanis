@@ -604,15 +604,16 @@
 
   .container {
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 48px;
+    gap: 48px 64px;
     width: 92%;
     max-width: 1500px;
   }
 
   .leftColumn {
-    flex: 0 0 36%;
+    flex: 0 0 calc(50% - 32px);
   }
 
   .portraitFrame {
@@ -620,7 +621,7 @@
   }
 
   .centerColumn {
-    flex: 0 0 34%;
+    flex: 0 0 calc(50% - 32px);
     align-items: flex-start;
     text-align: left;
     padding: 0 8px;
@@ -650,9 +651,9 @@
   }
 
   .rightColumn {
-    flex: 0 0 26%;
+    flex: 0 0 100%;
     max-width: unset;
-    margin: 0;
+    margin: 24px 0 0 0;
   }
 
   .credentialsPanel {
@@ -661,8 +662,21 @@
 
   .credentialsGrid {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 16px;
+    width: 100%;
+  }
+
+  .credentialsGrid > div {
+    flex: 1 1 calc(25% - 12px);
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 1445px) {
+  .credentialsGrid > div {
+    flex: 1 1 calc(50% - 12px);
   }
 }
 
