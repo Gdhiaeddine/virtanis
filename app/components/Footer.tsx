@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback } from "react";
 import styles from "./Footer.module.css";
 
@@ -26,11 +28,19 @@ const PARTICLES = Array.from({ length: 12 }, (_, i) => ({
   opacity: rand() * 0.25 + 0.08,
 }));
 
-const NAV_LINKS = ["Home", "About", "Journey", "Skills", "Projects", "Contact"];
+const NAV_LINKS = ["Home", "About", "Services", "Journey", "Skills", "Projects", "Contact"];
 
 export default function Footer() {
+  const pathname = usePathname();
+
   const handleNavClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+      const isServices = link.toLowerCase() === "services";
+      const isAbout = link.toLowerCase() === "about";
+      if (isServices || isAbout || pathname === "/services" || pathname === "/about") {
+        return;
+      }
+      
       e.preventDefault();
       const id = link.toLowerCase();
       const el = document.getElementById(id);
@@ -38,7 +48,7 @@ export default function Footer() {
         el.scrollIntoView({ behavior: "smooth" });
       }
     },
-    []
+    [pathname]
   );
 
   return (
@@ -81,7 +91,7 @@ export default function Footer() {
         <div className={styles.footerContent}>
           {/* LEFT SECTION — Logo, Brand name, Copyright */}
           <div className={styles.leftSection}>
-            <div className={styles.logoArea}>
+            <Link href="/" className={styles.logoArea}>
               <Image
                 src="/logo.png"
                 alt="Virtanis"
@@ -91,23 +101,32 @@ export default function Footer() {
                 priority
               />
               <span className={styles.logoText}>VIRTANIS</span>
-            </div>
+            </Link>
             <span className={styles.copyright} suppressHydrationWarning>
               &copy; {new Date().getFullYear()} Virtanis. All Rights Reserved.
+            </span>
+            <span className={styles.credit}>
+              Designed &amp; Developed with love by Virtanis
             </span>
           </div>
 
           {/* RIGHT SECTION — Navigation Links (like navbar) */}
           <div className={styles.rightSection}>
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link}
-                href={`#${link.toLowerCase()}`}
+                href={
+                  link.toLowerCase() === "services"
+                    ? "/services"
+                    : link.toLowerCase() === "about"
+                      ? "/about"
+                      : `/#${link.toLowerCase()}`
+                }
                 className={styles.navLink}
                 onClick={(e) => handleNavClick(e, link)}
               >
                 {link}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

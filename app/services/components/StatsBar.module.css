@@ -1,0 +1,87 @@
+.statsSection {
+  padding: 80px 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 92%;
+}
+
+.statsCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 5px;
+  padding: 48px 56px;
+  backdrop-filter: blur(20px);
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.statIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(77, 163, 255, 0.08);
+  border: 1px solid rgba(77, 163, 255, 0.2);
+  border-radius: 12px;
+  color: #4da3ff;
+}
+
+.statText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.statValue {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.statLabel {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+@media (max-width: 1024px) {
+  .statsCard {
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+  }
+
+  .statItem {
+    flex: 0 0 calc(50% - 16px);
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .statsSection {
+    padding: 60px 0;
+  }
+
+  .statsCard {
+    padding: 32px 24px;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .statItem {
+    flex: 0 0 100%;
+  }
+}

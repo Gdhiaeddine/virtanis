@@ -1,169 +1,256 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
+import {
+  ArrowDown,
+  ArrowRight,
+  Box,
+  Brain,
+  Cloud,
+  Code2,
+  PenTool,
+  Smartphone,
+  type LucideIcon,
+} from "lucide-react";
 import styles from "./Hero.module.css";
 
-function mulberry32(seed: number) {
-  return function () {
-    let t = (seed += 0x6d2b79f5);
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-const rand = mulberry32(42);
-
-const PARTICLES = Array.from({ length: 40 }, (_, i) => ({
-  id: i,
-  left: `${rand() * 100}%`,
-  top: `${60 + rand() * 40}%`,
-  duration: `${8 + rand() * 12}s`,
-  delay: `${rand() * 10}s`,
-  size: `${1 + rand() * 2}px`,
-  opacity: rand() * 0.35 + 0.15,
-}));
-
-const ORBITAL_RINGS = [
-  { id: 0, size: "600px", duration: "60s", delay: "0s", accent: false, borderStyle: "dashed" as const },
-  { id: 1, size: "450px", duration: "45s", delay: "-10s", accent: true, borderStyle: "solid" as const },
-  { id: 2, size: "300px", duration: "35s", delay: "-20s", accent: false, borderStyle: "solid" as const },
+const skillCards: {
+  title: string;
+  skills: string[];
+  icon: LucideIcon;
+  position: string;
+  delay: number;
+}[] = [
+  {
+    title: "AI Systems",
+    skills: ["Machine Learning", "Automation", "LLM Integration"],
+    icon: Brain,
+    position: "topLeft",
+    delay: 0.15,
+  },
+  {
+    title: "Web Development",
+    skills: ["Next.js", "React", "TypeScript"],
+    icon: Code2,
+    position: "middleLeft",
+    delay: 0.25,
+  },
+  {
+    title: "Mobile Apps",
+    skills: ["Flutter", "Android", "iOS"],
+    icon: Smartphone,
+    position: "bottomLeft",
+    delay: 0.35,
+  },
+  {
+    title: "UI/UX Design",
+    skills: ["Figma", "Design Systems", "Prototyping"],
+    icon: PenTool,
+    position: "topRight",
+    delay: 0.2,
+  },
+  {
+    title: "3D Experiences",
+    skills: ["Three.js", "WebGL", "Interactive UI"],
+    icon: Box,
+    position: "middleRight",
+    delay: 0.3,
+  },
+  {
+    title: "Cloud & DevOps",
+    skills: ["AWS", "Docker", "CI/CD"],
+    icon: Cloud,
+    position: "bottomRight",
+    delay: 0.4,
+  },
 ];
 
+const particles = [
+  { left: "6%", top: "22%", size: 2, delay: "0s", duration: "9s" },
+  { left: "16%", top: "74%", size: 1, delay: "1.8s", duration: "11s" },
+  { left: "27%", top: "12%", size: 2, delay: "3.1s", duration: "10s" },
+  { left: "38%", top: "82%", size: 1, delay: "0.8s", duration: "12s" },
+  { left: "49%", top: "30%", size: 2, delay: "2.4s", duration: "9s" },
+  { left: "59%", top: "66%", size: 1, delay: "1.2s", duration: "13s" },
+  { left: "68%", top: "16%", size: 2, delay: "2.9s", duration: "10s" },
+  { left: "78%", top: "78%", size: 1, delay: "4.2s", duration: "12s" },
+  { left: "88%", top: "28%", size: 2, delay: "0.4s", duration: "11s" },
+  { left: "94%", top: "58%", size: 1, delay: "3.7s", duration: "9s" },
+  { left: "12%", top: "44%", size: 1, delay: "5s", duration: "13s" },
+  { left: "83%", top: "9%", size: 1, delay: "1.5s", duration: "10s" },
+];
 
-function GitHubIcon() {
+const networkLines = [
+  { left: "8%", top: "31%", width: "24%", rotate: "12deg" },
+  { left: "21%", top: "67%", width: "18%", rotate: "-18deg" },
+  { left: "65%", top: "25%", width: "22%", rotate: "-10deg" },
+  { left: "69%", top: "72%", width: "20%", rotate: "16deg" },
+];
+
+const orbitalRings = [
+  { className: styles.ringOne },
+  { className: styles.ringTwo },
+  { className: styles.ringThree },
+  { className: styles.ringFour },
+  { className: styles.ringFive },
+];
+
+function FloatingCard({
+  card,
+}: {
+  card: (typeof skillCards)[number];
+}) {
+  const Icon = card.icon;
+
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-    </svg>
+    <motion.article
+      className={`${styles.skillCard} ${styles[card.position]}`}
+      initial={{ opacity: 0, y: 22, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.7, delay: card.delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className={styles.cardHeader}>
+        <span className={styles.cardIcon}>
+          <Icon size={17} />
+        </span>
+        <h3>{card.title}</h3>
+      </div>
+      <ul>
+        {card.skills.map((skill) => (
+          <li key={skill}>{skill}</li>
+        ))}
+      </ul>
+    </motion.article>
   );
 }
 
-function LinkedInIcon() {
+function OrbitalSphere() {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-    </svg>
+    <motion.div
+      className={styles.sphereSystem}
+      initial={{ opacity: 0, scale: 0.88 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      aria-hidden="true"
+    >
+      <div className={styles.sphereGlow} />
+      {orbitalRings.map((ring, index) => (
+        <div key={index} className={`${styles.orbitalRing} ${ring.className}`}>
+          <span className={styles.orbitNode} />
+        </div>
+      ))}
+      <div className={styles.sphere}>
+        <div className={styles.sphereGrid} />
+        <div className={styles.sphereParticles}>
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+        <div className={styles.logoMark}>
+          <Image src="/logo.png" alt="Virtanis logo" width={180} height={150} priority />
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
-function EmailIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="M22 7l-10 7L2 7" />
-    </svg>
-  );
-}
-
-export default function Hero() {
+export default function HeroSection() {
   return (
     <section className={styles.hero} id="home">
-      <div className={styles.bgCanvas}>
-        <Image
-          src="/bg.png"
-          alt="Virtanis Background"
-          fill
-          priority
-          className={styles.bgImage}
-        />
+      <div className={styles.background}>
         <div className={styles.grid} />
-        <div className={styles.fog} />
-
-        {ORBITAL_RINGS.map((ring) => (
-          <div
-            key={ring.id}
-            className={styles.orbitalRing}
-            style={{
-              width: ring.size,
-              height: ring.size,
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              animationDuration: ring.duration,
-              animationDelay: ring.delay,
-              borderStyle: ring.borderStyle,
-              borderColor: ring.accent
-                ? "rgba(77, 163, 255, 0.06)"
-                : undefined,
-            }}
-          />
-        ))}
-
-        <div
-          className={styles.engineeringLine}
-          style={{ top: "30%", left: "10%", width: "35%" }}
-        />
-        <div
-          className={styles.engineeringLine}
-          style={{ top: "65%", right: "5%", width: "25%" }}
-        />
-        <div
-          className={styles.engineeringLine}
-          style={{ top: "80%", left: "20%", width: "20%" }}
-        />
-
-        {PARTICLES.map((p) => (
-          <div
-            key={p.id}
+        <div className={styles.noise} />
+        <div className={styles.leftWatermark}>VIRTANIS</div>
+        <div className={styles.sphereAura} />
+        {particles.map((particle, index) => (
+          <span
+            key={index}
             className={styles.particle}
             style={{
-              left: p.left,
-              top: p.top,
-              width: p.size,
-              height: p.size,
-              animationDuration: p.duration,
-              animationDelay: p.delay,
-              opacity: p.opacity,
+              left: particle.left,
+              top: particle.top,
+              width: particle.size,
+              height: particle.size,
+              animationDelay: particle.delay,
+              animationDuration: particle.duration,
             }}
           />
         ))}
-
-        <div className={styles.fogBottom} />
+        {networkLines.map((line, index) => (
+          <span
+            key={index}
+            className={styles.networkLine}
+            style={{
+              left: line.left,
+              top: line.top,
+              width: line.width,
+              transform: `rotate(${line.rotate})`,
+            }}
+          />
+        ))}
       </div>
 
       <div className={styles.container}>
-        <div className={styles.left}>
-          <p className={styles.welcomeLabel}>WELCOME TO</p>
+        <motion.div
+          className={styles.content}
+          initial={{ opacity: 0, x: -28 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <motion.div
+            className={styles.badge}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            AI ENGINEER • FULL STACK DEVELOPER • DIGITAL ARCHITECT
+          </motion.div>
+
           <h1 className={styles.title}>
-            VIRTANIS
-            <span className={styles.titleShimmer} aria-hidden="true">
-              VIRTANIS
-            </span>
+            Building <span className={styles.serifAccent}>Intelligent Digital</span>{" "}
+            Systems For The Future
           </h1>
-          <p className={styles.subtitle}>
-            ENGINEERING DIGITAL INTELLIGENCE
-          </p>
+
           <p className={styles.description}>
-            I design and build scalable software systems, AI solutions, and
-            modern digital products that drive real impact.
+            I design and engineer scalable digital experiences powered by AI,
+            clean code and modern technologies that drive real impact.
           </p>
-          <div className={styles.buttons}>
+
+          <motion.div
+            className={styles.actions}
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.28 }}
+          >
             <a href="#projects" className={styles.primaryButton}>
-              View Projects
+              Explore My Work <ArrowRight size={17} />
             </a>
             <a href="#contact" className={styles.secondaryButton}>
-              Contact Me
+              Let&apos;s Build Together <ArrowRight size={17} />
             </a>
-          </div>
+          </motion.div>
+        </motion.div>
+
+        <div className={styles.visual} aria-label="Virtanis digital capability system">
+          <OrbitalSphere />
+          {skillCards.map((card) => (
+            <FloatingCard key={card.title} card={card} />
+          ))}
         </div>
       </div>
-      <div className={styles.socials}>
-        <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="GitHub">
-          <GitHubIcon />
-        </a>
-        <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label="LinkedIn">
-          <LinkedInIcon />
-        </a>
-        <a href="mailto:contact@virtanis.com" className={styles.socialLink} aria-label="Email">
-          <EmailIcon />
-        </a>
-      </div>
 
-      <div className={styles.scrollIndicator}>
-        <div className={styles.scrollLine} />
-        <div className={styles.scrollDot} />
-      </div>
+      <motion.div
+        className={styles.scrollIndicator}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.8 }}
+      >
+        <span>SCROLL TO EXPLORE</span>
+        <ArrowDown size={18} />
+      </motion.div>
     </section>
   );
 }

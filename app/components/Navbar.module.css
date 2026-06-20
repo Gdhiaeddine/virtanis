@@ -4,204 +4,156 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  height: var(--navbar-height);
-  background: var(--navbar-bg);
-  backdrop-filter: blur(var(--navbar-blur));
-  -webkit-backdrop-filter: blur(var(--navbar-blur));
-  border-bottom: 1px solid var(--navbar-border);
-  transition: all 0.3s ease;
+  height: 82px;
   display: flex;
   align-items: center;
-  justify-content: center;
-}
-
-.navbarScrolled {
-  background: var(--navbar-bg-scrolled);
-  backdrop-filter: blur(var(--navbar-blur-scrolled));
-  -webkit-backdrop-filter: blur(var(--navbar-blur-scrolled));
-  height: var(--navbar-height-scrolled);
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(5, 5, 5, 0.58);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 }
 
 .container {
-  width: 90%;
-  max-width: 1400px;
+  width: 92%;
+  max-width: 1460px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.left {
-  display: flex;
-  align-items: center;
-  z-index: 10;
+  gap: 24px;
 }
 
 .logoLink {
-  display: flex;
+  position: relative;
+  z-index: 1002;
+  display: inline-flex;
   align-items: center;
   gap: 12px;
+  color: #ffffff;
   text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.logoLink:hover {
-  transform: translateY(-1px);
-  filter: drop-shadow(0 0 12px rgba(77, 163, 255, 0.25));
 }
 
 .logoIcon {
-  width: 32px;
-  height: 32px;
-  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s ease;
 }
 
-.logoLink:hover .logoIcon {
-  filter: drop-shadow(0 0 8px rgba(77, 163, 255, 0.4));
+.logoIcon img {
+  width: 34px;
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.22));
 }
 
 .logoText {
   font-family: var(--font-space-grotesk), system-ui, sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: #ffffff;
-  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
 }
 
 .center {
-  display: flex;
-  align-items: center;
-  gap: 48px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.5vw, 40px);
 }
 
 .navLink {
-  font-family: var(--font-inter), system-ui, sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.72);
-  text-decoration: none;
   position: relative;
-  transition: color 0.3s ease;
-  padding: 4px 0;
+  padding: 7px 0;
+  color: rgba(255, 255, 255, 0.66);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.25s ease;
 }
 
 .navLink::after {
   content: "";
   position: absolute;
-  bottom: -2px;
-  left: 0;
+  left: 50%;
+  bottom: 0;
   width: 0;
   height: 1px;
-  background: var(--accent);
-  transition: width 0.3s ease;
+  transform: translateX(-50%);
+  background: #ffffff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+  transition: width 0.25s ease;
 }
 
-.navLink:hover {
-  color: #ffffff;
-}
-
-.navLink:hover::after {
-  width: 100%;
-}
-
+.navLink:hover,
 .navLinkActive {
   color: #ffffff;
 }
 
+.navLink:hover::after,
 .navLinkActive::after {
-  width: 100%;
-  box-shadow: 0 0 8px var(--glow);
+  width: 18px;
 }
 
 .right {
+  position: relative;
+  z-index: 1002;
   display: flex;
   align-items: center;
-  gap: 16px;
-  z-index: 10;
+  gap: 14px;
 }
 
 .ctaButton {
-  font-family: var(--font-inter), system-ui, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  color: #ffffff;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 5px;
-  padding: 12px 22px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.045);
+  color: #ffffff;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
   white-space: nowrap;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
 .ctaButton:hover {
-  background: #ffffff;
-  color: #000000;
-  border-color: #ffffff;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
-}
-
-.themeToggle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: transparent;
-  color: rgba(255, 255, 255, 0.72);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.themeToggle:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #ffffff;
-  box-shadow: 0 0 12px rgba(77, 163, 255, 0.2);
-}
-
-.themeToggle:hover svg {
-  transform: rotate(180deg);
-}
-
-.themeToggle svg {
-  width: 18px;
-  height: 18px;
-  transition: transform 0.5s ease;
+  transform: translateY(-2px);
+  border-color: rgba(77, 163, 255, 0.42);
+  background: rgba(255, 255, 255, 0.075);
+  box-shadow: 0 0 26px rgba(77, 163, 255, 0.16);
 }
 
 .hamburger {
   display: none;
-  width: 40px;
-  height: 40px;
-  border: none;
-  background: transparent;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
   cursor: pointer;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  z-index: 1001;
 }
 
 .hamburger span {
-  display: block;
-  width: 22px;
-  height: 1.5px;
+  width: 18px;
+  height: 1px;
+  border-radius: 999px;
   background: #ffffff;
-  border-radius: 1px;
-  transition: all 0.3s ease;
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
 .hamburgerOpen span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: translateY(7px) rotate(45deg);
 }
 
 .hamburgerOpen span:nth-child(2) {
@@ -209,71 +161,46 @@
 }
 
 .hamburgerOpen span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  inset: 0;
   z-index: 999;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 36px;
+  gap: 28px;
+  background: rgba(5, 5, 5, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
 }
 
 .overlayOpen {
   opacity: 1;
-  pointer-events: all;
+  pointer-events: auto;
 }
 
 .overlayLink {
+  color: rgba(255, 255, 255, 0.7);
   font-family: var(--font-space-grotesk), system-ui, sans-serif;
-  font-size: 32px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.72);
+  font-size: 30px;
+  font-weight: 650;
   text-decoration: none;
-  transition: all 0.3s ease;
-  transform: translateY(20px);
-  opacity: 0;
-}
-
-.overlayOpen .overlayLink {
-  transform: translateY(0);
-  opacity: 1;
+  transition: color 0.25s ease;
 }
 
 .overlayLink:hover {
   color: #ffffff;
 }
 
-.overlayOpen .overlayLink:nth-child(1) { transition-delay: 0.05s; }
-.overlayOpen .overlayLink:nth-child(2) { transition-delay: 0.1s; }
-.overlayOpen .overlayLink:nth-child(3) { transition-delay: 0.15s; }
-.overlayOpen .overlayLink:nth-child(4) { transition-delay: 0.2s; }
-.overlayOpen .overlayLink:nth-child(5) { transition-delay: 0.25s; }
-.overlayOpen .overlayLink:nth-child(6) { transition-delay: 0.3s; }
-
-@media (max-width: 1024px) {
+@media (max-width: 1120px) {
   .center {
-    display: none;
-  }
-
-  .ctaButton {
-    display: none;
-  }
-
-  .themeToggle {
     display: none;
   }
 
@@ -282,39 +209,24 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .navbar {
-    height: 70px;
-  }
-
-  .navbarScrolled {
-    height: 60px;
-  }
-}
-
-@media (max-width: 480px) {
-  .navbar {
-    height: 64px;
-  }
-
-  .navbarScrolled {
-    height: 56px;
+    height: 72px;
   }
 
   .container {
-    width: 94%;
+    width: 92%;
+  }
+
+  .ctaButton {
+    display: none;
+  }
+
+  .logoIcon img {
+    width: 31px;
   }
 
   .logoText {
-    font-size: 16px;
-  }
-
-  .logoIcon {
-    width: 28px;
-    height: 28px;
-  }
-
-  .overlayLink {
-    font-size: 26px;
+    font-size: 14px;
   }
 }

@@ -1,164 +1,109 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import styles from "./Navbar.module.css";
 
-const NAV_LINKS = ["Home", "About", "Journey", "Skills", "Projects", "Contact"];
+const NAV_LINKS = ["Home", "About", "Journey", "Skills", "Projects", "Services", "Contact"];
 
-function SunIcon() {
+function LogoMark() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="5" />
-      <line x1="12" y1="1" x2="12" y2="3" />
-      <line x1="12" y1="21" x2="12" y2="23" />
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-      <line x1="1" y1="12" x2="3" y2="12" />
-      <line x1="21" y1="12" x2="23" y2="12" />
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-    </svg>
-  );
-}
-
-function MoonIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-    </svg>
+    <span className={styles.logoIcon} aria-hidden="true">
+      <Image src="/logo.png" alt="" width={34} height={28} priority />
+    </span>
   );
 }
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 20);
+    if (pathname === "/about") {
+      setActiveSection("About");
+      return;
+    }
 
-      const sections = NAV_LINKS.map((link) => {
+    if (pathname.startsWith("/services")) {
+      setActiveSection("Services");
+      return;
+    }
+
+    const onScroll = () => {
+      const sections = NAV_LINKS.filter((link) => link !== "Services").map((link) => {
         const id = link.toLowerCase();
         const el = document.getElementById(id);
-        if (!el) return { id, top: -1 };
-        return { id, top: el.getBoundingClientRect().top };
+        if (!el) return { link, top: Number.NEGATIVE_INFINITY };
+        return { link, top: el.getBoundingClientRect().top };
       });
 
-      const current = sections.reduce((closest, section) => {
-        if (section.top <= 100 && section.top > closest.top) return section;
-        return closest;
-      }, { id: "home", top: -Infinity });
+      const current = sections.reduce(
+        (closest, section) =>
+          section.top <= 120 && section.top > closest.top ? section : closest,
+        { link: "Home", top: Number.NEGATIVE_INFINITY }
+      );
 
-      if (current.id !== "home" || window.scrollY > 100) {
-        setActiveSection(current.id.charAt(0).toUpperCase() + current.id.slice(1));
-      }
+      setActiveSection(current.link);
     };
 
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [mobileOpen]);
 
-  const handleNavClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
-      e.preventDefault();
-      const id = link.toLowerCase();
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
-      setMobileOpen(false);
-    },
-    []
-  );
+  const hrefFor = (link: string) =>
+    link === "Services"
+      ? "/services"
+      : link === "About"
+        ? "/about"
+        : `/#${link.toLowerCase()}`;
 
-  const toggleTheme = useCallback(() => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  }, []);
+  const closeMenu = () => setMobileOpen(false);
 
   return (
     <>
-      <nav
-        className={`${styles.navbar} ${scrolled ? styles.navbarScrolled : ""}`}
-      >
+      <nav className={styles.navbar}>
         <div className={styles.container}>
-          <div className={styles.left}>
-            <a
-              href="#home"
-              className={styles.logoLink}
-              onClick={(e) => handleNavClick(e, "Home")}
-            >
-              <Image
-                className={styles.logoIcon}
-                src="/logo.png"
-                alt="Virtanis"
-                width={32}
-                height={32}
-                priority
-              />
-              <span className={styles.logoText}>VIRTANIS</span>
-            </a>
-          </div>
+          <Link href="/" className={styles.logoLink} onClick={closeMenu}>
+            <LogoMark />
+            <span className={styles.logoText}>VIRTANIS</span>
+          </Link>
 
           <div className={styles.center}>
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link}
-                href={`#${link.toLowerCase()}`}
+                href={hrefFor(link)}
                 className={`${styles.navLink} ${
                   activeSection === link ? styles.navLinkActive : ""
                 }`}
-                onClick={(e) => handleNavClick(e, link)}
               >
                 {link}
-              </a>
+              </Link>
             ))}
           </div>
 
           <div className={styles.right}>
-            <a href="#contact" className={styles.ctaButton} onClick={(e) => handleNavClick(e, "Contact")}>
-              Let&apos;s Talk
-            </a>
+            <Link href="/#contact" className={styles.ctaButton}>
+              Let&apos;s Work Together <ArrowRight size={14} />
+            </Link>
             <button
-              className={styles.themeToggle}
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <SunIcon /> : <MoonIcon />}
-            </button>
-            <button
-              className={`${styles.hamburger} ${
-                mobileOpen ? styles.hamburgerOpen : ""
-              }`}
-              onClick={() => setMobileOpen(!mobileOpen)}
+              className={`${styles.hamburger} ${mobileOpen ? styles.hamburgerOpen : ""}`}
+              type="button"
+              onClick={() => setMobileOpen((open) => !open)}
               aria-label="Toggle menu"
+              aria-expanded={mobileOpen}
             >
               <span />
               <span />
@@ -168,18 +113,16 @@ export default function Navbar() {
         </div>
       </nav>
 
-      <div
-        className={`${styles.overlay} ${mobileOpen ? styles.overlayOpen : ""}`}
-      >
+      <div className={`${styles.overlay} ${mobileOpen ? styles.overlayOpen : ""}`}>
         {NAV_LINKS.map((link) => (
-          <a
+          <Link
             key={link}
-            href={`#${link.toLowerCase()}`}
+            href={hrefFor(link)}
             className={styles.overlayLink}
-            onClick={(e) => handleNavClick(e, link)}
+            onClick={closeMenu}
           >
             {link}
-          </a>
+          </Link>
         ))}
       </div>
     </>
