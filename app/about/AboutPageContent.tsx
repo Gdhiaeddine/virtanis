@@ -27,6 +27,8 @@ import {
   Users,
 } from "lucide-react";
 import styles from "./AboutPageContent.module.css";
+import PageCTA from "../components/PageCTA";
+import siteData from "../data/site.json";
 
 const storyFeatures = [
   {
@@ -118,9 +120,9 @@ const technologies = [
 const founder = {
   name: "Dhia Eddine Guettaf",
   role: "Founder & Full Stack Developer",
-  location: "Algeria",
+  location: siteData.contact.location,
   experience: "3+ Years Experience",
-  email: "guettafdhiaeddine@gmail.com",
+  email: siteData.contact.email,
   description:
     "Software developer and tech entrepreneur passionate about AI, web development, and system architecture. I build scalable, efficient, and impactful digital solutions for modern businesses.",
 };
@@ -146,8 +148,17 @@ export default function AboutPageContent() {
         <div className={styles.glowOne} />
         <div className={styles.glowTwo} />
       </div>
-
       <section className={styles.hero} aria-labelledby="about-title">
+        <div className={styles.heroBg} aria-hidden="true">
+          <Image
+            src="/about-hero.webp"
+            alt="About Virtanis background"
+            fill
+            priority
+            className={styles.heroBgImage}
+          />
+        </div>
+
         <div className={styles.container}>
           <motion.div
             className={styles.heroContent}
@@ -157,7 +168,7 @@ export default function AboutPageContent() {
           >
             <SectionLabel>ABOUT VIRTANIS</SectionLabel>
             <h1 id="about-title">
-              Building Intelligent Digital Solutions For A Smarter{" "}
+              Building <span className={styles.serifAccent}>Intelligent Digital</span> Solutions For A Smarter{" "}
               <span>Future</span>
             </h1>
             <p>
@@ -166,28 +177,8 @@ export default function AboutPageContent() {
               and help businesses grow.
             </p>
           </motion.div>
-
-          <motion.div
-            className={styles.heroVisual}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.85, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className={styles.imageWrapper}>
-              <Image
-                src="/about-hero.webp"
-                alt="About Virtanis visual"
-                fill
-                priority
-                className={styles.heroImage}
-              />
-              <div className={styles.imageOverlay} />
-              <div className={styles.imageGlow} />
-            </div>
-          </motion.div>
         </div>
       </section>
-
       <motion.section className={styles.storySection} {...fadeUp}>
         <div className={styles.container}>
           <div className={styles.storyCopy}>
@@ -251,7 +242,7 @@ export default function AboutPageContent() {
               a proven process to ensure every project is delivered with the
               highest quality and maximum impact.
             </p>
-            <Link href="/#contact" className={styles.primaryButton}>
+              <Link href="/contact" className={styles.primaryButton}>
               Start Your Project <ArrowRight size={17} />
             </Link>
           </div>
@@ -347,36 +338,14 @@ export default function AboutPageContent() {
         </article>
       </motion.section>
 
-      <motion.section className={styles.cta} {...fadeUp}>
-        <div className={styles.ctaContent}>
-          <SectionLabel>GET IN TOUCH</SectionLabel>
-          <h2>Let&apos;s Build Something Amazing Together</h2>
-          <p>
-            Have a project in mind? Let&apos;s collaborate and bring your ideas
-            to life with intelligent solutions.
-          </p>
-          <Link href="/#contact" className={styles.primaryButton}>
-            Start Your Project <ArrowRight size={17} />
-          </Link>
-        </div>
-        <div className={styles.contactGrid}>
-          <article>
-            <Mail size={18} />
-            <span>Email</span>
-            <strong>hello@virtanis.com</strong>
-          </article>
-          <article>
-            <MapPin size={18} />
-            <span>Location</span>
-            <strong>Setif, Algeria</strong>
-          </article>
-          <article>
-            <Clock size={18} />
-            <span>Availability</span>
-            <strong>Available For Projects</strong>
-          </article>
-        </div>
-      </motion.section>
+      <div className={styles.container}>
+        <PageCTA
+          heading="Let's Build Something Amazing Together"
+          description="Have a project in mind? Let's collaborate and bring your ideas to life with intelligent solutions."
+          primaryText="Start Your Project"
+          primaryHref="/contact"
+        />
+      </div>
     </main>
   );
 }

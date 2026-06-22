@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import styles from "./Navbar.module.css";
 
-const NAV_LINKS = ["Home", "About", "Journey", "Skills", "Projects", "Services", "Contact"];
+const NAV_LINKS = ["Home", "About", "Skills", "Projects", "Services", "Contact"];
 
 function LogoMark() {
   return (
@@ -28,13 +28,35 @@ export default function Navbar() {
       return;
     }
 
+    if (pathname === "/projects") {
+      setActiveSection("Projects");
+      return;
+    }
+
     if (pathname.startsWith("/services")) {
       setActiveSection("Services");
       return;
     }
 
+    if (pathname === "/skills") {
+      setActiveSection("Skills");
+      return;
+    }
+
+    if (pathname === "/contact") {
+      setActiveSection("Contact");
+      return;
+    }
+
     const onScroll = () => {
-      const sections = NAV_LINKS.filter((link) => link !== "Services").map((link) => {
+      const sections = NAV_LINKS.filter(
+        (link) =>
+          link !== "About" &&
+          link !== "Services" &&
+          link !== "Projects" &&
+          link !== "Skills" &&
+          link !== "Contact"
+      ).map((link) => {
         const id = link.toLowerCase();
         const el = document.getElementById(id);
         if (!el) return { link, top: Number.NEGATIVE_INFINITY };
@@ -63,11 +85,19 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const hrefFor = (link: string) =>
-    link === "Services"
-      ? "/services"
-      : link === "About"
-        ? "/about"
-        : `/#${link.toLowerCase()}`;
+    link === "Home"
+      ? "/"
+      : link === "Services"
+        ? "/services"
+        : link === "About"
+          ? "/about"
+          : link === "Projects"
+            ? "/projects"
+            : link === "Skills"
+              ? "/skills"
+              : link === "Contact"
+                ? "/contact"
+                : `/#${link.toLowerCase()}`;
 
   const closeMenu = () => setMobileOpen(false);
 
@@ -95,7 +125,7 @@ export default function Navbar() {
           </div>
 
           <div className={styles.right}>
-            <Link href="/#contact" className={styles.ctaButton}>
+            <Link href="/contact" className={styles.ctaButton}>
               Let&apos;s Work Together <ArrowRight size={14} />
             </Link>
             <button

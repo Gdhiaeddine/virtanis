@@ -28,7 +28,7 @@ const PARTICLES = Array.from({ length: 12 }, (_, i) => ({
   opacity: rand() * 0.25 + 0.08,
 }));
 
-const NAV_LINKS = ["Home", "About", "Services", "Journey", "Skills", "Projects", "Contact"];
+const NAV_LINKS = ["Home", "About", "Services", "Skills", "Projects", "Contact"];
 
 export default function Footer() {
   const pathname = usePathname();
@@ -37,7 +37,21 @@ export default function Footer() {
     (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
       const isServices = link.toLowerCase() === "services";
       const isAbout = link.toLowerCase() === "about";
-      if (isServices || isAbout || pathname === "/services" || pathname === "/about") {
+      const isProjects = link.toLowerCase() === "projects";
+      const isSkills = link.toLowerCase() === "skills";
+      const isContact = link.toLowerCase() === "contact";
+      if (
+        isServices ||
+        isAbout ||
+        isProjects ||
+        isSkills ||
+        isContact ||
+        pathname.startsWith("/services") ||
+        pathname === "/about" ||
+        pathname === "/projects" ||
+        pathname === "/skills" ||
+        pathname === "/contact"
+      ) {
         return;
       }
       
@@ -105,9 +119,7 @@ export default function Footer() {
             <span className={styles.copyright} suppressHydrationWarning>
               &copy; {new Date().getFullYear()} Virtanis. All Rights Reserved.
             </span>
-            <span className={styles.credit}>
-              Designed &amp; Developed with love by Virtanis
-            </span>
+
           </div>
 
           {/* RIGHT SECTION — Navigation Links (like navbar) */}
@@ -116,11 +128,19 @@ export default function Footer() {
               <Link
                 key={link}
                 href={
-                  link.toLowerCase() === "services"
-                    ? "/services"
-                    : link.toLowerCase() === "about"
-                      ? "/about"
-                      : `/#${link.toLowerCase()}`
+                  link.toLowerCase() === "home"
+                    ? "/"
+                    : link.toLowerCase() === "services"
+                      ? "/services"
+                      : link.toLowerCase() === "about"
+                        ? "/about"
+                        : link.toLowerCase() === "projects"
+                          ? "/projects"
+                          : link.toLowerCase() === "skills"
+                            ? "/skills"
+                            : link.toLowerCase() === "contact"
+                              ? "/contact"
+                              : `/#${link.toLowerCase()}`
                 }
                 className={styles.navLink}
                 onClick={(e) => handleNavClick(e, link)}

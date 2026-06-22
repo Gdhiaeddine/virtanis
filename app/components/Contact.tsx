@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import styles from "./Contact.module.css";
+import siteData from "../data/site.json";
 
 /* ─── Deterministic random for particles ─── */
 function mulberry32(seed: number) {
@@ -125,10 +126,10 @@ function ArrowRightIcon() {
 
 /* ─── Data ─── */
 const CONTACT_CARDS = [
-  { id: 0, label: "EMAIL", value: "guettafdhiaeddine@gmail.com", icon: "email" },
-  { id: 1, label: "PHONE", value: "+213 560 84 83 22", icon: "phone" },
-  { id: 2, label: "LOCATION", value: "Sétif, Algeria", icon: "location" },
-  { id: 3, label: "AVAILABILITY", value: "Available For Projects", icon: "availability" },
+  { id: 0, label: "EMAIL", value: siteData.contact.email, icon: "email" },
+  { id: 1, label: "PHONE", value: siteData.contact.phone, icon: "phone" },
+  { id: 2, label: "LOCATION", value: siteData.contact.location, icon: "location" },
+  { id: 3, label: "AVAILABILITY", value: siteData.contact.availability, icon: "availability" },
 ];
 
 const ICON_MAP: Record<string, React.FC> = {
@@ -138,13 +139,20 @@ const ICON_MAP: Record<string, React.FC> = {
   availability: AvailabilityIcon,
 };
 
-const SOCIAL_LINKS = [
-  //{ id: 0, label: "GitHub", href: "#", icon: GitHubIcon },
-  { id: 0, label: "LinkedIn", href: "https://www.linkedin.com/in/guettafdhiaeddine", icon: LinkedInIcon },
-  { id: 1, label: "Instagram", href: "https://www.instagram.com/dhia_eddine_guettaf", icon: InstagramIcon },
-  { id: 2, label: "Behance", href: "https://www.behance.net/f9d10cef", icon: BehanceIcon },
-  //{ id: 4, label: "Dribbble", href: "#", icon: DribbbleIcon },
-];
+const SOCIAL_LINKS = siteData.socialLinks
+  .map((link, i) => {
+    const iconMap: Record<string, React.FC> = {
+      LinkedIn: LinkedInIcon,
+      Instagram: InstagramIcon,
+      Behance: BehanceIcon,
+    };
+    return {
+      id: i,
+      label: link.label,
+      href: link.href,
+      icon: iconMap[link.label] || EmailIcon,
+    };
+  });
 
 
 

@@ -1,5 +1,19 @@
 [
   {
+    "id": 9,
+    "title": "KAZELEC Corporate Website",
+    "category": "Web",
+    "description": "KAZELEC corporate website showcasing prefabricated transformer substations, electrical equipment, services, and completed projects. Built with Next.js and Tailwind CSS, it delivers a modern, fast, and fully responsive experience with a premium industrial design and intuitive navigation.",
+    "technologies": ["Next js", "Tailwind CSS", "Laravel"],
+    "status": "Live",
+    "image": "/projects/kazelec.png",
+    "link": "https://kazelec-frontend.vercel.app",
+    "completion": 100,
+    "aiPowered": true,
+    "metric": { "label": "Inference", "value": "12ms" },
+    "hue": 0
+  },
+  {
     "id": 2,
     "title": "Golden Hills Hotel Website",
     "category": "Web",
@@ -60,7 +74,7 @@
       "Tailwind CSS",
       "FastAPI",
       "SMOTE",
-      "• Scikit-Learn",
+      "Scikit-Learn",
       "Pandas",
       "NumPy"
     ],

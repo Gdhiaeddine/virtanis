@@ -1,0 +1,14 @@
+{
+  "contact": {
+    "email": "guettafdhiaeddine@gmail.com",
+    "phone": "+213 560 84 83 22",
+    "location": "Sétif, Algeria",
+    "availability": "Available For Projects",
+    "workingHours": "Mon - Sat · 9:00 AM - 6:00 PM"
+  },
+  "socialLinks": [
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/guettafdhiaeddine" },
+    { "label": "Instagram", "href": "https://www.instagram.com/dhia_eddine_guettaf" },
+    { "label": "Behance", "href": "https://www.behance.net/f9d10cef" }
+  ]
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import siteData from "../data/site.json";
 import styles from "./About.module.css";
 
 function mulberry32(seed: number) {
@@ -58,7 +59,7 @@ const CREDENTIAL_CARDS = [
   {
     id: 1,
     label: "Location",
-    value: "Algeria",
+    value: siteData.contact.location,
     icon: "location",
   },
   {
@@ -70,7 +71,7 @@ const CREDENTIAL_CARDS = [
   {
     id: 3,
     label: "Email",
-    value: "guettafdhiaeddine@gmail.com",
+    value: siteData.contact.email,
     icon: "availability",
   },
 ];

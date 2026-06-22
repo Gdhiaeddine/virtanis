@@ -29,17 +29,21 @@
   gap: 48px;
 }
 
-.companyName {
-  font-family: var(--font-space-grotesk), system-ui, sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.2);
-  letter-spacing: 0.04em;
-  transition: color 0.3s;
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: grayscale(100%) opacity(0.5);
+  transition: filter 0.3s;
 }
 
-.companyName:hover {
-  color: rgba(255, 255, 255, 0.45);
+.logoWrapper:hover {
+  filter: grayscale(0%) opacity(1);
+}
+
+.logo {
+  height: 80px;
+  width: auto;
 }
 
 @media (max-width: 768px) {
@@ -47,8 +51,8 @@
     gap: 32px;
   }
 
-  .companyName {
-    font-size: 15px;
+  .logo {
+    height: 32px;
   }
 }
 
@@ -57,7 +61,7 @@
     gap: 24px;
   }
 
-  .companyName {
-    font-size: 14px;
+  .logo {
+    height: 28px;
   }
 }

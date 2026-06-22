@@ -37,6 +37,16 @@ const PARTICLES = Array.from({ length: 24 }, (_, i) => ({
 export default function ServicesHero() {
   return (
     <section className={styles.hero} id="services-hero">
+      <div className={styles.heroBg} aria-hidden="true">
+        <Image
+          src="/services/hero-service.webp"
+          alt="Services background"
+          fill
+          priority
+          className={styles.heroBgImage}
+        />
+      </div>
+
       {/* Background atmosphere */}
       <div className={styles.bgAtmosphere}>
         <div className={styles.gridOverlay} />
@@ -72,7 +82,7 @@ export default function ServicesHero() {
           <span className={styles.sectionLabel}>SERVICES</span>
 
           <h1 className={styles.title}>
-            Intelligent Solutions Built For The{" "}
+            <span className={styles.serifAccent}>Intelligent Solutions</span> Built For The{" "}
             <span className={styles.accent}>Future</span>
           </h1>
 
@@ -104,26 +114,6 @@ export default function ServicesHero() {
               </div>
             ))}
           </motion.div>
-        </motion.div>
-
-        {/* Right — Galaxy visual */}
-        <motion.div
-          className={styles.visual}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <div className={styles.imageWrapper}>
-            <Image
-              src="/services/hero-service.webp"
-              alt="Futuristic galaxy background"
-              fill
-              priority
-              className={styles.heroImage}
-            />
-            <div className={styles.imageOverlay} />
-            <div className={styles.imageGlow} />
-          </div>
         </motion.div>
       </div>
     </section>

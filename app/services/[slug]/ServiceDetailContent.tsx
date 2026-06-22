@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import type { ServiceDetail } from "./data";
+import PageCTA from "../../components/PageCTA";
 import styles from "./ServiceDetailContent.module.css";
 
 interface IconProps {
@@ -28,49 +29,30 @@ const fadeUp = {
   transition: { duration: 0.65 },
 };
 
-function LaptopMockup({ service }: { service: ServiceDetail }) {
-  return (
-    <div
-      className={styles.mockup}
-      role="img"
-      aria-label={`${service.title} digital product mockup displayed on a laptop screen`}
-    >
-      <div className={styles.mockupGlow} />
-      <div className={styles.laptop}>
-        <div className={styles.browserBar}>
-          <span />
-          <span />
-          <span />
-          <div className={styles.address}>virtanis.com/{service.slug}</div>
-        </div>
-        <div className={styles.websitePreview}>
-          <aside className={styles.previewSidebar}>
-            <span />
-            <span />
-            <span />
-            <span />
-          </aside>
-          <main className={styles.previewMain}>
-            <div className={styles.previewHeader}>
-              <span />
-              <button type="button" aria-label="Mockup button" />
-            </div>
-            <div className={styles.previewHero}>
-              <span />
-              <strong />
-              <p />
-            </div>
-            <div className={styles.previewCards}>
-              <span />
-              <span />
-              <span />
-            </div>
-          </main>
-        </div>
-      </div>
-      <div className={styles.laptopBase} />
-    </div>
-  );
+function renderTitleWithAccent(title: string, accentWords: string[]): React.ReactNode[] {
+  const parts: React.ReactNode[] = [];
+  let remaining = title;
+
+  for (const word of accentWords) {
+    const index = remaining.indexOf(word);
+    if (index !== -1) {
+      if (index > 0) {
+        parts.push(remaining.slice(0, index));
+      }
+      parts.push(
+        <span key={word} className={styles.serifAccent}>
+          {word}
+        </span>
+      );
+      remaining = remaining.slice(index + word.length);
+    }
+  }
+
+  if (remaining) {
+    parts.push(remaining);
+  }
+
+  return parts;
 }
 
 export default function ServiceDetailContent({
@@ -98,6 +80,18 @@ export default function ServiceDetailContent({
         </nav>
 
         <section className={styles.hero} aria-labelledby="service-title">
+          {service.heroImage && (
+            <div className={styles.heroBg} aria-hidden="true">
+              <Image
+                src={service.heroImage.src}
+                alt={service.heroImage.alt}
+                fill
+                priority
+                className={styles.heroBgImage}
+              />
+            </div>
+          )}
+
           <motion.div
             className={styles.heroContent}
             initial={{ opacity: 0, x: -28 }}
@@ -106,12 +100,14 @@ export default function ServiceDetailContent({
           >
             <span className={styles.sectionLabel}>{service.label}</span>
             <h1 id="service-title" className={styles.heroTitle}>
-              {service.heroTitle}
+              {service.heroAccentWords
+                ? renderTitleWithAccent(service.heroTitle, service.heroAccentWords)
+                : service.heroTitle}
             </h1>
             <p className={styles.heroDescription}>{service.heroDescription}</p>
 
             <div className={styles.actions}>
-              <Link href="/#contact" className={styles.primaryButton}>
+              <Link href="/contact" className={styles.primaryButton}>
                 Start Your Project
               </Link>
               <Link href="/#projects" className={styles.secondaryButton}>
@@ -127,30 +123,6 @@ export default function ServiceDetailContent({
                 </span>
               ))}
             </div>
-          </motion.div>
-
-          <motion.div
-            className={`${styles.heroVisual} ${
-              service.heroImage ? styles.heroVisualImage : ""
-            }`}
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {service.heroImage ? (
-              <div className={styles.heroImageWrap}>
-                <Image
-                  src={service.heroImage.src}
-                  alt={service.heroImage.alt}
-                  fill
-                  priority
-                  sizes="(max-width: 900px) 92vw, 44vw"
-                  className={styles.heroImage}
-                />
-              </div>
-            ) : (
-              <LaptopMockup service={service} />
-            )}
           </motion.div>
         </section>
 
@@ -271,32 +243,12 @@ export default function ServiceDetailContent({
           </div>
         </motion.section>
 
-        <motion.section
-          className={styles.cta}
-          aria-labelledby="cta-title"
-          {...fadeUp}
-        >
-          <div className={styles.ctaContent}>
-            <span className={styles.sectionLabel}>GET IN TOUCH</span>
-            <h2 id="cta-title">{service.ctaTitle}</h2>
-            <p>{service.ctaDescription}</p>
-            <Link href="/#contact" className={styles.primaryButton}>
-              Start Your Project
-            </Link>
-          </div>
-          <div className={styles.ctaInfo}>
-            <article className={styles.contactCard}>
-              <Icons.Mail size={18} />
-              <span>Email</span>
-              <strong>hello@virtanis.com</strong>
-            </article>
-            <article className={styles.contactCard}>
-              <Icons.MapPin size={18} />
-              <span>Location</span>
-              <strong>Setif, Algeria</strong>
-            </article>
-          </div>
-        </motion.section>
+        <PageCTA
+          heading={service.ctaTitle}
+          description={service.ctaDescription}
+          primaryText="Start Your Project"
+          primaryHref="/contact"
+        />
       </div>
     </main>
   );

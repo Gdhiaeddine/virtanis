@@ -1,12 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
 import { Mail, MapPin, Clock, ArrowRight } from "lucide-react";
+import siteData from "../../data/site.json";
 import styles from "./ServicesCTA.module.css";
 
 const CONTACT_CARDS = [
-  { icon: Mail, label: "Email", value: "hello@virtanis.com" },
-  { icon: MapPin, label: "Location", value: "Sétif, Algeria" },
-  { icon: Clock, label: "Availability", value: "Available For Projects" },
+  { icon: Mail, label: "Email", value: siteData.contact.email },
+  { icon: MapPin, label: "Location", value: siteData.contact.location },
+  { icon: Clock, label: "Availability", value: siteData.contact.availability },
 ];
 
 export default function ServicesCTA() {
@@ -31,7 +32,7 @@ export default function ServicesCTA() {
               Let&apos;s turn your ideas into intelligent digital solutions that
               drive real results and growth.
             </p>
-            <a href="#contact" className={styles.ctaButton}>
+            <a href="/contact" className={styles.ctaButton}>
               Start Your Project
               <ArrowRight size={18} />
             </a>

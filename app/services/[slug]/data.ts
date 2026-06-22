@@ -5,6 +5,7 @@ export interface ServiceDetail {
   metaTitle: string;
   metaDescription: string;
   heroTitle: string;
+  heroAccentWords?: string[];
   heroDescription: string;
   heroImage?: {
     src: string;
@@ -53,6 +54,7 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     metaDescription:
       "Premium web development services by Virtanis. We build modern, responsive, SEO-friendly, secure, and high-performance websites and web applications for businesses.",
     heroTitle: "Modern Websites. Powerful Experiences.",
+    heroAccentWords: ["Modern Websites"],
     heroDescription:
       "We build modern, responsive, and high-performance websites that help businesses grow, engage their audience, and achieve their goals in the digital world.",
     heroImage: {
@@ -66,7 +68,7 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
       "Scalable Architecture",
     ],
     stats: [
-      { value: "200+", label: "Web Projects Completed", iconName: "Award" },
+      { value: "10+", label: "Web Projects Completed", iconName: "Award" },
       { value: "100%", label: "Client Satisfaction", iconName: "Handshake" },
       { value: "Fast", label: "Performance Focused", iconName: "Zap" },
       { value: "Support", label: "24/7 Ongoing Assistance", iconName: "Activity" },
@@ -208,6 +210,7 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     metaDescription:
       "Virtanis builds mobile app development solutions for Android and iOS using Flutter, scalable APIs, secure architecture, responsive UI, and ongoing app maintenance.",
     heroTitle: "Mobile Apps Built For Speed, Scale, And Real Users.",
+    heroAccentWords: ["Mobile Apps"],
     heroDescription:
       "We design and develop cross-platform mobile applications that feel smooth, look premium, and help businesses launch reliable Android and iOS products faster.",
     heroImage: {
@@ -363,6 +366,7 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     metaDescription:
       "Virtanis delivers AI and machine learning services including predictive analytics, recommendation systems, data analysis, automation workflows, and intelligent business tools.",
     heroTitle: "Intelligent Systems That Turn Data Into Decisions.",
+    heroAccentWords: ["Intelligent Systems"],
     heroDescription:
       "We build AI and machine learning solutions that automate repetitive work, discover patterns, predict outcomes, and help your business move with more confidence.",
     heroImage: {
@@ -518,6 +522,7 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     metaDescription:
       "Virtanis provides UI/UX design services for websites, mobile apps, SaaS dashboards, prototypes, user research, conversion-focused interfaces, and scalable design systems.",
     heroTitle: "Interfaces That Feel Clear, Premium, And Easy To Use.",
+    heroAccentWords: ["Interfaces"],
     heroDescription:
       "We design digital experiences that help users move confidently, understand value quickly, and connect your product with a memorable visual identity.",
     heroImage: {
@@ -673,6 +678,7 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     metaDescription:
       "Virtanis creates 3D web experiences, Three.js interfaces, WebGL animations, interactive product visualizations, immersive landing pages, and digital brand experiences.",
     heroTitle: "Immersive Digital Experiences That People Remember.",
+    heroAccentWords: ["Immersive Digital"],
     heroDescription:
       "We create interactive 3D experiences, product visualizations, and motion-rich web interfaces that make brands, products, and ideas feel alive online.",
     heroImage: {
@@ -828,6 +834,7 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     metaDescription:
       "Virtanis provides cloud and DevOps services including cloud deployment, CI/CD pipelines, server management, monitoring, performance optimization, and scalable infrastructure.",
     heroTitle: "Reliable Infrastructure For Fast, Secure Digital Products.",
+    heroAccentWords: ["Infrastructure"],
     heroDescription:
       "We set up cloud infrastructure, deployment pipelines, monitoring, and performance systems so your websites and applications stay stable as they grow.",
     heroImage: {
