@@ -3,7 +3,7 @@
     "id": 10,
     "title": "Sti Corporate Website",
     "category": "Web",
-    "description": "Corporate website for SARL Smart Technologie Innovation (STI), an official Ooredoo distributor in Algeria, showcasing mobile recharge credit distribution, prepaid SIM cards, wholesale solutions, partner services, company news, career opportunities, and business partnerships. Built with Next.js and Tailwind CSS, the website delivers a modern, premium, and fully responsive experience with a clean telecom-focused design, SEO-optimized content, multilingual support, dynamic product and news pages, quote requests, contact forms, and a professional corporate interface."
+    "description": "Corporate website for SARL Smart Technologie Innovation (STI), an official Ooredoo distributor in Algeria, showcasing mobile recharge credit distribution, prepaid SIM cards, wholesale solutions, partner services, company news, career opportunities, and business partnerships. Built with Next.js and Tailwind CSS, the website delivers a modern, premium, and fully responsive experience with a clean telecom-focused design, SEO-optimized content, multilingual support, dynamic product and news pages, quote requests, contact forms, and a professional corporate interface.",
     "technologies": ["Next js", "Tailwind CSS", "Laravel"],
     "status": "Live",
     "image": "/projects/sti.webp",
