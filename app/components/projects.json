@@ -115,7 +115,7 @@
   },
   {
     "id": 8,
-    "title": "HOCO Algeria \u2014 Premium Ecommerce Website",
+    "title": "HOCO Algeria — Premium Ecommerce Website",
     "category": "Web",
     "description": "A modern ecommerce website for HOCO Algeria, built to showcase and sell premium phone accessories with a clean responsive design.",
     "technologies": [
@@ -149,7 +149,7 @@
   },
   {
     "id": 1,
-    "title": "E-commerce Website \u2013 Groupe MTFC",
+    "title": "E-commerce Website – Groupe MTFC",
     "category": "Web",
     "description": "E-commerce website for Groupe MTFC, specialized in selling home appliances and household items. Developed with React (frontend) and Laravel (backend), providing a smooth user experience and efficient product and order management. Note: the admin page is accessible with https://mtfc.netlify.app/admin.",
     "technologies": [
@@ -166,7 +166,7 @@
   },
   {
     "id": 3,
-    "title": "APL Tech \u2014 Futuristic Gaming PC Store Website",
+    "title": "APL Tech — Futuristic Gaming PC Store Website",
     "category": "Design",
     "description": "A modern and immersive e-commerce website designed for gamers. APL Tech offers a futuristic experience with a sleek dark and purple aesthetic, allowing users to explore, customize, and build their own gaming PCs.",
     "technologies": [
