@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import siteData from "../data/site.json";
 import styles from "./About.module.css";
 
@@ -52,26 +53,26 @@ const HUD_CIRCLES = [
 const CREDENTIAL_CARDS = [
   {
     id: 0,
-    label: "Name",
-    value: "Dhia Eddine Guettaf",
+    label: "Focus",
+    value: "Enterprise & Scale",
     icon: "experience",
   },
   {
     id: 1,
-    label: "Location",
-    value: siteData.contact.location,
-    icon: "location",
-  },
-  {
-    id: 2,
-    label: "Experience",
-    value: "3+ Years",
+    label: "Engineering",
+    value: "AI-Native & Zero-Latency",
     icon: "tech",
   },
   {
+    id: 2,
+    label: "Delivery",
+    value: "Worldwide",
+    icon: "location",
+  },
+  {
     id: 3,
-    label: "Email",
-    value: siteData.contact.email,
+    label: "Availability",
+    value: "Open for Q1/Q2 Projects",
     icon: "availability",
   },
 ];
@@ -272,24 +273,24 @@ export default function About() {
           </div>
         </div>
 
-        {/* CENTER COLUMN — About Me Content */}
+        {/* CENTER COLUMN — Agency Philosophy Content */}
         <div className={styles.centerColumn}>
-          <span className={styles.sectionLabel}>ABOUT ME</span>
+          <span className={styles.sectionLabel}>THE VIRTANIS STANDARD</span>
 
           <h2 className={styles.mainTitle}>
-            Building the Future with Code and Intelligence
+            Architecting Tomorrow&apos;s High-Value Digital Infrastructure
           </h2>
 
           <p className={styles.description}>
-            I'm a software developer and tech entrepreneur passionate about AI, Web development
-            and system architecture. I build digital solutions that are scalable, efficient, and
-            impactful.
+            Virtanis is an elite digital engineering studio combining computational intelligence,
+            architectural rigor, and world-class product design. We partner with fast-growing startups
+            and global enterprises to design, build, and deploy digital platforms that redefine industries.
           </p>
 
           {/* CTA Button */}
-          <a href="#projects" className={styles.ctaButton}>
-            Discover My Work
-          </a>
+          <Link href="/about" className={styles.ctaButton}>
+            Explore Agency
+          </Link>
         </div>
 
         {/* RIGHT COLUMN — Credentials Panel */}

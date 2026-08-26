@@ -3,25 +3,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { ExternalLink, Images, Maximize2 } from "lucide-react";
+import ProjectGalleryModal, { ModalProject } from "./ProjectGalleryModal";
 import styles from "./Projects.module.css";
 
 /* ─── Types ─── */
 type Category = "ML" | "Web" | "App" | "Design";
 
-interface Project {
+interface Project extends ModalProject {
   id: number;
   title: string;
   category: Category;
   description: string;
   technologies: string[];
   status: "Live" | "In Progress" | "Beta";
-  completion: number;
-  aiPowered: boolean;
-  metric: { label: string; value: string };
   link?: string;
   image: string;
-  /* hue rotation for the generated cinematic preview */
-  hue: number;
+  images?: string[];
 }
 
 import projectsData from "./projects.json";
@@ -36,7 +34,15 @@ const PROJECTS: Project[] = (projectsData as Project[]).sort((a, b) => {
   return STATUS_ORDER[a.status] - STATUS_ORDER[b.status];
 });
 
-const FILTERS: ("All" | Category)[] = ["All", "ML", "Web", "App", "Design"];
+const filterLabels: Record<"All" | Category, string> = {
+  All: "All Deployments",
+  ML: "AI & Machine Learning",
+  Web: "Web Platforms",
+  App: "Mobile Systems",
+  Design: "Spatial & UI/UX",
+};
+
+const FILTERS: ("All" | Category)[] = ["All", "ML", "Web", "Design"];
 const INITIAL_COUNT = 6;
 
 /* ─── Deterministic particle generator ─── */
@@ -88,103 +94,119 @@ const HUD_CIRCLES = [
 ];
 
 /* ─── Status indicator ─── */
-function StatusDot({ status }: { status: Project["status"] }) {
-  const cls =
+function StatusBadge({ status }: { status: Project["status"] }) {
+  const statusClass =
     status === "Live"
       ? styles.statusLive
       : status === "Beta"
         ? styles.statusBeta
         : styles.statusProgress;
+
+  const label =
+    status === "Live"
+      ? "Live Deployment"
+      : status === "Beta"
+        ? "Beta Preview"
+        : "In Development";
+
   return (
     <span className={styles.statusWrap}>
-      <span className={`${styles.statusDot} ${cls}`} />
-      {status}
+      <span className={`${styles.statusDot} ${statusClass}`} />
+      <span>{label}</span>
     </span>
   );
 }
 
-/* ─── Arrow icon ─── */
-function ArrowIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="5" y1="12" x2="19" y2="12" />
-      <polyline points="12 5 19 12 12 19" />
-    </svg>
-  );
-}
+/* ─── Project Card (Interactive Gallery Enabled) ─── */
+function ProjectCard({
+  project,
+  index,
+  onOpenGallery,
+}: {
+  project: Project;
+  index: number;
+  onOpenGallery: (project: Project, index?: number) => void;
+}) {
+  const images = project.images && project.images.length > 0 ? project.images : [project.image];
+  const imageCount = images.length;
 
-/* ─── Project Card ─── */
-function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <article
       className={styles.card}
       style={{ animationDelay: `${(index % 6) * 0.07}s` }}
     >
-      {/* Preview */}
-      <div className={styles.preview}>
+      <div
+        className={styles.cardPreview}
+        onClick={() => onOpenGallery(project, 0)}
+        role="button"
+        tabIndex={0}
+        aria-label={`Open ${project.title} photo gallery`}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onOpenGallery(project, 0);
+          }
+        }}
+      >
         <Image
           src={project.image}
-          alt={`${project.title} preview`}
+          alt={`${project.title} preview screenshot`}
           fill
-          sizes="(max-width: 768px) 92vw, (max-width: 1024px) 44vw, 29vw"
+          sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 31vw"
           className={styles.previewImage}
         />
         <div className={styles.previewOverlay} />
-      </div>
 
-      {/* Content */}
-      <div className={styles.content}>
-        <div className={styles.cardBody}>
-          <div className={styles.metaRow}>
-            <span className={styles.categoryPill}>{project.category}</span>
-            <StatusDot status={project.status} />
-          </div>
-
-          <h3 className={styles.cardTitle}>{project.title}</h3>
-          <p className={styles.cardDescription}>{project.description}</p>
-
-          {/* Tech tags */}
-          <div className={styles.techTags}>
-            {project.technologies.map((tech) => (
-              <span key={tech} className={styles.techTag}>
-                {tech}
-              </span>
-            ))}
-          </div>
+        <div className={styles.previewBadges}>
+          <StatusBadge status={project.status} />
+          <span className={styles.categoryBadge}>{project.category}</span>
         </div>
 
-        {/* CTA */}
-        {project.link ? (
-          <Link
-            className={styles.exploreBtn}
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Explore Project
-            <span className={styles.exploreIcon}>
-              <ArrowIcon />
+        <div className={styles.previewFooter}>
+          <span className={styles.imageCountBadge}>
+            <Images size={12} />
+            <span>
+              {imageCount} {imageCount === 1 ? "Photo" : "Photos"}
             </span>
-          </Link>
-        ) : (
-          <button className={styles.exploreBtn} type="button" disabled>
-            Explore Project
-            <span className={styles.exploreIcon}>
-              <ArrowIcon />
-            </span>
-          </button>
-        )}
+          </span>
+
+          <span className={styles.previewHint}>
+            <Maximize2 size={12} />
+            <span>View Gallery</span>
+          </span>
+        </div>
       </div>
 
-      <div className={styles.cardTopGlow} />
-      <div className={styles.cardEdgeGlow} />
+      <div className={styles.cardBody}>
+        <h3 className={styles.cardTitle}>{project.title}</h3>
+        <p className={styles.cardDescription}>{project.description}</p>
+
+        <div className={styles.techList}>
+          {project.technologies.map((tech) => (
+            <span key={tech} className={styles.techPill}>
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <div className={styles.cardFooter}>
+          {project.link ? (
+            <Link
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.cardLink}
+            >
+              <span>Launch Live Platform</span>
+              <ExternalLink size={14} className={styles.linkIcon} />
+            </Link>
+          ) : (
+            <span className={styles.cardLinkDisabled}>
+              <span>Internal Enterprise System</span>
+            </span>
+          )}
+        </div>
+      </div>
     </article>
   );
 }
@@ -197,6 +219,23 @@ export default function Projects() {
   const [expanded, setExpanded] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(false);
 
+  // Gallery Modal State
+  const [galleryProject, setGalleryProject] = useState<Project | null>(null);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  const handleOpenGallery = (project: Project, index = 0) => {
+    setGalleryProject(project);
+    setActiveImageIndex(index);
+  };
+
+  const projectCounts = useMemo(() => {
+    const counts: Record<string, number> = { All: PROJECTS.length };
+    PROJECTS.forEach((p) => {
+      counts[p.category] = (counts[p.category] || 0) + 1;
+    });
+    return counts;
+  }, []);
+
   const filtered = useMemo(
     () =>
       activeFilter === "All"
@@ -208,7 +247,6 @@ export default function Projects() {
   const visible = expanded ? filtered : filtered.slice(0, INITIAL_COUNT);
   const hasMore = filtered.length > INITIAL_COUNT;
 
-  /* Reset expansion when switching filters */
   const handleFilter = (filter: "All" | Category) => {
     setActiveFilter(filter);
     setExpanded(false);
@@ -216,13 +254,11 @@ export default function Projects() {
 
   const handleShowLess = () => {
     setExpanded(false);
-    // smooth cinematic scroll back to the grid top
     requestAnimationFrame(() => {
       gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   };
 
-  /* Header scroll reveal */
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -239,146 +275,164 @@ export default function Projects() {
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.projects} id="projects">
-      {/* ─── Background Atmosphere ─── */}
-      <div className={styles.bgAtmosphere}>
-        <div className={styles.gridOverlay} />
-        <div className={styles.fogLayer} />
-        <div className={styles.glowOrb} />
-        {PARTICLES.map((p) => (
-          <div
-            key={p.id}
-            className={styles.bgParticle}
-            style={{
-              left: p.left,
-              top: p.top,
-              width: p.size,
-              height: p.size,
-              animationDuration: p.duration,
-              animationDelay: p.delay,
-              opacity: p.opacity,
-            }}
-          />
-        ))}
-        {HUD_CIRCLES.map((hud) => (
-          <div
-            key={hud.id}
-            className={styles.hudCircle}
-            style={{
-              width: hud.size,
-              height: hud.size,
-              top: hud.top,
-              right: hud.right,
-              bottom: hud.bottom,
-              left: hud.left,
-              animationDuration: hud.duration,
-              animationDelay: hud.delay,
-            }}
-          />
-        ))}
-        {HOLO_LINES.map((line) => (
-          <div
-            key={line.id}
-            className={styles.holoLine}
-            style={{
-              top: line.top,
-              left: line.left,
-              right: line.right,
-              width: line.width,
-              animationDelay: line.delay,
-            }}
-          />
-        ))}
-        <div
-          className={styles.neuralNode}
-          style={{ top: "20%", right: "14%" }}
-        />
-        <div
-          className={styles.neuralNode}
-          style={{ top: "52%", left: "10%" }}
-        />
-        <div
-          className={styles.neuralNode}
-          style={{ bottom: "24%", right: "20%" }}
-        />
-      </div>
-
-      {/* ─── Content ─── */}
-      <div className={styles.container}>
-        {/* Header */}
-        <div
-          className={`${styles.header} ${headerVisible ? styles.headerVisible : ""}`}
-        >
-          <span className={styles.sectionLabel}>SELECTED PROJECTS</span>
-          <h2 className={styles.mainTitle}>
-            Building The Future Through Intelligent Digital Products
-          </h2>
-          <p className={styles.description}>
-            A curated portfolio of intelligent digital products, scalable
-            systems and AI solutions. Every project is engineered with precision
-            — blending advanced architecture, immersive experiences and modern
-            development to drive meaningful digital transformation.
-          </p>
-        </div>
-
-        {/* Filters */}
-        <div
-          className={styles.filterBar}
-          role="tablist"
-          aria-label="Project categories"
-        >
-          {FILTERS.map((filter) => (
-            <button
-              key={filter}
-              type="button"
-              role="tab"
-              aria-selected={activeFilter === filter}
-              className={`${styles.filterBtn} ${
-                activeFilter === filter ? styles.filterActive : ""
-              }`}
-              onClick={() => handleFilter(filter)}
-            >
-              {filter}
-            </button>
+    <>
+      <section ref={sectionRef} className={styles.projects} id="projects">
+        {/* ─── Background Atmosphere ─── */}
+        <div className={styles.bgAtmosphere}>
+          <div className={styles.gridOverlay} />
+          <div className={styles.fogLayer} />
+          <div className={styles.glowOrb} />
+          {PARTICLES.map((p) => (
+            <div
+              key={p.id}
+              className={styles.bgParticle}
+              style={{
+                left: p.left,
+                top: p.top,
+                width: p.size,
+                height: p.size,
+                animationDuration: p.duration,
+                animationDelay: p.delay,
+                opacity: p.opacity,
+              }}
+            />
           ))}
-        </div>
-
-        {/* Grid */}
-        <div ref={gridRef} className={styles.grid}>
-          {visible.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+          {HUD_CIRCLES.map((hud) => (
+            <div
+              key={hud.id}
+              className={styles.hudCircle}
+              style={{
+                width: hud.size,
+                height: hud.size,
+                top: hud.top,
+                right: hud.right,
+                bottom: hud.bottom,
+                left: hud.left,
+                animationDuration: hud.duration,
+                animationDelay: hud.delay,
+              }}
+            />
           ))}
+          {HOLO_LINES.map((line) => (
+            <div
+              key={line.id}
+              className={styles.holoLine}
+              style={{
+                top: line.top,
+                left: line.left,
+                right: line.right,
+                width: line.width,
+                animationDelay: line.delay,
+              }}
+            />
+          ))}
+          <div
+            className={styles.neuralNode}
+            style={{ top: "20%", right: "14%" }}
+          />
+          <div
+            className={styles.neuralNode}
+            style={{ top: "52%", left: "10%" }}
+          />
+          <div
+            className={styles.neuralNode}
+            style={{ bottom: "24%", right: "20%" }}
+          />
         </div>
 
-        {/* Expand / Collapse */}
-        {hasMore && (
-          <div className={styles.viewMoreWrap}>
-            <button
-              type="button"
-              className={styles.viewMoreBtn}
-              onClick={() => (expanded ? handleShowLess() : setExpanded(true))}
-            >
-              {expanded ? "Show Less" : "View More Projects"}
-              <span
-                className={`${styles.viewMoreIcon} ${
-                  expanded ? styles.viewMoreIconUp : ""
-                }`}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </span>
-            </button>
+        {/* ─── Content ─── */}
+        <div className={styles.container}>
+          {/* Header */}
+          <div
+            className={`${styles.header} ${headerVisible ? styles.headerVisible : ""}`}
+          >
+            <span className={styles.sectionLabel}>SELECTED PROJECTS</span>
+            <h2 className={styles.mainTitle}>
+              Building The Future Through Intelligent Digital Products
+            </h2>
+            <p className={styles.description}>
+              A curated portfolio of intelligent digital products, scalable
+              systems and AI solutions. Every project is engineered with precision
+              — blending advanced architecture, immersive experiences and modern
+              development to drive meaningful digital transformation.
+            </p>
           </div>
-        )}
-      </div>
-    </section>
+
+          {/* Filters with Counts */}
+          <div
+            className={styles.filterBar}
+            role="tablist"
+            aria-label="Project categories"
+          >
+            {FILTERS.map((filter) => {
+              const count = projectCounts[filter] || 0;
+              const isActive = activeFilter === filter;
+              return (
+                <button
+                  key={filter}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`${styles.filterBtn} ${isActive ? styles.filterActive : ""}`}
+                  onClick={() => handleFilter(filter)}
+                >
+                  <span>{filterLabels[filter]}</span>
+                  <span className={styles.filterCount}>{count}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Grid */}
+          <div ref={gridRef} className={styles.grid}>
+            {visible.map((project, index) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={index}
+                onOpenGallery={handleOpenGallery}
+              />
+            ))}
+          </div>
+
+          {/* Expand / Collapse */}
+          {hasMore && (
+            <div className={styles.viewMoreWrap}>
+              <button
+                type="button"
+                className={styles.viewMoreBtn}
+                onClick={() => (expanded ? handleShowLess() : setExpanded(true))}
+              >
+                {expanded ? "Show Less" : "View More Projects"}
+                <span
+                  className={`${styles.viewMoreIcon} ${
+                    expanded ? styles.viewMoreIconUp : ""
+                  }`}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Full-Page Gallery Lightbox Modal */}
+      <ProjectGalleryModal
+        project={galleryProject}
+        activeImageIndex={activeImageIndex}
+        onClose={() => setGalleryProject(null)}
+        onSelectImage={(idx) => setActiveImageIndex(idx)}
+      />
+    </>
   );
 }

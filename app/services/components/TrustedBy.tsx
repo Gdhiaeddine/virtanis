@@ -10,16 +10,16 @@ const PARTNERS = [
 
 export default function TrustedBy() {
   return (
-    <section className={styles.trustedBy}>
+    <section className={styles.trustedBy} aria-label="Trusted Enterprise Partners">
       <div className={styles.container}>
         <motion.p
           className={styles.label}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Trusted by businesses &amp; startups
+          TRUSTED BY ENTERPRISES, SCALE-UPS & GLOBAL FOUNDERS
         </motion.p>
         <div className={styles.logoRow}>
           {PARTNERS.map((partner, i) => (
@@ -33,9 +33,9 @@ export default function TrustedBy() {
             >
               <Image
                 src={partner.logo}
-                alt={partner.name}
-                width={120}
-                height={40}
+                alt={`${partner.name} logo`}
+                width={130}
+                height={42}
                 className={styles.logo}
               />
             </motion.div>

@@ -1,59 +1,65 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import styles from "./Skills.module.css";
 
 /* ─── Data ─── */
-const SKILLS = [
+const SOLUTIONS = [
   {
     id: 0,
-    title: "Frontend Development",
+    slug: "ai-ml",
+    title: "AI & Machine Learning Systems",
     description:
-      "Designing and building modern responsive user interfaces with premium user experience, smooth interactions, and scalable frontend architectures.",
-    technologies: ["React", "Next.js", "Tailwind CSS", "TypeScript", "Framer Motion"],
-    icon: "frontend",
-  },
-  {
-    id: 1,
-    title: "Backend Engineering",
-    description:
-      "Building scalable backend systems, APIs, authentication systems, and robust server-side architectures optimized for performance and reliability.",
-    technologies: ["Node.js", "Laravel", "Express", "REST APIs", "MySQL"],
-    icon: "backend",
-  },
-  {
-    id: 2,
-    title: "AI & Automation",
-    description:
-      "Developing intelligent systems, automation workflows, and AI-powered digital solutions focused on efficiency and innovation.",
-    technologies: ["AI Systems", "Automation", "Prompt Engineering", "Intelligent Workflows", "Data Processing"],
+      "Custom machine learning models, predictive intelligence, intelligent automation pipelines, and enterprise LLM integration built for scale.",
+    technologies: ["Python", "TensorFlow", "FastAPI", "OpenAI APIs", "Predictive Analytics"],
     icon: "ai",
   },
   {
-    id: 3,
-    title: "Mobile App Development",
+    id: 1,
+    slug: "web-development",
+    title: "Enterprise Web Applications",
     description:
-      "Designing and developing modern cross-platform mobile applications with smooth user experiences, scalable architectures, and high-performance interfaces optimized for Android and iOS ecosystems.",
-    technologies: ["Flutter", "Dart", "Firebase", "Mobile UI/UX", "Cross-Platform Development"],
+      "Modern, ultra-fast, responsive web applications and SaaS platforms engineered with Next.js, robust APIs, and conversion-optimized architectures.",
+    technologies: ["Next.js", "React", "TypeScript", "Node.js", "Tailwind CSS"],
+    icon: "frontend",
+  },
+  {
+    id: 2,
+    slug: "mobile-development",
+    title: "Cross-Platform Mobile Apps",
+    description:
+      "Native-feel iOS and Android applications developed with Flutter, real-time backend synchronization, secure authentication, and sleek UX.",
+    technologies: ["Flutter", "Dart", "Firebase", "REST APIs", "Mobile UI/UX"],
     icon: "mobile",
   },
   {
-    id: 4,
-    title: "UI/UX Design",
+    id: 3,
+    slug: "ui-ux",
+    title: "UI/UX & Spatial Product Design",
     description:
-      "Designing premium user experiences with clean interfaces, futuristic aesthetics, and intuitive interaction systems.",
-    technologies: ["Figma", "Design Systems", "Wireframing", "User Experience", "Prototyping"],
+      "Design systems, interactive prototypes, user journeys, and high-conversion interfaces with Apple-grade minimalism and precision.",
+    technologies: ["Figma", "Design Systems", "Prototyping", "UX Research", "Motion Design"],
     icon: "design",
   },
   {
-    id: 5,
-    title: "Cloud & DevOps",
+    id: 4,
+    slug: "three-d-interactive",
+    title: "3D & Immersive Web Experiences",
     description:
-      "Managing deployment workflows, hosting environments, cloud infrastructure, and scalable production-ready systems.",
-    technologies: ["VPS", "Linux", "Hosting", "Cloud Systems", "Deployment"],
+      "Interactive 3D scenes, WebGL shaders, Three.js product visualizers, and sensory digital environments that make brands unforgettable.",
+    technologies: ["Three.js", "React Three Fiber", "WebGL", "GSAP", "3D Modeling"],
+    icon: "interactive",
+  },
+  {
+    id: 5,
+    slug: "cloud-devops",
+    title: "Cloud Infrastructure & DevOps",
+    description:
+      "Production-ready CI/CD pipelines, containerization, high-availability cloud hosting, and enterprise security monitoring.",
+    technologies: ["Docker", "Linux", "CI/CD", "Vercel", "Monitoring & Security"],
     icon: "cloud",
   },
-  
 ];
 
 /* ─── Icons ─── */
@@ -213,7 +219,8 @@ export default function Skills() {
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.skills} id="skills">
+    <section ref={sectionRef} className={styles.skills} id="services">
+      <span id="skills" aria-hidden="true" style={{ position: "absolute", top: 0 }} />
       {/* ─── Background Atmosphere ─── */}
       <div className={styles.bgAtmosphere}>
         <div className={styles.gridOverlay} />
@@ -282,25 +289,24 @@ export default function Skills() {
       <div className={styles.container}>
         {/* Header */}
         <div className={styles.header}>
-          <span className={styles.sectionLabel}>SKILLS & EXPERTISE</span>
-          <h2 className={styles.mainTitle}>Engineering Intelligent Digital Experiences</h2>
+          <span className={styles.sectionLabel}>DIGITAL CAPABILITIES</span>
+          <h2 className={styles.mainTitle}>Full-Spectrum Digital Engineering Solutions</h2>
           <p className={styles.description}>
-            Advanced expertise in building intelligent digital systems, AI solutions, scalable
-            infrastructures, and modern digital experiences. From frontend interfaces to backend
-            architectures, every technology is chosen to deliver performance, elegance, and
-            innovation.
+            Virtanis engineers end-to-end digital solutions that power industry-leading businesses.
+            From intelligent AI systems and high-throughput web applications to native mobile platforms,
+            spatial UI/UX design, and cloud infrastructure — we build for performance, scale, and prestige.
           </p>
         </div>
 
-        {/* Skills Grid */}
+        {/* Solutions Grid */}
         <div className={styles.skillsGrid}>
-          {SKILLS.map((skill, index) => {
-            const IconComponent = ICON_MAP[skill.icon];
+          {SOLUTIONS.map((solution, index) => {
+            const IconComponent = ICON_MAP[solution.icon];
             const isVisible = visibleCards.has(index);
 
             return (
               <div
-                key={skill.id}
+                key={solution.id}
                 ref={(el) => { cardRefs.current[index] = el; }}
                 data-index={index}
                 className={`${styles.skillCard} ${isVisible ? styles.cardVisible : ""}`}
@@ -318,18 +324,26 @@ export default function Skills() {
                 </div>
 
                 {/* Title */}
-                <h3 className={styles.cardTitle}>{skill.title}</h3>
+                <h3 className={styles.cardTitle}>{solution.title}</h3>
 
                 {/* Description */}
-                <p className={styles.cardDescription}>{skill.description}</p>
+                <p className={styles.cardDescription}>{solution.description}</p>
 
                 {/* Technologies */}
                 <div className={styles.techTags}>
-                  {skill.technologies.map((tech, ti) => (
+                  {solution.technologies.map((tech, ti) => (
                     <span key={ti} className={styles.techTag}>
                       {tech}
                     </span>
                   ))}
+                </div>
+
+                {/* Card Footer Link */}
+                <div className={styles.cardFooter}>
+                  <Link href={`/services/${solution.slug}`} className={styles.exploreLink}>
+                    <span>Explore Solution</span>
+                    <span className={styles.exploreArrow}>→</span>
+                  </Link>
                 </div>
 
                 {/* Edge glow */}

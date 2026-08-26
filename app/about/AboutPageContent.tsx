@@ -6,8 +6,6 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   Award,
-  CheckCircle2,
-  Clock,
   Cloud,
   Code2,
   Cpu,
@@ -22,6 +20,8 @@ import {
   Search,
   Server,
   ShieldCheck,
+  Smartphone,
+  Sparkles,
   Target,
   Trophy,
   Users,
@@ -34,98 +34,145 @@ const storyFeatures = [
   {
     title: "Our Mission",
     description:
-      "To empower businesses through innovative digital solutions, intelligent systems, and cutting-edge technologies.",
+      "To engineer robust, high-performance digital systems and AI-powered platforms that deliver measurable market advantage for visionary brands.",
     icon: Target,
   },
   {
     title: "Our Vision",
     description:
-      "To become a global leader in digital innovation and intelligent engineering, shaping the future through technology.",
+      "To be the premier digital engineering studio globally recognized for architectural perfection, intelligent automation, and luxury UX.",
     icon: Rocket,
   },
 ];
 
 const values = [
   {
-    title: "Innovation",
-    description: "We embrace new ideas and technologies to deliver creative solutions.",
-    icon: Lightbulb,
-  },
-  {
-    title: "Excellence",
-    description: "We are committed to quality, precision, and delivering outstanding results.",
-    icon: Trophy,
-  },
-  {
-    title: "Integrity",
-    description: "We build trust through transparency, honesty, and ethical practices.",
+    title: "Engineering Rigor",
+    description: "Zero compromise on code quality, latency, scalability, and system architecture.",
     icon: ShieldCheck,
   },
   {
-    title: "Collaboration",
-    description: "We work closely with our clients as partners to achieve shared success.",
-    icon: Users,
+    title: "AI-First Innovation",
+    description: "Leveraging state-of-the-art machine intelligence to automate and augment complex workflows.",
+    icon: Sparkles,
   },
   {
-    title: "Impact",
-    description: "We focus on creating solutions that make a meaningful difference.",
-    icon: HeartHandshake,
+    title: "Apple-Grade Design",
+    description: "Minimalist, intuitive, and tactile interfaces that make interacting with technology effortless.",
+    icon: Palette,
+  },
+  {
+    title: "Global Partnership",
+    description: "Transparent, collaborative execution from initial discovery to worldwide cloud deployment.",
+    icon: Globe2,
   },
 ];
 
 const processSteps = [
   {
     step: "01",
-    title: "Discover",
-    description: "We understand your business, goals, and challenges.",
+    title: "Discover & Strategy",
+    description: "Comprehensive analysis of business objectives, user requirements, and technical roadmaps.",
     icon: Search,
   },
   {
     step: "02",
-    title: "Plan",
-    description: "We analyze, strategize, and create a roadmap for success.",
+    title: "System Architecture",
+    description: "Blueprint design of cloud environments, database schemas, and intelligent API topologies.",
     icon: Target,
   },
   {
     step: "03",
-    title: "Design",
-    description: "We design modern, intuitive, and user-focused experiences.",
+    title: "Spatial & UI Design",
+    description: "Crafting minimalist design systems, user flows, and interactive high-fidelity prototypes.",
     icon: Palette,
   },
   {
     step: "04",
-    title: "Develop",
-    description: "We build with clean code and advanced technologies.",
+    title: "Full-Stack Build",
+    description: "Writing clean, modular, and typed code with modern frontend and backend frameworks.",
     icon: Code2,
   },
   {
     step: "05",
-    title: "Deliver",
-    description: "We test, deploy, and support to ensure long-term success.",
+    title: "Scale & Deploy",
+    description: "Automated CI/CD release, global CDN caching, telemetry monitoring, and continuous scaling.",
     icon: Rocket,
   },
 ];
 
 const technologies = [
   { name: "Next.js", icon: Globe2 },
-  { name: "React", icon: Code2 },
   { name: "TypeScript", icon: ShieldCheck },
+  { name: "React", icon: Code2 },
+  { name: "Python & AI", icon: Cpu },
+  { name: "Flutter", icon: Smartphone },
   { name: "Node.js", icon: Server },
-  { name: "Tailwind CSS", icon: Palette },
-  { name: "MongoDB", icon: Database },
-  { name: "PostgreSQL", icon: Database },
-  { name: "AWS", icon: Cloud },
+  { name: "PostgreSQL / DB", icon: Database },
+  { name: "Cloud & DevOps", icon: Cloud },
 ];
 
 const founder = {
   name: "Dhia Eddine Guettaf",
-  role: "Founder & Full Stack Developer",
+  role: "Founder & Lead Architect",
   location: siteData.contact.location,
-  experience: "3+ Years Experience",
+  experience: "Full-Spectrum Engineering",
   email: siteData.contact.email,
   description:
-    "Software developer and tech entrepreneur passionate about AI, web development, and system architecture. I build scalable, efficient, and impactful digital solutions for modern businesses.",
+    "AI engineer, full-stack systems architect, and digital product craftsman. Dedicated to uniting machine intelligence with architectural precision and world-class product design for ambitious companies.",
 };
+
+function LinkedInIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.4 1.4 0 1 0 0-2.8 1.4 1.4 0 0 0 0 2.8m1.37 9.74V9.92H5.09v8.58h2.74z" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
+
+function BehanceIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-4.043 0-5.83-2.613-5.83-5.875 0-3.327 2.05-5.925 5.8-5.925 3.978 0 5.438 2.873 5.161 6.075h-8.083c.092 1.706 1.157 3.025 3.052 3.025 1.42 0 2.378-.718 2.766-1.55l2.235 1.25zm-5.071-5.125c-.042-1.39-.773-2.275-2.28-2.275-1.422 0-2.308.885-2.483 2.275h4.763zm-13.655-6.875h5.578c3.08 0 4.672 1.488 4.672 3.825 0 1.545-.733 2.775-2.039 3.325 1.639.525 2.516 1.95 2.516 3.65 0 2.65-2.001 4.2-4.996 4.2h-5.731v-15zm3.072 6.025h2.15c1.17 0 1.97-.575 1.97-1.6 0-1.05-.75-1.575-1.92-1.575h-2.2v3.175zm0 6.125h2.361c1.33 0 2.238-.675 2.238-1.8 0-1.15-.908-1.775-2.238-1.775h-2.361v3.575z" />
+    </svg>
+  );
+}
+
+function GithubIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
+    </svg>
+  );
+}
+
+function renderSocialIcon(label: string) {
+  const l = label.toLowerCase();
+  if (l.includes("linkedin")) return <LinkedInIcon size={16} />;
+  if (l.includes("instagram")) return <InstagramIcon size={16} />;
+  if (l.includes("behance")) return <BehanceIcon size={16} />;
+  if (l.includes("github")) return <GithubIcon size={16} />;
+  return <Globe2 size={16} />;
+}
 
 const fadeUp = {
   initial: { opacity: 0, y: 28 },
@@ -148,6 +195,8 @@ export default function AboutPageContent() {
         <div className={styles.glowOne} />
         <div className={styles.glowTwo} />
       </div>
+
+      {/* Hero Section */}
       <section className={styles.hero} aria-labelledby="about-title">
         <div className={styles.heroBg} aria-hidden="true">
           <Image
@@ -168,32 +217,32 @@ export default function AboutPageContent() {
           >
             <SectionLabel>ABOUT VIRTANIS</SectionLabel>
             <h1 id="about-title">
-              Building <span className={styles.serifAccent}>Intelligent Digital</span> Solutions For A Smarter{" "}
-              <span>Future</span>
+              Engineering <span className={styles.serifAccent}>Intelligent Digital</span> Systems For The Future
             </h1>
             <p>
-              At Virtanis, we combine creativity, engineering, and intelligent
-              technologies to craft digital experiences that drive real impact
-              and help businesses grow.
+              Virtanis is an elite digital engineering studio. We partner with ambitious
+              companies worldwide to architect, design, and deploy scalable software platforms,
+              custom AI systems, and immersive digital experiences.
             </p>
           </motion.div>
         </div>
       </section>
+
+      {/* Story & Mission Section */}
       <motion.section className={styles.storySection} {...fadeUp}>
         <div className={styles.container}>
           <div className={styles.storyCopy}>
-            <SectionLabel>OUR STORY</SectionLabel>
-            <h2>The Story Behind Virtanis</h2>
+            <SectionLabel>THE VIRTANIS ETHOS</SectionLabel>
+            <h2>Architecting High-Value Digital Solutions</h2>
             <p>
-              Virtanis was founded with a simple mission: to build intelligent
-              digital solutions that empower businesses, simplify complex
-              processes, and create meaningful digital experiences.
+              Virtanis was established with a singular objective: to build intelligent software
+              and web platforms that simplify complexity, scale effortlessly, and leave a lasting
+              impression on end users.
             </p>
             <p>
-              We believe technology is more than code. It is a tool to solve
-              real problems, improve operations, and create a better future.
+              We believe great software is where computational engineering meets uncompromising
+              design aesthetics. Every line of code and every interaction is crafted with precision.
             </p>
-
           </div>
 
           <div className={styles.storyCards}>
@@ -201,7 +250,9 @@ export default function AboutPageContent() {
               const Icon = feature.icon;
               return (
                 <article key={feature.title} className={styles.featureBlock}>
-                  <Icon size={20} />
+                  <div className={styles.iconBox}>
+                    <Icon size={20} />
+                  </div>
                   <h3>{feature.title}</h3>
                   <p>{feature.description}</p>
                 </article>
@@ -211,10 +262,11 @@ export default function AboutPageContent() {
         </div>
       </motion.section>
 
+      {/* Core Values Section */}
       <motion.section className={styles.sectionBox} {...fadeUp}>
         <div className={styles.sectionHeader}>
-          <SectionLabel>WHAT WE BELIEVE IN</SectionLabel>
-          <h2>Our Core Values</h2>
+          <SectionLabel>OUR PILLARS</SectionLabel>
+          <h2>The Engineering Principles We Live By</h2>
         </div>
         <div className={styles.valuesGrid}>
           {values.map((value) => {
@@ -232,17 +284,17 @@ export default function AboutPageContent() {
         </div>
       </motion.section>
 
+      {/* Process Section */}
       <motion.section className={styles.approachSection} {...fadeUp}>
         <div className={styles.container}>
           <div className={styles.approachCopy}>
-            <SectionLabel>OUR APPROACH</SectionLabel>
-            <h2>How We Turn Ideas Into Powerful Solutions</h2>
+            <SectionLabel>OUR METHODOLOGY</SectionLabel>
+            <h2>From Blueprint To Global Production</h2>
             <p>
-              Our approach is simple, transparent, and results-driven. We follow
-              a proven process to ensure every project is delivered with the
-              highest quality and maximum impact.
+              Our execution pipeline is transparent, agile, and engineered for high-velocity
+              product delivery without sacrificing code quality or security.
             </p>
-              <Link href="/contact" className={styles.primaryButton}>
+            <Link href="/contact" className={styles.primaryButton}>
               Start Your Project <ArrowRight size={17} />
             </Link>
           </div>
@@ -265,17 +317,20 @@ export default function AboutPageContent() {
         </div>
       </motion.section>
 
+      {/* Tech Stack Section */}
       <motion.section className={styles.sectionBox} {...fadeUp}>
         <div className={styles.sectionHeader}>
-          <SectionLabel>TECHNOLOGIES WE WORK WITH</SectionLabel>
-          <h2>Modern Technologies For Modern Solutions</h2>
+          <SectionLabel>CORE STACK & TOOLS</SectionLabel>
+          <h2>Modern Technologies For Resilient Systems</h2>
         </div>
         <div className={styles.techGrid}>
           {technologies.map((technology) => {
             const Icon = technology.icon;
             return (
               <article key={technology.name} className={styles.techCard}>
-                <Icon size={24} />
+                <div className={styles.techIconWrapper}>
+                  <Icon size={24} />
+                </div>
                 <h3>{technology.name}</h3>
               </article>
             );
@@ -283,21 +338,21 @@ export default function AboutPageContent() {
         </div>
       </motion.section>
 
+      {/* Leadership / Founder Section */}
       <motion.section className={styles.sectionBox} {...fadeUp}>
         <div className={styles.sectionHeader}>
-          <SectionLabel>THE PERSON BEHIND VIRTANIS</SectionLabel>
-          <h2>A Passionate Person Of Creator & Engineer</h2>
+          <SectionLabel>STUDIO LEADERSHIP</SectionLabel>
+          <h2>Engineering Leadership & Vision</h2>
           <p>
-            Virtanis is led by Dhia Eddine Guettaf, a software developer and
-            digital creator focused on building intelligent, scalable, and
-            beautiful digital solutions.
+            Virtanis is led by Dhia Eddine Guettaf, an AI engineer and full-stack systems
+            architect dedicated to building digital platforms that drive real-world impact.
           </p>
         </div>
         <article className={styles.founderCard}>
           <div className={styles.founderPortrait}>
             <Image
               src="/myPicture.png"
-              alt="Dhia Eddine Guettaf, founder and full stack developer behind Virtanis"
+              alt="Dhia Eddine Guettaf, Founder of Virtanis"
               fill
               sizes="(max-width: 900px) 92vw, 420px"
               className={styles.founderImage}
@@ -306,7 +361,7 @@ export default function AboutPageContent() {
           </div>
 
           <div className={styles.founderInfo}>
-            <span className={styles.founderLabel}>Founder Profile</span>
+            <span className={styles.founderLabel}>Studio Leadership</span>
             <h3>{founder.name}</h3>
             <strong>{founder.role}</strong>
             <p>{founder.description}</p>
@@ -327,12 +382,18 @@ export default function AboutPageContent() {
             </div>
 
             <div className={styles.socials}>
-              <a href="https://github.com/" aria-label="Dhia Eddine Guettaf GitHub profile">
-                <Code2 size={17} />
-              </a>
-              <a href="https://linkedin.com/" aria-label="Dhia Eddine Guettaf LinkedIn profile">
-                <Globe2 size={17} />
-              </a>
+              {siteData.socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  title={social.label}
+                >
+                  {renderSocialIcon(social.label)}
+                </a>
+              ))}
             </div>
           </div>
         </article>
@@ -340,8 +401,8 @@ export default function AboutPageContent() {
 
       <div className={styles.container}>
         <PageCTA
-          heading="Let's Build Something Amazing Together"
-          description="Have a project in mind? Let's collaborate and bring your ideas to life with intelligent solutions."
+          heading="Let's Build Something Exceptional"
+          description="Ready to elevate your digital product with intelligent engineering and high-value design? Let's discuss your project."
           primaryText="Start Your Project"
           primaryHref="/contact"
         />

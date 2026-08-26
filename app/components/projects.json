@@ -1,45 +1,74 @@
 [
   {
+    "id": 10,
+    "title": "Sti Corporate Website",
+    "category": "Web",
+    "description": "STI corporate website showcasing Ooredoo recharge credit, prepaid SIM cards, wholesale solutions, and partner services across Algeria. Built with Next.js and Tailwind CSS, it delivers a modern, fast, and fully responsive experience with a premium telecom design and intuitive navigation.",
+    "technologies": [
+      "Next js",
+      "Tailwind CSS",
+      "Laravel"
+    ],
+    "status": "Live",
+    "image": "/projects/sti.webp",
+    "images": [
+      "/projects/sti.webp"
+    ],
+    "link": "https://sti.dz"
+  },
+  {
     "id": 9,
     "title": "KAZELEC Corporate Website",
     "category": "Web",
     "description": "KAZELEC corporate website showcasing prefabricated transformer substations, electrical equipment, services, and completed projects. Built with Next.js and Tailwind CSS, it delivers a modern, fast, and fully responsive experience with a premium industrial design and intuitive navigation.",
-    "technologies": ["Next js", "Tailwind CSS", "Laravel"],
+    "technologies": [
+      "Next js",
+      "Tailwind CSS",
+      "Laravel"
+    ],
     "status": "Live",
     "image": "/projects/kazelec.png",
-    "link": "https://kazelec-frontend.vercel.app",
-    "completion": 100,
-    "aiPowered": true,
-    "metric": { "label": "Inference", "value": "12ms" },
-    "hue": 0
+    "images": [
+      "/projects/kazelec.png"
+    ],
+    "link": "https://kazelec-frontend.vercel.app"
   },
   {
     "id": 2,
     "title": "Golden Hills Hotel Website",
     "category": "Web",
     "description": "Golden Hills Hotel presentation website showcasing its rooms, services, and relaxation spaces. Built with Next.js and styled using Tailwind CSS, it delivers a modern, fast, and fully responsive interface with smooth navigation and an immersive visual experience.",
-    "technologies": ["Next js", "Chadcn", "Anime Js", "GSAP"],
+    "technologies": [
+      "Next js",
+      "Chadcn",
+      "Anime Js",
+      "GSAP"
+    ],
     "status": "Live",
     "image": "/projects/hotelGoldenHills.png",
-    "link": "https://hotel-golden-hills.vercel.app",
-    "completion": 100,
-    "aiPowered": true,
-    "metric": { "label": "Inference", "value": "12ms" },
-    "hue": 0
+    "images": [
+      "/projects/hotelGoldenHills.png"
+    ],
+    "link": "https://hotel-golden-hills.vercel.app"
   },
   {
     "id": 4,
     "title": "House Rent Predictor Germany",
     "category": "ML",
     "description": "Machine Learning application that predicts rental prices in Germany based on real estate features such as location, size, and number of rooms. The goal is to provide fast and accurate housing price estimation using an AI model.",
-    "technologies": ["Python", "XGBoost", "Next js", "Tailwind CSS", "FastAPI"],
+    "technologies": [
+      "Python",
+      "XGBoost",
+      "Next js",
+      "Tailwind CSS",
+      "FastAPI"
+    ],
     "status": "Live",
-    "link": "https://germanyrenthousepredict.vercel.app/",
     "image": "/projects/MLRentalHousePredict.png",
-    "completion": 100,
-    "aiPowered": true,
-    "metric": { "label": "Inference", "value": "12ms" },
-    "hue": 0
+    "images": [
+      "/projects/MLRentalHousePredict.png"
+    ],
+    "link": "https://germanyrenthousepredict.vercel.app/"
   },
   {
     "id": 5,
@@ -55,12 +84,11 @@
       "SMOTE"
     ],
     "status": "Live",
-    "link": "https://churn-classification-frontend.vercel.app/",
     "image": "/projects/churn.png",
-    "completion": 100,
-    "aiPowered": true,
-    "metric": { "label": "Inference", "value": "12ms" },
-    "hue": 0
+    "images": [
+      "/projects/churn.png"
+    ],
+    "link": "https://churn-classification-frontend.vercel.app/"
   },
   {
     "id": 6,
@@ -79,80 +107,93 @@
       "NumPy"
     ],
     "status": "Live",
-    "link": "https://movie-ai-frontend.vercel.app/",
     "image": "/projects/movieRecomandation.png",
-    "completion": 100,
-    "aiPowered": true,
-    "metric": { "label": "Inference", "value": "12ms" },
-    "hue": 0
+    "images": [
+      "/projects/movieRecomandation.png"
+    ],
+    "link": "https://movie-ai-frontend.vercel.app/"
   },
   {
     "id": 8,
-    "title": "HOCO Algeria — Premium Ecommerce Website",
+    "title": "HOCO Algeria \u2014 Premium Ecommerce Website",
     "category": "Web",
     "description": "A modern ecommerce website for HOCO Algeria, built to showcase and sell premium phone accessories with a clean responsive design.",
-    "technologies": ["Next js", "Tailwind", "Framer Motion"],
+    "technologies": [
+      "Next js",
+      "Tailwind",
+      "Framer Motion"
+    ],
     "status": "Live",
     "image": "/projects/hoco.png",
-    "link": "https://hoco-frontend-blue.vercel.app/",
-    "completion": 100,
-    "aiPowered": true,
-    "metric": { "label": "Inference", "value": "12ms" },
-    "hue": 0
+    "images": [
+      "/projects/hoco.png"
+    ],
+    "link": "https://hoco-frontend-blue.vercel.app/"
   },
   {
     "id": 0,
     "title": "Website Sodimfel",
     "category": "Web",
     "description": "Industrial electrical solutions platform showcasing transformers, substations, power distribution systems, and engineering services through a modern enterprise-grade web experience.",
-    "technologies": ["React", "Tailwind CSS", "Laravel"],
-    "status": "Beta",
-    "link": "https://sodimfel-frontend.vercel.app/",
+    "technologies": [
+      "React",
+      "Tailwind CSS",
+      "Laravel"
+    ],
+    "status": "Live",
     "image": "/projects/sodimfel.png",
-    "completion": 100,
-    "aiPowered": true,
-    "metric": { "label": "Inference", "value": "12ms" },
-    "hue": 0
+    "images": [
+      "/projects/sodimfel.png"
+    ],
+    "link": "https://sodimfel-frontend.vercel.app/"
   },
   {
     "id": 1,
-    "title": "E-commerce Website – Groupe MTFC",
+    "title": "E-commerce Website \u2013 Groupe MTFC",
     "category": "Web",
     "description": "E-commerce website for Groupe MTFC, specialized in selling home appliances and household items. Developed with React (frontend) and Laravel (backend), providing a smooth user experience and efficient product and order management. Note: the admin page is accessible with https://mtfc.netlify.app/admin.",
-    "technologies": ["React", "Tailwind CSS", "Laravel"],
+    "technologies": [
+      "React",
+      "Tailwind CSS",
+      "Laravel"
+    ],
     "status": "Beta",
-    "link": "https://mtfc.netlify.app",
     "image": "/projects/mtfc.png",
-    "completion": 100,
-    "aiPowered": true,
-    "metric": { "label": "Inference", "value": "12ms" },
-    "hue": 0
+    "images": [
+      "/projects/mtfc.png"
+    ],
+    "link": "https://mtfc.netlify.app"
   },
   {
     "id": 3,
-    "title": "APL Tech — Futuristic Gaming PC Store Website",
+    "title": "APL Tech \u2014 Futuristic Gaming PC Store Website",
     "category": "Design",
     "description": "A modern and immersive e-commerce website designed for gamers. APL Tech offers a futuristic experience with a sleek dark and purple aesthetic, allowing users to explore, customize, and build their own gaming PCs.",
-    "technologies": ["Figma"],
+    "technologies": [
+      "Figma"
+    ],
     "status": "Beta",
-    "link": "https://www.behance.net/gallery/236340397/Gaming-Store-Website-Design-with-Neon-Tech-Vibes",
     "image": "/projects/apltech.png",
-    "completion": 100,
-    "aiPowered": true,
-    "metric": { "label": "Inference", "value": "12ms" },
-    "hue": 0
+    "images": [
+      "/projects/apltech.png"
+    ],
+    "link": "https://www.behance.net/gallery/236340397/Gaming-Store-Website-Design-with-Neon-Tech-Vibes"
   },
   {
     "id": 7,
     "title": "Hotel Management System",
     "category": "Web",
     "description": "A comprehensive hotel management platform for handling reservations, room allocation, guest information, billing, and daily hotel operations efficiently.",
-    "technologies": ["Next js", "Postgresql", "Nest Js", "Tailwind"],
+    "technologies": [
+      "Next js",
+      "Postgresql",
+      "Nest Js",
+      "Tailwind"
+    ],
     "status": "In Progress",
     "image": "/projects/hotelManagement.png",
-    "completion": 100,
-    "aiPowered": true,
-    "metric": { "label": "Inference", "value": "12ms" },
-    "hue": 0
+    "images": [
+      "/projects/hotelManagement.png"
+    ]
   }
 ]

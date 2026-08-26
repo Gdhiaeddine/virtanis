@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -10,11 +9,17 @@ import {
   Box,
   Cloud,
   Code2,
+  Cpu,
+  Database,
   Globe2,
   Layers,
   LayoutGrid,
-  PenTool,
+  Palette,
+  Server,
+  ShieldCheck,
   Smartphone,
+  Sparkles,
+  Terminal,
   Zap,
 } from "lucide-react";
 import PageCTA from "../components/PageCTA";
@@ -42,81 +47,97 @@ const staggerItem = {
 const skillCategories = [
   {
     icon: BrainCircuit,
-    title: "AI & Automation",
-    level: 92,
-    description: "Intelligent systems, machine learning and automation solutions.",
+    title: "AI & Machine Intelligence",
+    tag: "Next-Gen AI",
+    slug: "ai-ml",
+    description: "Custom machine learning models, autonomous AI agents, neural pipelines, and intelligent automation workflows.",
+    skills: ["LLM Integration", "Predictive Models", "Neural Networks", "NLP & Computer Vision"],
   },
   {
     icon: Code2,
-    title: "Web Development",
-    level: 95,
-    description: "Modern scalable websites and web applications.",
+    title: "Enterprise Web Systems",
+    tag: "Zero-Latency",
+    slug: "web-development",
+    description: "High-throughput web applications, headless architectures, and scalable platforms engineered for reliability.",
+    skills: ["Next.js & React", "TypeScript", "Microservices", "REST & GraphQL APIs"],
   },
   {
     icon: Smartphone,
-    title: "Mobile Development",
-    level: 90,
-    description: "Cross-platform applications built with Flutter.",
+    title: "Mobile App Engineering",
+    tag: "Native Feel",
+    slug: "mobile-development",
+    description: "Fluid cross-platform mobile experiences for iOS & Android built with native performance and offline-first state.",
+    skills: ["Flutter & Dart", "iOS & Android", "Real-Time Sync", "Biometric Auth"],
   },
   {
-    icon: PenTool,
-    title: "UI/UX Design",
-    level: 94,
-    description: "User-centered digital experiences and interfaces.",
+    icon: Palette,
+    title: "UI/UX & Product Design",
+    tag: "Apple Standard",
+    slug: "ui-ux-design",
+    description: "Minimalist design systems, spatial computing interfaces, intuitive ergonomics, and high-fidelity prototypes.",
+    skills: ["Design Systems", "Figma & Tokens", "Interaction Design", "UX Architecture"],
   },
   {
     icon: Cloud,
-    title: "Cloud & DevOps",
-    level: 88,
-    description: "Infrastructure, deployment and automation.",
+    title: "Cloud & DevOps Rigor",
+    tag: "99.9% Uptime",
+    slug: "cloud-devops",
+    description: "Automated CI/CD pipelines, container orchestration, global CDN caching, and high-availability cloud infrastructure.",
+    skills: ["Docker & K8s", "AWS Cloud", "Automated CI/CD", "Edge Computing"],
   },
   {
     icon: Box,
-    title: "3D & Interactive",
-    level: 87,
-    description: "Immersive digital experiences using modern web technologies.",
+    title: "3D & Immersive Web",
+    tag: "WebGL / Three.js",
+    slug: "3d-web-experiences",
+    description: "Hardware-accelerated 3D environments, spatial web interactions, and WebGL rendering for futuristic product showcases.",
+    skills: ["Three.js", "WebGL Shaders", "GSAP Physics", "Interactive Canvases"],
   },
 ];
 
-const proficiencyLeft = [
-  { name: "JavaScript / TypeScript", level: 95, icon: Code2 },
-  { name: "React / Next.js", level: 96, icon: LayoutGrid },
-  { name: "Python", level: 92, icon: Zap },
-  { name: "Node.js", level: 90, icon: Globe2 },
-  { name: "Flutter", level: 88, icon: Smartphone },
-  { name: "Laravel", level: 92, icon: Layers },
+const technicalDisciplines = [
+  {
+    category: "Languages & Frameworks",
+    items: [
+      { name: "TypeScript / JavaScript", level: "Senior / Core", spec: "Strict Typing, ESNext, Async Runtimes" },
+      { name: "Next.js & React 19", level: "Architecture", spec: "Server Components, Streaming SSR, Turbopack" },
+      { name: "Python & AI Runtimes", level: "Advanced", spec: "PyTorch, FastAPI, HuggingFace, OpenAI APIs" },
+      { name: "Flutter & Dart", level: "Production", spec: "Cross-Platform, Custom Shaders, State Machines" },
+      { name: "Node.js & Express", level: "Backend", spec: "Event-Driven, High-Concurrency WebSockets" },
+      { name: "Tailwind CSS v4", level: "UI Systems", spec: "Zero-Runtime CSS, Custom Design Tokens" },
+    ],
+  },
+  {
+    category: "Infrastructure & Data Architecture",
+    items: [
+      { name: "PostgreSQL & Supabase", level: "Database", spec: "Relational Modeling, Indexing, Vector DBs" },
+      { name: "AWS & Edge Hosting", level: "Cloud", spec: "Lambda, CloudFront, S3, Global CDN" },
+      { name: "Docker & Containerization", level: "DevOps", spec: "Multi-Stage Builds, Isolated Environments" },
+      { name: "CI/CD & Git Pipelines", level: "Automation", spec: "GitHub Actions, Automated Testing, Deployments" },
+      { name: "Redis & Caching Layers", level: "Performance", spec: "In-Memory KV, Rate Limiting, Pub/Sub" },
+      { name: "Three.js & WebGL", level: "Spatial", spec: "GLTF Pipelines, Custom Fragment Shaders" },
+    ],
+  },
 ];
 
-const proficiencyRight = [
-  { name: "AI / Machine Learning", level: 93, icon: BrainCircuit },
-  { name: "UI/UX Design", level: 94, icon: PenTool },
-  { name: "Cloud Infrastructure", level: 88, icon: Cloud },
-  { name: "DevOps / CI-CD", level: 87, icon: Zap },
-  { name: "Database Design", level: 91, icon: Layers },
-  { name: "API Development", level: 95, icon: Globe2 },
+const technologyStack = [
+  { name: "Next.js", category: "Frontend" },
+  { name: "React", category: "Frontend" },
+  { name: "TypeScript", category: "Language" },
+  { name: "Python", category: "AI / Backend" },
+  { name: "Flutter", category: "Mobile" },
+  { name: "Node.js", category: "Backend" },
+  { name: "PostgreSQL", category: "Database" },
+  { name: "Supabase", category: "Database" },
+  { name: "AWS Cloud", category: "DevOps" },
+  { name: "Docker", category: "DevOps" },
+  { name: "Tailwind CSS", category: "UI" },
+  { name: "Figma", category: "Design" },
+  { name: "Three.js", category: "3D Web" },
+  { name: "OpenAI", category: "AI" },
+  { name: "Redis", category: "Data" },
+  { name: "GraphQL", category: "API" },
 ];
-
-const technologies = [
-  "Next.js", "React", "TypeScript", "Node.js", "Python", "Laravel",
-  "Flutter", "Tailwind CSS", "Supabase", "PostgreSQL", "MySQL", "MongoDB",
-  "Docker", "AWS", "Linux", "Git", "GitHub", "Figma", "GSAP", "Three.js", "OpenAI", "Firebase",
-];
-
-function AnimatedProgressBar({ level }: { level: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
-
-  return (
-    <div className={styles.progressTrack} ref={ref}>
-      <motion.div
-        className={styles.progressFill}
-        initial={{ width: 0 }}
-        animate={isInView ? { width: `${level}%` } : { width: 0 }}
-        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-      />
-    </div>
-  );
-}
 
 /* ─── Hero Section ─── */
 function HeroSection() {
@@ -125,47 +146,32 @@ function HeroSection() {
       <div className={styles.heroBg} aria-hidden="true">
         <Image
           src="/skills-hero.webp"
-          alt="Skills background"
+          alt="Virtanis technical capabilities background"
           fill
           priority
           className={styles.heroBgImage}
         />
       </div>
 
-      <div className={styles.heroLeft}>
-        <motion.h1
-          id="skills-title"
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
-          Skills That Drive{" "}
-          <span className={styles.gradientText}>Innovation.</span>
-        </motion.h1>
+      <div className={styles.heroContent}>
+        <span className={styles.sectionLabel}>TECHNICAL SPECIFICATIONS</span>
+        <h1 id="skills-title">
+          Architectural Precision & <span className={styles.serifAccent}>Intelligent Engineering</span>
+        </h1>
 
-        <motion.p
-          className={styles.heroDescription}
-          initial={{ opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.18 }}
-        >
-          A powerful blend of technology, creativity and strategy to build
-          intelligent digital experiences and scalable digital products.
-        </motion.p>
+        <p className={styles.heroDescription}>
+          Our multidisciplinary digital engineering capabilities unite artificial intelligence,
+          cloud-native architecture, and precision design systems to build future-ready platforms.
+        </p>
 
-        <motion.div
-          className={styles.heroActions}
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.28 }}
-        >
-          <Link href="#proficiency" className={styles.primaryButton}>
-            Explore My Work <ArrowRight size={17} />
+        <div className={styles.heroActions}>
+          <a href="#specializations" className={styles.primaryButton}>
+            Explore Specializations <ArrowRight size={15} />
+          </a>
+          <Link href="/contact" className={styles.secondaryButton}>
+            Consult Lead Architect <ArrowRight size={15} />
           </Link>
-           <Link href="/contact" className={styles.secondaryButton}>
-            Let&apos;s Collaborate <ArrowRight size={17} />
-          </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -176,16 +182,15 @@ function SkillCategories() {
   return (
     <motion.section
       className={styles.section}
-      id="categories"
+      id="specializations"
       aria-labelledby="categories-title"
       {...fadeUp}
     >
       <div className={styles.sectionHeader}>
-        <span className={styles.sectionLabel}>WHAT I DO</span>
-        <h2 id="categories-title">Core Skill Categories</h2>
+        <span className={styles.sectionLabel}>CORE DOMAINS</span>
+        <h2 id="categories-title">Core Engineering Specializations</h2>
         <p>
-          Specialized expertise across the full spectrum of modern digital
-          product development.
+          Specialized expertise engineered to deliver end-to-end digital excellence for modern enterprises.
         </p>
       </div>
 
@@ -204,15 +209,28 @@ function SkillCategories() {
               className={styles.categoryCard}
               variants={staggerItem}
             >
-              <div className={styles.categoryIcon}>
-                <Icon size={26} />
+              <div className={styles.cardTop}>
+                <div className={styles.categoryIcon}>
+                  <Icon size={22} />
+                </div>
+                <span className={styles.cardTag}>{cat.tag}</span>
               </div>
+              
               <h3>{cat.title}</h3>
               <p>{cat.description}</p>
-              <div className={styles.categoryProgress}>
-                <AnimatedProgressBar level={cat.level} />
-                <span className={styles.levelText}>{cat.level}%</span>
+              
+              <div className={styles.pillList}>
+                {cat.skills.map((skill) => (
+                  <span key={skill} className={styles.skillPill}>
+                    {skill}
+                  </span>
+                ))}
               </div>
+
+              <Link href={`/services/${cat.slug}`} className={styles.exploreLink}>
+                <span>Explore Domain Blueprint</span>
+                <ArrowRight size={13} className={styles.exploreArrow} />
+              </Link>
             </motion.article>
           );
         })}
@@ -221,63 +239,47 @@ function SkillCategories() {
   );
 }
 
-/* ─── Technical Proficiency ─── */
-function ProficiencyRow({
-  item,
-}: {
-  item: (typeof proficiencyLeft)[0];
-}) {
-  const Icon = item.icon;
-  return (
-    <div className={styles.proficiencyRow}>
-      <div className={styles.proficiencyInfo}>
-        <div className={styles.proficiencyIcon}>
-          <Icon size={18} />
-        </div>
-        <span className={styles.proficiencyName}>{item.name}</span>
-      </div>
-      <AnimatedProgressBar level={item.level} />
-      <span className={styles.proficiencyLevel}>{item.level}%</span>
-    </div>
-  );
-}
-
-function TechnicalProficiency() {
+/* ─── Technical Disciplines ─── */
+function TechnicalDisciplines() {
   return (
     <motion.section
       className={styles.section}
-      id="proficiency"
-      aria-labelledby="proficiency-title"
+      id="disciplines"
+      aria-labelledby="disciplines-title"
       {...fadeUp}
     >
-      <div className={styles.proficiencyContainer}>
-        <div className={styles.sectionHeader}>
-          <span className={styles.sectionLabel}>EXPERTISE</span>
-          <h2 id="proficiency-title">Technical Proficiency</h2>
-          <p>
-            A detailed overview of my technical expertise and experience.
-          </p>
-        </div>
+      <div className={styles.sectionHeader}>
+        <span className={styles.sectionLabel}>PROFICIENCY MATRIX</span>
+        <h2 id="disciplines-title">Technical Disciplines & Stacks</h2>
+        <p>
+          Deep competency benchmarks across modern software paradigms, reactive runtimes, and distributed cloud systems.
+        </p>
+      </div>
 
-        <div className={styles.proficiencyGrid}>
-          <div className={styles.proficiencyColumn}>
-            {proficiencyLeft.map((item) => (
-              <ProficiencyRow key={item.name} item={item} />
-            ))}
+      <div className={styles.disciplinesGrid}>
+        {technicalDisciplines.map((group) => (
+          <div key={group.category} className={styles.disciplineColumn}>
+            <h3 className={styles.disciplineTitle}>{group.category}</h3>
+            <div className={styles.disciplineList}>
+              {group.items.map((item) => (
+                <div key={item.name} className={styles.disciplineCard}>
+                  <div className={styles.disciplineHeader}>
+                    <span className={styles.disciplineName}>{item.name}</span>
+                    <span className={styles.disciplineLevel}>{item.level}</span>
+                  </div>
+                  <span className={styles.disciplineSpec}>{item.spec}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className={styles.proficiencyColumn}>
-            {proficiencyRight.map((item) => (
-              <ProficiencyRow key={item.name} item={item} />
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
     </motion.section>
   );
 }
 
-/* ─── Technologies & Tools ─── */
-function TechnologiesTools() {
+/* ─── Technologies Matrix ─── */
+function TechnologiesMatrix() {
   return (
     <motion.section
       className={styles.section}
@@ -285,29 +287,28 @@ function TechnologiesTools() {
       aria-labelledby="tech-title"
       {...fadeUp}
     >
-      <div className={styles.techContainer}>
-        <div className={styles.sectionHeader}>
-          <span className={styles.sectionLabel}>TECH STACK</span>
-          <h2 id="tech-title">Technologies & Tools</h2>
-          <p>
-            Tools and technologies I use to build modern digital solutions.
-          </p>
-        </div>
-
-        <motion.div
-          className={styles.techGrid}
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="whileInView"
-          viewport={{ once: true, margin: "-60px" }}
-        >
-          {technologies.map((tech) => (
-            <motion.div key={tech} className={styles.techTile} variants={staggerItem}>
-              <span className={styles.techName}>{tech}</span>
-            </motion.div>
-          ))}
-        </motion.div>
+      <div className={styles.sectionHeader}>
+        <span className={styles.sectionLabel}>TOOLING ECOSYSTEM</span>
+        <h2 id="tech-title">Technologies & Production Stack</h2>
+        <p>
+          Industry-standard tools and libraries leveraged to ensure high performance, security, and velocity.
+        </p>
       </div>
+
+      <motion.div
+        className={styles.techGrid}
+        variants={staggerContainer}
+        initial="initial"
+        whileInView="whileInView"
+        viewport={{ once: true, margin: "-60px" }}
+      >
+        {technologyStack.map((tech) => (
+          <motion.div key={tech.name} className={styles.techTile} variants={staggerItem}>
+            <span className={styles.techName}>{tech.name}</span>
+            <span className={styles.techCategory}>{tech.category}</span>
+          </motion.div>
+        ))}
+      </motion.div>
     </motion.section>
   );
 }
@@ -324,18 +325,18 @@ export default function SkillsPageContent() {
         <div className={styles.glowTwo} />
       </div>
 
+      <HeroSection />
+
       <div className={styles.container}>
-        <HeroSection />
         <SkillCategories />
-        <TechnicalProficiency />
-        <TechnologiesTools />
+        <TechnicalDisciplines />
+        <TechnologiesMatrix />
+
         <PageCTA
-          heading="Let's Build Something Extraordinary"
-          description="Looking for a developer, AI engineer or digital partner? Let's turn your vision into reality."
-          primaryText="View Projects"
-          primaryHref="/#projects"
-          secondaryText="Contact Me"
-          secondaryHref="/contact"
+          heading="Ready To Engineer Your Digital Platform?"
+          description="Collaborate with Virtanis to design, build, and deploy intelligent software engineered for scale."
+          primaryText="Start a Project"
+          primaryHref="/contact"
         />
       </div>
     </main>

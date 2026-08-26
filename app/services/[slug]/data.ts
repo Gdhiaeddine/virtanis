@@ -50,11 +50,11 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     slug: "web-development",
     title: "Web Development",
     label: "WEB DEVELOPMENT",
-    metaTitle: "Web Development Services | Virtanis",
+    metaTitle: "Web Development Services",
     metaDescription:
       "Premium web development services by Virtanis. We build modern, responsive, SEO-friendly, secure, and high-performance websites and web applications for businesses.",
-    heroTitle: "Modern Websites. Powerful Experiences.",
-    heroAccentWords: ["Modern Websites"],
+    heroTitle: "Modern Websites.\nPowerful Experiences.",
+    heroAccentWords: ["Modern Websites."],
     heroDescription:
       "We build modern, responsive, and high-performance websites that help businesses grow, engage their audience, and achieve their goals in the digital world.",
     heroImage: {
@@ -206,11 +206,11 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     slug: "mobile-development",
     title: "Mobile App Development",
     label: "MOBILE APP DEVELOPMENT",
-    metaTitle: "Mobile App Development Services | Flutter Apps | Virtanis",
+    metaTitle: "Mobile App Development & Flutter Systems",
     metaDescription:
       "Virtanis builds mobile app development solutions for Android and iOS using Flutter, scalable APIs, secure architecture, responsive UI, and ongoing app maintenance.",
-    heroTitle: "Mobile Apps Built For Speed, Scale, And Real Users.",
-    heroAccentWords: ["Mobile Apps"],
+    heroTitle: "Mobile Applications.\nBuilt For Speed, Scale & Users.",
+    heroAccentWords: ["Mobile Applications."],
     heroDescription:
       "We design and develop cross-platform mobile applications that feel smooth, look premium, and help businesses launch reliable Android and iOS products faster.",
     heroImage: {
@@ -362,11 +362,11 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     slug: "ai-ml",
     title: "AI & Machine Learning",
     label: "AI & MACHINE LEARNING",
-    metaTitle: "AI & Machine Learning Solutions | Automation Services | Virtanis",
+    metaTitle: "AI & Machine Learning Engineering",
     metaDescription:
       "Virtanis delivers AI and machine learning services including predictive analytics, recommendation systems, data analysis, automation workflows, and intelligent business tools.",
-    heroTitle: "Intelligent Systems That Turn Data Into Decisions.",
-    heroAccentWords: ["Intelligent Systems"],
+    heroTitle: "Intelligent Systems.\nTransforming Data Into Decisions.",
+    heroAccentWords: ["Intelligent Systems."],
     heroDescription:
       "We build AI and machine learning solutions that automate repetitive work, discover patterns, predict outcomes, and help your business move with more confidence.",
     heroImage: {
@@ -518,11 +518,11 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     slug: "ui-ux",
     title: "UI/UX Design",
     label: "UI/UX DESIGN",
-    metaTitle: "UI/UX Design Services | Product Design & Design Systems | Virtanis",
+    metaTitle: "UI/UX & Product Design Architecture",
     metaDescription:
       "Virtanis provides UI/UX design services for websites, mobile apps, SaaS dashboards, prototypes, user research, conversion-focused interfaces, and scalable design systems.",
-    heroTitle: "Interfaces That Feel Clear, Premium, And Easy To Use.",
-    heroAccentWords: ["Interfaces"],
+    heroTitle: "Precision UI/UX Design.\nCrafted For Seamless Usability.",
+    heroAccentWords: ["Precision UI/UX Design."],
     heroDescription:
       "We design digital experiences that help users move confidently, understand value quickly, and connect your product with a memorable visual identity.",
     heroImage: {
@@ -674,11 +674,11 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     slug: "three-d-interactive",
     title: "3D & Interactive Experiences",
     label: "3D & INTERACTIVE",
-    metaTitle: "3D Web Experiences & Interactive Design Services | Virtanis",
+    metaTitle: "3D Web Experiences & Interactive Systems",
     metaDescription:
       "Virtanis creates 3D web experiences, Three.js interfaces, WebGL animations, interactive product visualizations, immersive landing pages, and digital brand experiences.",
-    heroTitle: "Immersive Digital Experiences That People Remember.",
-    heroAccentWords: ["Immersive Digital"],
+    heroTitle: "Spatial & 3D Web.\nImmersive Digital Experiences.",
+    heroAccentWords: ["Spatial & 3D Web."],
     heroDescription:
       "We create interactive 3D experiences, product visualizations, and motion-rich web interfaces that make brands, products, and ideas feel alive online.",
     heroImage: {
@@ -830,11 +830,11 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     slug: "cloud-devops",
     title: "Cloud & DevOps",
     label: "CLOUD & DEVOPS",
-    metaTitle: "Cloud & DevOps Services | Deployment, CI/CD & Monitoring | Virtanis",
+    metaTitle: "Cloud Infrastructure & DevOps Solutions",
     metaDescription:
       "Virtanis provides cloud and DevOps services including cloud deployment, CI/CD pipelines, server management, monitoring, performance optimization, and scalable infrastructure.",
-    heroTitle: "Reliable Infrastructure For Fast, Secure Digital Products.",
-    heroAccentWords: ["Infrastructure"],
+    heroTitle: "Cloud & DevOps Infrastructure.\nEngineered For Speed & Reliability.",
+    heroAccentWords: ["Cloud & DevOps Infrastructure."],
     heroDescription:
       "We set up cloud infrastructure, deployment pipelines, monitoring, and performance systems so your websites and applications stay stable as they grow.",
     heroImage: {

@@ -3,14 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Code, Shield, Zap, Expand } from "lucide-react";
+import { ArrowRight, ShieldCheck, Zap, Layers, Cpu } from "lucide-react";
 import styles from "./ServicesHero.module.css";
 
-const BADGES = [
-  { icon: Code, label: "Clean Code" },
-  { icon: Expand, label: "Scalable" },
-  { icon: Shield, label: "Secure" },
-  { icon: Zap, label: "Fast" },
+const CAPABILITIES = [
+  { icon: ShieldCheck, label: "Enterprise Security" },
+  { icon: Zap, label: "Sub-50ms Latency" },
+  { icon: Layers, label: "Scalable Architecture" },
+  { icon: Cpu, label: "AI & Full-Stack Mastery" },
 ];
 
 function mulberry32(seed: number) {
@@ -36,19 +36,19 @@ const PARTICLES = Array.from({ length: 24 }, (_, i) => ({
 
 export default function ServicesHero() {
   return (
-    <section className={styles.hero} id="services-hero">
+    <section className={styles.hero} id="services-hero" aria-label="Services Overview">
       <div className={styles.heroBg} aria-hidden="true">
         <Image
           src="/services/hero-service.webp"
-          alt="Services background"
+          alt="Virtanis Services Architecture Background"
           fill
           priority
+          sizes="100vw"
           className={styles.heroBgImage}
         />
       </div>
 
-      {/* Background atmosphere */}
-      <div className={styles.bgAtmosphere}>
+      <div className={styles.bgAtmosphere} aria-hidden="true">
         <div className={styles.gridOverlay} />
         <div className={styles.fogLayer} />
         <div className={styles.starField} />
@@ -72,32 +72,33 @@ export default function ServicesHero() {
       </div>
 
       <div className={styles.container}>
-        {/* Left content */}
         <motion.div
           className={styles.content}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span className={styles.sectionLabel}>SERVICES</span>
+          <span className={styles.sectionLabel}>
+            SERVICE ARCHITECTURE & ENGINEERING
+          </span>
 
           <h1 className={styles.title}>
-            <span className={styles.serifAccent}>Intelligent Solutions</span> Built For The{" "}
-            <span className={styles.accent}>Future</span>
+            Full-Spectrum Digital <br />
+            <span className={styles.serifAccent}>Capabilities</span> For Global Scale
           </h1>
 
           <p className={styles.description}>
-            At Virtanis, we craft innovative digital solutions, intelligent
-            systems, and immersive experiences that empower businesses to grow,
-            automate, and lead in the digital era.
+            From mission-critical web platforms and cross-platform mobile systems to
+            production machine learning pipelines and immersive 3D interfaces — we architect
+            high-value digital solutions engineered for speed, security, and market dominance.
           </p>
 
           <div className={styles.buttons}>
-            <Link href="#contact" className={styles.btnPrimary}>
-              Start A Project
-            </Link>
-            <Link href="/#projects" className={styles.btnSecondary}>
-              Explore Projects
+            <a href="#services-grid" className={styles.primaryButton}>
+              Explore Capabilities <ArrowRight size={15} />
+            </a>
+            <Link href="/contact" className={styles.secondaryButton}>
+              Initiate Project <ArrowRight size={15} />
             </Link>
           </div>
 
@@ -107,9 +108,9 @@ export default function ServicesHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
           >
-            {BADGES.map((badge) => (
+            {CAPABILITIES.map((badge) => (
               <div key={badge.label} className={styles.badge}>
-                <badge.icon size={14} />
+                <badge.icon size={14} className={styles.badgeIcon} />
                 <span>{badge.label}</span>
               </div>
             ))}

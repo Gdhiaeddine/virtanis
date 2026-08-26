@@ -31,17 +31,18 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            AI ENGINEER • FULL STACK DEVELOPER • DIGITAL ARCHITECT
+            Digital Agency • AI & Engineering
           </motion.div>
 
           <h1 className={styles.title}>
-            Building <span className={styles.serifAccent}>Intelligent Digital</span>{" "}
-            Systems For The Future
+            Architecting <span className={styles.serifAccent}>Intelligent Digital</span>{" "}
+            Systems & Modern Platforms
           </h1>
 
           <p className={styles.description}>
-            I design and engineer scalable digital experiences powered by AI,
-            clean code and modern technologies that drive real impact.
+            Virtanis is an elite digital engineering studio. We architect high-performance
+            web ecosystems, scalable mobile platforms, intelligent AI systems, and 3D digital experiences
+            for industry leaders and visionary founders worldwide.
           </p>
 
           <motion.div
@@ -50,11 +51,11 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.28 }}
           >
-            <a href="#projects" className={styles.primaryButton}>
-              Explore My Work <ArrowRight size={17} />
+            <a href="#contact" className={styles.primaryButton}>
+              Start a Project <ArrowRight size={17} />
             </a>
-            <a href="#contact" className={styles.secondaryButton}>
-              Let&apos;s Build Together <ArrowRight size={17} />
+            <a href="#services" className={styles.secondaryButton}>
+              Explore Solutions <ArrowRight size={17} />
             </a>
           </motion.div>
         </motion.div>

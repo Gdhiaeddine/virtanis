@@ -402,6 +402,40 @@
   color: rgba(77, 163, 255, 0.7);
 }
 
+.cardFooter {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.exploreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4da3ff;
+  text-decoration: none;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.exploreLink:hover {
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.exploreArrow {
+  transition: transform 0.3s ease;
+}
+
+.exploreLink:hover .exploreArrow {
+  transform: translateX(3px);
+}
+
 /* ─── Responsive ─── */
 @media (max-width: 1200px) {
   .skills {

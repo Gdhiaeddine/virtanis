@@ -3,26 +3,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink, Sparkles, Images, Maximize2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import projectsData from "../components/projects.json";
-import projectStyles from "../components/Projects.module.css";
 import PageCTA from "../components/PageCTA";
+import ProjectGalleryModal, { ModalProject } from "../components/ProjectGalleryModal";
 import styles from "./ProjectsPageContent.module.css";
 
-type Project = {
+type Project = ModalProject & {
   id: number;
   title: string;
   category: Category;
   description: string;
   technologies: string[];
   status: "Live" | "In Progress" | "Beta";
-  completion: number;
-  aiPowered: boolean;
-  metric: { label: string; value: string };
   link?: string;
   image: string;
-  hue: number;
+  images?: string[];
 };
 
 type Category = "ML" | "Web" | "App" | "Design";
@@ -37,7 +34,15 @@ const projects = (projectsData as Project[]).sort((a, b) => {
   return statusOrder[a.status] - statusOrder[b.status];
 });
 
-const filters: ("All" | Category)[] = ["All", "ML", "Web", "App", "Design"];
+const filterLabels: Record<"All" | Category, string> = {
+  All: "All Deployments",
+  ML: "AI & Machine Learning",
+  Web: "Web Platforms",
+  App: "Mobile Systems",
+  Design: "Spatial & UI/UX",
+};
+
+const filters: ("All" | Category)[] = ["All", "ML", "Web", "Design"];
 
 const fadeUp = {
   initial: { opacity: 0, y: 28 },
@@ -46,214 +51,252 @@ const fadeUp = {
   transition: { duration: 0.65 },
 };
 
+/* ─── Hero Section ─── */
 function ProjectHero() {
   return (
-    <section className={styles.hero} aria-labelledby="projects-title">
+    <section className={styles.hero} aria-label="Projects overview">
       <div className={styles.heroBg} aria-hidden="true">
         <Image
           src="/projects/projects.png"
-          alt="Projects background"
+          alt="Virtanis Projects Architecture Background"
           fill
           priority
+          sizes="100vw"
           className={styles.heroBgImage}
         />
       </div>
 
       <div className={styles.heroContent}>
-        <span className={styles.sectionLabel}>OUR WORK</span>
-        <h1 id="projects-title">
-          Projects That <span className={styles.serifAccent}>Create Impact.</span>
+        <span className={styles.sectionLabel}>
+          PROVEN PORTFOLIO & ARCHITECTURE
+        </span>
+
+        <h1>
+          Featured Production & <br />
+          <span className={styles.serifAccent}>Architectural</span> Deployments
         </h1>
-        <p>
-          A selection of digital products and solutions crafted with technology,
-          creativity and purpose.
+
+        <p className={styles.heroDescription}>
+          Explore high-impact digital platforms, mission-critical web applications,
+          machine learning systems, and precision UI/UX interfaces engineered by
+          Virtanis for world-class speed, security, and scale.
         </p>
+
         <div className={styles.heroActions}>
           <a href="#projects-grid" className={styles.primaryButton}>
-            View All Projects <ArrowRight size={17} />
+            Explore Deployments <ArrowRight size={15} />
           </a>
-           <a href="/contact" className={styles.secondaryButton}>
-            Let&apos;s Build Yours <ArrowRight size={17} />
-          </a>
+          <Link href="/contact" className={styles.secondaryButton}>
+            Initiate Project <ArrowRight size={15} />
+          </Link>
         </div>
       </div>
     </section>
   );
 }
 
+/* ─── Filter Bar ─── */
 function ProjectFilters({
   activeFilter,
   setActiveFilter,
+  projectCounts,
 }: {
   activeFilter: "All" | Category;
   setActiveFilter: (filter: "All" | Category) => void;
+  projectCounts: Record<string, number>;
 }) {
   return (
-    <motion.section
-      className={projectStyles.filterBar}
+    <motion.div
+      className={styles.filterSection}
       role="tablist"
-      aria-label="Project categories"
+      aria-label="Filter deployments by category"
       {...fadeUp}
     >
-        {filters.map((filter) => (
-          <button
-            key={filter}
-            type="button"
-            role="tab"
-            aria-selected={activeFilter === filter}
-            className={`${projectStyles.filterBtn} ${
-              activeFilter === filter ? projectStyles.filterActive : ""
-            }`}
-            onClick={() => setActiveFilter(filter)}
-          >
-            {filter}
-          </button>
-        ))}
-    </motion.section>
+      <div className={styles.filterScroller}>
+        {filters.map((filter) => {
+          const count = projectCounts[filter] || 0;
+          const isActive = activeFilter === filter;
+          return (
+            <button
+              key={filter}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              className={`${styles.filterButton} ${isActive ? styles.filterActive : ""}`}
+              onClick={() => setActiveFilter(filter)}
+            >
+              <span>{filterLabels[filter]}</span>
+              <span className={styles.filterCount}>{count}</span>
+            </button>
+          );
+        })}
+      </div>
+    </motion.div>
   );
 }
 
-function StatusDot({ status }: { status: Project["status"] }) {
-  const cls =
+/* ─── Status Indicator ─── */
+function StatusBadge({ status }: { status: Project["status"] }) {
+  const statusClass =
     status === "Live"
-      ? projectStyles.statusLive
+      ? styles.statusLive
       : status === "Beta"
-        ? projectStyles.statusBeta
-        : projectStyles.statusProgress;
+        ? styles.statusBeta
+        : styles.statusProgress;
+
+  const label =
+    status === "Live"
+      ? "Live Deployment"
+      : status === "Beta"
+        ? "Beta Preview"
+        : "In Development";
 
   return (
-    <span className={projectStyles.statusWrap}>
-      <span className={`${projectStyles.statusDot} ${cls}`} />
-      {status}
+    <span className={styles.statusWrap}>
+      <span className={`${styles.statusDot} ${statusClass}`} />
+      <span>{label}</span>
     </span>
   );
 }
 
-function ArrowIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="5" y1="12" x2="19" y2="12" />
-      <polyline points="12 5 19 12 12 19" />
-    </svg>
-  );
-}
+/* ─── Project Card (Interactive Gallery Enabled) ─── */
+function ProjectCard({
+  project,
+  onOpenGallery,
+}: {
+  project: Project;
+  onOpenGallery: (project: Project, index?: number) => void;
+}) {
+  const images = project.images && project.images.length > 0 ? project.images : [project.image];
+  const imageCount = images.length;
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
-    <article
-      className={projectStyles.card}
-      style={{ animationDelay: `${(index % 6) * 0.07}s` }}
+    <motion.article
+      className={styles.card}
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      layout
     >
-      <div className={projectStyles.preview}>
+      <div
+        className={styles.cardPreview}
+        onClick={() => onOpenGallery(project, 0)}
+        role="button"
+        tabIndex={0}
+        aria-label={`Open ${project.title} gallery`}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onOpenGallery(project, 0);
+          }
+        }}
+      >
         <Image
           src={project.image}
-          alt={`${project.title} preview`}
+          alt={`${project.title} preview screenshot`}
           fill
-          sizes="(max-width: 768px) 92vw, (max-width: 1024px) 44vw, 29vw"
-          className={projectStyles.previewImage}
+          sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 31vw"
+          className={styles.previewImage}
         />
-        <div className={projectStyles.previewOverlay} />
+        <div className={styles.previewOverlay} />
+
+        <div className={styles.previewBadges}>
+          <StatusBadge status={project.status} />
+          <span className={styles.categoryBadge}>{project.category}</span>
+        </div>
+
+        <div className={styles.previewFooter}>
+          <span className={styles.imageCountBadge}>
+            <Images size={12} />
+            <span>
+              {imageCount} {imageCount === 1 ? "Photo" : "Photos"}
+            </span>
+          </span>
+
+          <span className={styles.previewHint}>
+            <Maximize2 size={12} />
+            <span>View Gallery</span>
+          </span>
+        </div>
       </div>
 
-      <div className={projectStyles.content}>
-        <div className={projectStyles.cardBody}>
-          <div className={styles.cardHeader}>
-            <StatusDot status={project.status} />
-            <span className={styles.cardCategory}>{project.category}</span>
-          </div>
+      <div className={styles.cardBody}>
+        <h2 className={styles.cardTitle}>{project.title}</h2>
+        <p className={styles.cardDescription}>{project.description}</p>
 
-          <h2 className={projectStyles.cardTitle}>{project.title}</h2>
-          <p className={styles.cardDesc}>{project.description}</p>
-
-          <div className={styles.cardTech}>
-            {project.technologies.map((tech) => (
-              <span key={tech} className={projectStyles.techTag}>
-                {tech}
-              </span>
-            ))}
-          </div>
+        <div className={styles.techList}>
+          {project.technologies.map((tech) => (
+            <span key={tech} className={styles.techPill}>
+              {tech}
+            </span>
+          ))}
         </div>
 
         <div className={styles.cardFooter}>
           {project.link ? (
-            <Link href={project.link} className={projectStyles.exploreBtn}>
-              Explore Project
-              <span className={projectStyles.exploreIcon}>
-                <ArrowIcon />
-              </span>
+            <Link
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.cardLink}
+            >
+              <span>Launch Live Platform</span>
+              <ExternalLink size={14} className={styles.linkIcon} />
             </Link>
           ) : (
-            <button className={projectStyles.exploreBtn} type="button" disabled>
-              Explore Project
-              <span className={projectStyles.exploreIcon}>
-                <ArrowIcon />
-              </span>
-            </button>
+            <span className={styles.cardLinkDisabled}>
+              <span>Internal Enterprise System</span>
+            </span>
           )}
         </div>
-
-        <div className={projectStyles.cardTopGlow} />
-        <div className={projectStyles.cardEdgeGlow} />
       </div>
-    </article>
+    </motion.article>
   );
 }
 
+/* ─── Grid Section ─── */
 function ProjectsGrid({
   visibleProjects,
   allVisible,
   setAllVisible,
   hasMore,
+  onOpenGallery,
 }: {
   visibleProjects: Project[];
   allVisible: boolean;
   setAllVisible: (value: boolean) => void;
   hasMore: boolean;
+  onOpenGallery: (project: Project, index?: number) => void;
 }) {
   return (
     <motion.section
       className={styles.gridSection}
       id="projects-grid"
-      aria-label="Project portfolio"
+      aria-label="Project portfolio matrix"
       {...fadeUp}
     >
-      <div className={projectStyles.grid}>
-        {visibleProjects.map((project, index) => (
-          <ProjectCard key={project.id} project={project} index={index} />
+      <div className={styles.projectsGrid}>
+        {visibleProjects.map((project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            onOpenGallery={onOpenGallery}
+          />
         ))}
       </div>
 
       {hasMore && (
-        <div className={projectStyles.viewMoreWrap}>
+        <div className={styles.viewMoreContainer}>
           <button
             type="button"
-            className={projectStyles.viewMoreBtn}
+            className={styles.viewMoreButton}
             onClick={() => setAllVisible(!allVisible)}
           >
-            {allVisible ? "Show Less" : "View More Projects"}
-            <span
-              className={`${projectStyles.viewMoreIcon} ${
-                allVisible ? projectStyles.viewMoreIconUp : ""
-              }`}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </span>
+            {allVisible ? "Show Less" : "View All"}
+            <ArrowRight
+              size={15}
+              className={`${styles.viewMoreIcon} ${allVisible ? styles.viewMoreIconUp : ""}`}
+            />
           </button>
         </div>
       )}
@@ -261,15 +304,32 @@ function ProjectsGrid({
   );
 }
 
+/* ─── Main Content ─── */
 export default function ProjectsPageContent() {
   const [activeFilter, setActiveFilter] = useState<"All" | Category>("All");
   const [allVisible, setAllVisible] = useState(false);
+
+  // Gallery Modal State
+  const [galleryProject, setGalleryProject] = useState<Project | null>(null);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  const handleOpenGallery = (project: Project, index = 0) => {
+    setGalleryProject(project);
+    setActiveImageIndex(index);
+  };
+
+  const projectCounts = useMemo(() => {
+    const counts: Record<string, number> = { All: projects.length };
+    projects.forEach((p) => {
+      counts[p.category] = (counts[p.category] || 0) + 1;
+    });
+    return counts;
+  }, []);
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === "All") {
       return projects;
     }
-
     return projects.filter((project) => project.category === activeFilter);
   }, [activeFilter]);
 
@@ -279,38 +339,52 @@ export default function ProjectsPageContent() {
   const hasMore = filteredProjects.length > 6;
 
   return (
-    <main className={styles.page}>
-      <div className={styles.bgAtmosphere} aria-hidden="true">
-        <div className={styles.gridOverlay} />
-        <div className={styles.fogLayer} />
-        <div className={styles.starField} />
-        <div className={styles.glowOne} />
-        <div className={styles.glowTwo} />
-      </div>
+    <>
+      <main className={styles.page}>
+        <div className={styles.bgAtmosphere} aria-hidden="true">
+          <div className={styles.gridOverlay} />
+          <div className={styles.fogLayer} />
+          <div className={styles.starField} />
+          <div className={styles.glowOne} />
+          <div className={styles.glowTwo} />
+        </div>
 
-      <div className={styles.container}>
         <ProjectHero />
-        <ProjectFilters
-          activeFilter={activeFilter}
-          setActiveFilter={(filter) => {
-            setActiveFilter(filter);
-            setAllVisible(false);
-          }}
-        />
-        <ProjectsGrid
-          visibleProjects={visibleProjects}
-          allVisible={allVisible}
-          setAllVisible={setAllVisible}
-          hasMore={hasMore}
-        />
-        <PageCTA
-          label="START A PROJECT"
-          heading="Have an idea worth building?"
-          description="Let's transform your concept into a scalable, intelligent digital product with premium engineering and design."
-          primaryText="Start Your Project"
-          primaryHref="/contact"
-        />
-      </div>
-    </main>
+
+        <div className={styles.container}>
+          <ProjectFilters
+            activeFilter={activeFilter}
+            setActiveFilter={(filter) => {
+              setActiveFilter(filter);
+              setAllVisible(false);
+            }}
+            projectCounts={projectCounts}
+          />
+
+          <ProjectsGrid
+            visibleProjects={visibleProjects}
+            allVisible={allVisible}
+            setAllVisible={setAllVisible}
+            hasMore={hasMore}
+            onOpenGallery={handleOpenGallery}
+          />
+
+          <PageCTA
+            heading="Ready To Engineer Your Flagship Platform?"
+            description="Partner with Virtanis to architect, build, and deploy intelligent software designed for unmatched performance."
+            primaryText="Initiate Project"
+            primaryHref="/contact"
+          />
+        </div>
+      </main>
+
+      {/* Full-Page Gallery Lightbox Modal */}
+      <ProjectGalleryModal
+        project={galleryProject}
+        activeImageIndex={activeImageIndex}
+        onClose={() => setGalleryProject(null)}
+        onSelectImage={(idx) => setActiveImageIndex(idx)}
+      />
+    </>
   );
 }

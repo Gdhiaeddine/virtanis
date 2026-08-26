@@ -10,12 +10,14 @@ import {
   Box,
   Cloud,
   Check,
+  ArrowRight,
 } from "lucide-react";
 import styles from "./ServicesGrid.module.css";
 
 interface Service {
-  icon: React.ComponentType<{ size?: number }>;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
   title: string;
+  tag: string;
   description: string;
   checklist: string[];
 }
@@ -23,85 +25,91 @@ interface Service {
 const SERVICES: Service[] = [
   {
     icon: Globe,
-    title: "Web Development",
+    title: "Web Platform Development",
+    tag: "Next.js / Node / GraphQL",
     description:
-      "We build modern, responsive, and high-performance web applications tailored to your business goals.",
+      "Enterprise-grade, ultra-responsive web applications, headless commerce platforms, and scalable APIs engineered for speed and conversion.",
     checklist: [
-      "Custom Websites",
-      "Web Applications",
-      "E-Commerce Solutions",
-      "CMS Development",
+      "Custom Next.js & React Architectures",
+      "Enterprise SaaS & Web Applications",
+      "High-Conversion Headless Commerce",
+      "High-Throughput GraphQL & REST APIs",
     ],
   },
   {
     icon: Smartphone,
-    title: "Mobile App Development",
+    title: "Mobile Systems & Applications",
+    tag: "Flutter / iOS / Android",
     description:
-      "Cross-platform mobile applications built with Flutter to deliver smooth performance and beautiful user experiences.",
+      "Cross-platform and native mobile software delivering 60 FPS performance, offline-first reliability, and seamless hardware integration.",
     checklist: [
-      "Android & iOS Apps",
-      "Cross-Platform Flutter",
-      "UI/UX Focused",
-      "App Maintenance",
+      "Cross-Platform Flutter Development",
+      "Native iOS & Android Architecture",
+      "Real-Time Data & Offline Synchronization",
+      "App Store & Google Play Lifecycle Deployment",
     ],
   },
   {
     icon: Brain,
-    title: "AI & Machine Learning",
+    title: "AI & Machine Learning Systems",
+    tag: "PyTorch / FastAPI / LangChain",
     description:
-      "Intelligent solutions that automate processes, analyze data, and provide smart predictions to accelerate your business.",
+      "Production-ready machine learning models, custom LLM agents, predictive intelligence, and automated pipelines that drive quantifiable ROI.",
     checklist: [
-      "AI Model Development",
-      "Data Analysis",
-      "Predictive Systems",
-      "Automation Workflows",
+      "Custom Predictive & Classification Models",
+      "Autonomous AI Agents & LLM Fine-Tuning",
+      "Automated Data Ingestion & ETL Pipelines",
+      "Sub-20ms Inference API Microservices",
     ],
   },
   {
     icon: Palette,
-    title: "UI/UX Design",
+    title: "Product Design & UI/UX Architecture",
+    tag: "Figma / Design Systems",
     description:
-      "Clean, modern, and intuitive interfaces that enhance user experience and strengthen your brand identity.",
+      "Executive visual design, frictionless user experience flows, and comprehensive atomic design systems created for market leaders.",
     checklist: [
-      "User Research",
-      "Wireframing",
-      "Prototyping",
-      "Design Systems",
+      "User Research & Journey Mapping",
+      "High-Fidelity Interactive Prototyping",
+      "Comprehensive Scalable Design Systems",
+      "Micro-Interactions & Motion Design",
     ],
   },
   {
     icon: Box,
     title: "3D & Interactive Experiences",
+    tag: "Three.js / WebGL / GLSL",
     description:
-      "Immersive 3D worlds, interactive models, and engaging animations that bring ideas to life in a unique way.",
+      "Real-time 3D product visualizers, spatial computing web interfaces, and custom shader animations that leave lasting brand impressions.",
     checklist: [
-      "3D Modeling",
-      "Three.js Experiences",
-      "WebGL Animations",
-      "Product Visualizations",
+      "Custom Three.js & WebGL Visualizers",
+      "Real-Time 3D Product Configurators",
+      "High-Performance Custom Shader Pipelines",
+      "Spatial & Interactive Web Experiences",
     ],
   },
   {
     icon: Cloud,
-    title: "Cloud & DevOps",
+    title: "Cloud Infrastructure & DevOps",
+    tag: "AWS / Docker / Kubernetes",
     description:
-      "Reliable cloud infrastructure, deployment pipelines, and DevOps solutions to ensure your systems are fast and available.",
+      "Zero-downtime CI/CD automation, scalable container orchestration, infrastructure as code, and 99.99% uptime operational management.",
     checklist: [
-      "Cloud Deployment",
-      "CI/CD Pipelines",
-      "Server Management",
-      "Performance Monitoring",
+      "Automated Zero-Downtime CI/CD Pipelines",
+      "Docker & Kubernetes Containerization",
+      "Infrastructure as Code (Terraform)",
+      "24/7 Observability & SLA Monitoring",
     ],
   },
 ];
 
 const SLUG_MAP: Record<string, string> = {
-  "Web Development": "web-development",
-  "Mobile App Development": "mobile-development",
-  "AI & Machine Learning": "ai-ml",
-  "UI/UX Design": "ui-ux",
+  "Web Platform Development": "web-development",
+  "Mobile Systems & Applications": "mobile-development",
+  "AI & Machine Learning Systems": "ai-ml",
+  "Product Design & UI/UX Architecture": "ui-ux",
   "3D & Interactive Experiences": "three-d-interactive",
-  "Cloud & DevOps": "cloud-devops",
+  "Cloud Infrastructure & DevOps": "cloud-devops",
 };
 
 function ServiceCard({
@@ -116,48 +124,52 @@ function ServiceCard({
   const href = `/services/${slug}`;
 
   return (
-    <motion.div
-      className="flex"
-      initial={{ opacity: 0, y: 40 }}
+    <motion.article
+      className={styles.card}
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-60px" }}
       transition={{
-        duration: 0.6,
-        delay: (index % 3) * 0.1,
+        duration: 0.55,
+        delay: (index % 3) * 0.08,
         ease: [0.22, 1, 0.36, 1],
       }}
     >
-      <Link href={href} className={styles.card}>
-        <div className={styles.cardTopGlow} />
+      <div className={styles.cardHeader}>
         <div className={styles.iconWrap}>
-          <Icon size={26} />
+          <Icon size={24} className={styles.icon} />
         </div>
-        <h3 className={styles.cardTitle}>{service.title}</h3>
-        <p className={styles.cardDescription}>{service.description}</p>
-        <ul className={styles.checklist}>
-          {service.checklist.map((item) => (
-            <li key={item} className={styles.checkItem}>
-              <span className={styles.checkIcon}>
-                <Check size={14} />
-              </span>
-              {item}
-            </li>
-          ))}
-        </ul>
-        <div className={styles.learnMore}>
-          Learn More <span className={styles.arrow}>→</span>
-        </div>
-      </Link>
-    </motion.div>
+        <span className={styles.techTag}>{service.tag}</span>
+      </div>
+
+      <h3 className={styles.cardTitle}>{service.title}</h3>
+      <p className={styles.cardDescription}>{service.description}</p>
+
+      <div className={styles.deliverablesHeader}>KEY DELIVERABLES</div>
+      <ul className={styles.checklist}>
+        {service.checklist.map((item) => (
+          <li key={item} className={styles.checkItem}>
+            <span className={styles.checkIcon}>
+              <Check size={13} />
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div className={styles.cardFooter}>
+        <Link href={href} className={styles.exploreLink}>
+          <span>Explore Service Specification</span>
+          <ArrowRight size={14} className={styles.arrowIcon} />
+        </Link>
+      </div>
+    </motion.article>
   );
 }
 
 export default function ServicesGrid() {
   return (
-    <section className={styles.services} id="services">
-      {/* Background glow */}
-      <div className={styles.bgGlow} />
-
+    <section className={styles.services} id="services-grid" aria-label="Core Engineering Pillars">
       <div className={styles.container}>
         <motion.div
           className={styles.header}
@@ -166,14 +178,13 @@ export default function ServicesGrid() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <span className={styles.sectionLabel}>WHAT WE DO</span>
+          <span className={styles.sectionLabel}>CORE PILLARS</span>
           <h2 className={styles.title}>
-            Services That Drive Innovation & Growth
+            Engineered For Precision, Velocity & Scale
           </h2>
           <p className={styles.description}>
-            We combine advanced technologies with creative engineering to build
-            digital products that are scalable, secure, and designed to deliver
-            exceptional user experiences.
+            Six foundational engineering and design disciplines orchestrated to build
+            market-defining digital platforms, automated workflows, and high-performance software.
           </p>
         </motion.div>
 
