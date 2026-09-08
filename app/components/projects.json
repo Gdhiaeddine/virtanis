@@ -12,6 +12,7 @@
       "Postgresql",
       "SEO Optimization"
     ],
+    
     "status": "Live",
     "image": "/projects/sti-landing.webp",
     "images": [
@@ -21,6 +22,30 @@
 
     ],
     "link": "https://sti.dz"
+  },
+  {
+    "id": 7,
+    "title": "Hotel Management System",
+    "category": "Web",
+    "description": "A comprehensive hotel management platform for handling reservations, room allocation, guest information, billing, and daily hotel operations efficiently.",
+    "technologies": [
+      "Next js",
+      "Laravel",
+      "Realtime Websocket",
+      "Postgresql",
+      "Tailwind",
+      "Docker"
+    ],
+    "status": "In Progress",
+    "image": "/projects/erp/erp-dashboard.webp",
+    "images": [
+      "/projects/erp/erp-dashboard.webp",
+      "/projects/erp/erp-reservation.webp",
+      "/projects/erp/erp-hebergement.webp",
+      "/projects/erp/erp-piscine.webp",
+      "/projects/erp/erp-reunion.webp",
+      "/projects/erp/erp-centre.webp"
+    ]
   },
   {
     "id": 9,
@@ -184,22 +209,5 @@
       "/projects/apltech.png"
     ],
     "link": "https://www.behance.net/gallery/236340397/Gaming-Store-Website-Design-with-Neon-Tech-Vibes"
-  },
-  {
-    "id": 7,
-    "title": "Hotel Management System",
-    "category": "Web",
-    "description": "A comprehensive hotel management platform for handling reservations, room allocation, guest information, billing, and daily hotel operations efficiently.",
-    "technologies": [
-      "Next js",
-      "Postgresql",
-      "Nest Js",
-      "Tailwind"
-    ],
-    "status": "In Progress",
-    "image": "/projects/hotelManagement.png",
-    "images": [
-      "/projects/hotelManagement.png"
-    ]
   }
 ]
