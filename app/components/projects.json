@@ -7,12 +7,18 @@
     "technologies": [
       "Next js",
       "Tailwind CSS",
-      "Laravel"
+      "Laravel",
+      "Redis",
+      "Postgresql",
+      "SEO Optimization"
     ],
     "status": "Live",
-    "image": "/projects/sti.webp",
+    "image": "/projects/sti-landing.webp",
     "images": [
-      "/projects/sti.webp"
+      "/projects/sti-landing.webp",
+      "/projects/sti-ooredoo.webp",
+      "/projects/sti-vivo.webp"
+
     ],
     "link": "https://sti.dz"
   },
