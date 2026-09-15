@@ -494,17 +494,44 @@
   line-height: 1.25;
 }
 
+.descWrap {
+  margin-bottom: 18px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .cardDescription {
   font-family: var(--font-inter), system-ui, sans-serif;
   font-size: 13.5px;
   line-height: 1.65;
   color: #8e8e93;
-  margin-bottom: 20px;
-  flex-grow: 1;
+  margin-bottom: 4px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.showMoreBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #4da3ff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.showMoreBtn:hover {
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 .techList {

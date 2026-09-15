@@ -3,11 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ExternalLink, Sparkles, Images, Maximize2 } from "lucide-react";
+import { ArrowRight, ExternalLink, Images, Maximize2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import projectsData from "../components/projects.json";
 import PageCTA from "../components/PageCTA";
 import ProjectGalleryModal, { ModalProject } from "../components/ProjectGalleryModal";
+import ProjectDetailsModal from "../components/ProjectDetailsModal";
 import styles from "./ProjectsPageContent.module.css";
 
 type Project = ModalProject & {
@@ -163,9 +164,11 @@ function StatusBadge({ status }: { status: Project["status"] }) {
 function ProjectCard({
   project,
   onOpenGallery,
+  onOpenDetails,
 }: {
   project: Project;
   onOpenGallery: (project: Project, index?: number) => void;
+  onOpenDetails: (project: Project) => void;
 }) {
   const images = project.images && project.images.length > 0 ? project.images : [project.image];
   const imageCount = images.length;
@@ -222,7 +225,18 @@ function ProjectCard({
 
       <div className={styles.cardBody}>
         <h2 className={styles.cardTitle}>{project.title}</h2>
-        <p className={styles.cardDescription}>{project.description}</p>
+        
+        <div className={styles.descWrap}>
+          <p className={styles.cardDescription}>{project.description}</p>
+          <button
+            type="button"
+            className={styles.showMoreBtn}
+            onClick={() => onOpenDetails(project)}
+            aria-label={`Show more details for ${project.title}`}
+          >
+            ... show more
+          </button>
+        </div>
 
         <div className={styles.techList}>
           {project.technologies.map((tech) => (
@@ -261,12 +275,14 @@ function ProjectsGrid({
   setAllVisible,
   hasMore,
   onOpenGallery,
+  onOpenDetails,
 }: {
   visibleProjects: Project[];
   allVisible: boolean;
   setAllVisible: (value: boolean) => void;
   hasMore: boolean;
   onOpenGallery: (project: Project, index?: number) => void;
+  onOpenDetails: (project: Project) => void;
 }) {
   return (
     <motion.section
@@ -281,6 +297,7 @@ function ProjectsGrid({
             key={project.id}
             project={project}
             onOpenGallery={onOpenGallery}
+            onOpenDetails={onOpenDetails}
           />
         ))}
       </div>
@@ -312,6 +329,9 @@ export default function ProjectsPageContent() {
   // Gallery Modal State
   const [galleryProject, setGalleryProject] = useState<Project | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  // Details Modal State
+  const [detailsProject, setDetailsProject] = useState<Project | null>(null);
 
   const handleOpenGallery = (project: Project, index = 0) => {
     setGalleryProject(project);
@@ -367,6 +387,7 @@ export default function ProjectsPageContent() {
             setAllVisible={setAllVisible}
             hasMore={hasMore}
             onOpenGallery={handleOpenGallery}
+            onOpenDetails={setDetailsProject}
           />
 
           <PageCTA
@@ -377,6 +398,16 @@ export default function ProjectsPageContent() {
           />
         </div>
       </main>
+
+      {/* Project Details Modal */}
+      <ProjectDetailsModal
+        project={detailsProject}
+        onClose={() => setDetailsProject(null)}
+        onOpenGallery={(p, idx) => {
+          setDetailsProject(null);
+          handleOpenGallery(p as Project, idx);
+        }}
+      />
 
       {/* Full-Page Gallery Lightbox Modal */}
       <ProjectGalleryModal

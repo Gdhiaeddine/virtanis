@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ExternalLink, Images, Maximize2 } from "lucide-react";
 import ProjectGalleryModal, { ModalProject } from "./ProjectGalleryModal";
+import ProjectDetailsModal from "./ProjectDetailsModal";
 import styles from "./Projects.module.css";
 
 /* ─── Types ─── */
@@ -122,10 +123,12 @@ function ProjectCard({
   project,
   index,
   onOpenGallery,
+  onOpenDetails,
 }: {
   project: Project;
   index: number;
   onOpenGallery: (project: Project, index?: number) => void;
+  onOpenDetails: (project: Project) => void;
 }) {
   const images = project.images && project.images.length > 0 ? project.images : [project.image];
   const imageCount = images.length;
@@ -179,7 +182,18 @@ function ProjectCard({
 
       <div className={styles.cardBody}>
         <h3 className={styles.cardTitle}>{project.title}</h3>
-        <p className={styles.cardDescription}>{project.description}</p>
+        
+        <div className={styles.descWrap}>
+          <p className={styles.cardDescription}>{project.description}</p>
+          <button
+            type="button"
+            className={styles.showMoreBtn}
+            onClick={() => onOpenDetails(project)}
+            aria-label={`Show more details for ${project.title}`}
+          >
+            ... show more
+          </button>
+        </div>
 
         <div className={styles.techList}>
           {project.technologies.map((tech) => (
@@ -222,6 +236,9 @@ export default function Projects() {
   // Gallery Modal State
   const [galleryProject, setGalleryProject] = useState<Project | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  // Details Modal State
+  const [detailsProject, setDetailsProject] = useState<Project | null>(null);
 
   const handleOpenGallery = (project: Project, index = 0) => {
     setGalleryProject(project);
@@ -391,6 +408,7 @@ export default function Projects() {
                 project={project}
                 index={index}
                 onOpenGallery={handleOpenGallery}
+                onOpenDetails={setDetailsProject}
               />
             ))}
           </div>
@@ -425,6 +443,16 @@ export default function Projects() {
           )}
         </div>
       </section>
+
+      {/* Project Details Modal */}
+      <ProjectDetailsModal
+        project={detailsProject}
+        onClose={() => setDetailsProject(null)}
+        onOpenGallery={(p, idx) => {
+          setDetailsProject(null);
+          handleOpenGallery(p as Project, idx);
+        }}
+      />
 
       {/* Full-Page Gallery Lightbox Modal */}
       <ProjectGalleryModal
