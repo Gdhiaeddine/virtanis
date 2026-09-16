@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | Virtanis",
   },
   description:
-    "Virtanis is a premier digital agency specializing in full-spectrum digital solutions: AI & Machine Learning, Enterprise Web Applications, Mobile Ecosystems, UI/UX Design, 3D Interactive Web, and Cloud Infrastructure.",
+    "Virtanis is a next-generation digital agency building intelligent AI systems, enterprise web platforms, and mobile apps. Engineer your digital future today.",
   keywords: [
     "Digital Agency",
     "AI Solutions",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     siteName: "Virtanis",
     title: "Virtanis | Next-Generation Digital Agency & AI Engineering",
     description:
-      "Virtanis architects scalable, intelligent digital solutions engineered with precision, high performance, and Apple/SpaceX-grade craftsmanship.",
+      "Virtanis is a next-generation digital agency building intelligent AI systems, enterprise web platforms, and mobile apps. Engineer your digital future today.",
     images: [
       {
         url: "/og-image.png",
@@ -71,9 +71,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Virtanis | Next-Generation Digital Agency",
+    title: "Virtanis | Next-Generation Digital Agency & AI Engineering",
     description:
-      "Architecting intelligent digital systems, enterprise web platforms, and mobile apps for visionary companies.",
+      "Virtanis is a next-generation digital agency building intelligent AI systems, enterprise web platforms, and mobile apps. Engineer your digital future today.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -127,6 +127,8 @@ const jsonLd = {
       "@id": "https://virtanis.com/#website",
       url: "https://virtanis.com",
       name: "Virtanis",
+      description:
+        "Virtanis is a next-generation digital agency building intelligent AI systems, enterprise web platforms, and mobile apps. Engineer your digital future today.",
       publisher: {
         "@id": "https://virtanis.com/#organization",
       },
