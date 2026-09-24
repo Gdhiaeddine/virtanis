@@ -72,7 +72,7 @@ const CREDENTIAL_CARDS = [
   {
     id: 3,
     label: "Availability",
-    value: "Open for Q1/Q2 Projects",
+    value: "Available to Work",
     icon: "availability",
   },
 ];
