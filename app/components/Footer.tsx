@@ -50,8 +50,8 @@ export default function Footer({ locale: propLocale }: FooterProps = {}) {
 
   const hrefFor = (id: string) => {
     if (id === "home") return isFr ? "/fr" : "/";
+    if (id === "about") return isFr ? "/fr/about" : "/about";
     if (id === "services") return "/services";
-    if (id === "about") return "/about";
     if (id === "projects") return "/projects";
     if (id === "skills") return "/skills";
     if (id === "contact") return "/contact";
@@ -73,6 +73,7 @@ export default function Footer({ locale: propLocale }: FooterProps = {}) {
         isContact ||
         pathname.startsWith("/services") ||
         pathname === "/about" ||
+        pathname === "/fr/about" ||
         pathname === "/projects" ||
         pathname === "/skills" ||
         pathname === "/contact"

@@ -35,7 +35,7 @@ export default function Navbar() {
   const t = getTranslations(locale).navbar;
 
   const routeSection =
-    pathname === "/about"
+    pathname === "/about" || pathname === "/fr/about"
       ? "about"
       : pathname === "/projects"
         ? "projects"
@@ -91,8 +91,8 @@ export default function Navbar() {
 
   const hrefFor = (id: string) => {
     if (id === "home") return isFr ? "/fr" : "/";
+    if (id === "about") return isFr ? "/fr/about" : "/about";
     if (id === "services") return "/services";
-    if (id === "about") return "/about";
     if (id === "projects") return "/projects";
     if (id === "skills") return "/skills";
     if (id === "contact") return "/contact";
@@ -100,6 +100,11 @@ export default function Navbar() {
   };
 
   const closeMenu = () => setMobileOpen(false);
+
+  // Dynamic language switcher target based on current path
+  const isAboutPage = pathname === "/about" || pathname === "/fr/about";
+  const enHref = isAboutPage ? "/about" : "/";
+  const frHref = isAboutPage ? "/fr/about" : "/fr";
 
   return (
     <>
@@ -127,7 +132,7 @@ export default function Navbar() {
           <div className={styles.right}>
             <div className={styles.langSwitcher} role="group" aria-label={t.switchAria}>
               <Link
-                href="/"
+                href={enHref}
                 className={`${styles.langBtn} ${!isFr ? styles.langBtnActive : ""}`}
                 aria-label="English"
                 aria-current={!isFr ? "page" : undefined}
@@ -135,7 +140,7 @@ export default function Navbar() {
                 EN
               </Link>
               <Link
-                href="/fr"
+                href={frHref}
                 className={`${styles.langBtn} ${isFr ? styles.langBtnActive : ""}`}
                 aria-label="Français"
                 aria-current={isFr ? "page" : undefined}
@@ -176,14 +181,14 @@ export default function Navbar() {
 
         <div className={styles.mobileLangSwitcher} role="group" aria-label={t.switchAria}>
           <Link
-            href="/"
+            href={enHref}
             className={`${styles.mobileLangBtn} ${!isFr ? styles.mobileLangBtnActive : ""}`}
             onClick={closeMenu}
           >
             EN
           </Link>
           <Link
-            href="/fr"
+            href={frHref}
             className={`${styles.mobileLangBtn} ${isFr ? styles.mobileLangBtnActive : ""}`}
             onClick={closeMenu}
           >

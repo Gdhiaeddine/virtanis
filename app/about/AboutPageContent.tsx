@@ -11,8 +11,6 @@ import {
   Cpu,
   Database,
   Globe2,
-  HeartHandshake,
-  Lightbulb,
   Mail,
   MapPin,
   Palette,
@@ -23,83 +21,15 @@ import {
   Smartphone,
   Sparkles,
   Target,
-  Trophy,
-  Users,
 } from "lucide-react";
 import styles from "./AboutPageContent.module.css";
 import PageCTA from "../components/PageCTA";
 import siteData from "../data/site.json";
+import { getTranslations, Locale } from "../data/translations";
 
-const storyFeatures = [
-  {
-    title: "Our Mission",
-    description:
-      "To engineer robust, high-performance digital systems and AI-powered platforms that deliver measurable market advantage for visionary brands.",
-    icon: Target,
-  },
-  {
-    title: "Our Vision",
-    description:
-      "To be the premier digital engineering studio globally recognized for architectural perfection, intelligent automation, and luxury UX.",
-    icon: Rocket,
-  },
-];
-
-const values = [
-  {
-    title: "Engineering Rigor",
-    description: "Zero compromise on code quality, latency, scalability, and system architecture.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "AI-First Innovation",
-    description: "Leveraging state-of-the-art machine intelligence to automate and augment complex workflows.",
-    icon: Sparkles,
-  },
-  {
-    title: "Apple-Grade Design",
-    description: "Minimalist, intuitive, and tactile interfaces that make interacting with technology effortless.",
-    icon: Palette,
-  },
-  {
-    title: "Global Partnership",
-    description: "Transparent, collaborative execution from initial discovery to worldwide cloud deployment.",
-    icon: Globe2,
-  },
-];
-
-const processSteps = [
-  {
-    step: "01",
-    title: "Discover & Strategy",
-    description: "Comprehensive analysis of business objectives, user requirements, and technical roadmaps.",
-    icon: Search,
-  },
-  {
-    step: "02",
-    title: "System Architecture",
-    description: "Blueprint design of cloud environments, database schemas, and intelligent API topologies.",
-    icon: Target,
-  },
-  {
-    step: "03",
-    title: "Spatial & UI Design",
-    description: "Crafting minimalist design systems, user flows, and interactive high-fidelity prototypes.",
-    icon: Palette,
-  },
-  {
-    step: "04",
-    title: "Full-Stack Build",
-    description: "Writing clean, modular, and typed code with modern frontend and backend frameworks.",
-    icon: Code2,
-  },
-  {
-    step: "05",
-    title: "Scale & Deploy",
-    description: "Automated CI/CD release, global CDN caching, telemetry monitoring, and continuous scaling.",
-    icon: Rocket,
-  },
-];
+const storyIcons = [Target, Rocket];
+const valueIcons = [ShieldCheck, Sparkles, Palette, Globe2];
+const processIcons = [Search, Target, Palette, Code2, Rocket];
 
 const technologies = [
   { name: "Next.js", icon: Globe2 },
@@ -111,16 +41,6 @@ const technologies = [
   { name: "PostgreSQL / DB", icon: Database },
   { name: "Cloud & DevOps", icon: Cloud },
 ];
-
-const founder = {
-  name: "Dhia Eddine Guettaf",
-  role: "Founder & Lead Architect",
-  location: siteData.contact.location,
-  experience: "Full-Spectrum Engineering",
-  email: siteData.contact.email,
-  description:
-    "AI engineer, full-stack systems architect, and digital product craftsman. Dedicated to uniting machine intelligence with architectural precision and world-class product design for ambitious companies.",
-};
 
 function LinkedInIcon({ size = 16 }: { size?: number }) {
   return (
@@ -185,7 +105,23 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return <span className={styles.sectionLabel}>{children}</span>;
 }
 
-export default function AboutPageContent() {
+interface AboutPageContentProps {
+  locale?: Locale;
+}
+
+export default function AboutPageContent({ locale = "en" }: AboutPageContentProps) {
+  const t = getTranslations(locale).aboutPage;
+  const isFr = locale === "fr";
+
+  const founderData = {
+    name: t.leadership.founder.name,
+    role: t.leadership.founder.role,
+    location: isFr ? "Algérie & À l'international" : siteData.contact.location,
+    experience: t.leadership.founder.experience,
+    email: siteData.contact.email,
+    description: t.leadership.founder.description,
+  };
+
   return (
     <main className={styles.page}>
       <div className={styles.bgAtmosphere} aria-hidden="true">
@@ -201,7 +137,7 @@ export default function AboutPageContent() {
         <div className={styles.heroBg} aria-hidden="true">
           <Image
             src="/about-hero.webp"
-            alt="About Virtanis background"
+            alt={isFr ? "Arrière-plan À propos de Virtanis" : "About Virtanis background"}
             fill
             priority
             className={styles.heroBgImage}
@@ -215,15 +151,13 @@ export default function AboutPageContent() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <SectionLabel>ABOUT VIRTANIS</SectionLabel>
+            <SectionLabel>{t.hero.label}</SectionLabel>
             <h1 id="about-title">
-              Engineering <span className={styles.serifAccent}>Intelligent Digital</span> Systems For The Future
+              {t.hero.titlePrefix}
+              <span className={styles.serifAccent}>{t.hero.titleAccent}</span>
+              {t.hero.titleSuffix}
             </h1>
-            <p>
-              Virtanis is an elite digital engineering studio. We partner with ambitious
-              companies worldwide to architect, design, and deploy scalable software platforms,
-              custom AI systems, and immersive digital experiences.
-            </p>
+            <p>{t.hero.description}</p>
           </motion.div>
         </div>
       </section>
@@ -232,22 +166,15 @@ export default function AboutPageContent() {
       <motion.section className={styles.storySection} {...fadeUp}>
         <div className={styles.container}>
           <div className={styles.storyCopy}>
-            <SectionLabel>THE VIRTANIS ETHOS</SectionLabel>
-            <h2>Architecting High-Value Digital Solutions</h2>
-            <p>
-              Virtanis was established with a singular objective: to build intelligent software
-              and web platforms that simplify complexity, scale effortlessly, and leave a lasting
-              impression on end users.
-            </p>
-            <p>
-              We believe great software is where computational engineering meets uncompromising
-              design aesthetics. Every line of code and every interaction is crafted with precision.
-            </p>
+            <SectionLabel>{t.ethos.label}</SectionLabel>
+            <h2>{t.ethos.title}</h2>
+            <p>{t.ethos.p1}</p>
+            <p>{t.ethos.p2}</p>
           </div>
 
           <div className={styles.storyCards}>
-            {storyFeatures.map((feature) => {
-              const Icon = feature.icon;
+            {t.ethos.features.map((feature, idx) => {
+              const Icon = storyIcons[idx] || Target;
               return (
                 <article key={feature.title} className={styles.featureBlock}>
                   <div className={styles.iconBox}>
@@ -265,12 +192,12 @@ export default function AboutPageContent() {
       {/* Core Values Section */}
       <motion.section className={styles.sectionBox} {...fadeUp}>
         <div className={styles.sectionHeader}>
-          <SectionLabel>OUR PILLARS</SectionLabel>
-          <h2>The Engineering Principles We Live By</h2>
+          <SectionLabel>{t.pillars.label}</SectionLabel>
+          <h2>{t.pillars.title}</h2>
         </div>
         <div className={styles.valuesGrid}>
-          {values.map((value) => {
-            const Icon = value.icon;
+          {t.pillars.values.map((value, idx) => {
+            const Icon = valueIcons[idx] || ShieldCheck;
             return (
               <article key={value.title} className={styles.glassCard}>
                 <div className={styles.iconBox}>
@@ -288,20 +215,17 @@ export default function AboutPageContent() {
       <motion.section className={styles.approachSection} {...fadeUp}>
         <div className={styles.container}>
           <div className={styles.approachCopy}>
-            <SectionLabel>OUR METHODOLOGY</SectionLabel>
-            <h2>From Blueprint To Global Production</h2>
-            <p>
-              Our execution pipeline is transparent, agile, and engineered for high-velocity
-              product delivery without sacrificing code quality or security.
-            </p>
+            <SectionLabel>{t.methodology.label}</SectionLabel>
+            <h2>{t.methodology.title}</h2>
+            <p>{t.methodology.description}</p>
             <Link href="/contact" className={styles.primaryButton}>
-              Start Your Project <ArrowRight size={17} />
+              {t.methodology.startProject} <ArrowRight size={17} />
             </Link>
           </div>
 
           <div className={styles.timeline}>
-            {processSteps.map((step) => {
-              const Icon = step.icon;
+            {t.methodology.steps.map((step, idx) => {
+              const Icon = processIcons[idx] || Rocket;
               return (
                 <article key={step.step} className={styles.timelineCard}>
                   <div className={styles.timelineIcon}>
@@ -320,8 +244,8 @@ export default function AboutPageContent() {
       {/* Tech Stack Section */}
       <motion.section className={styles.sectionBox} {...fadeUp}>
         <div className={styles.sectionHeader}>
-          <SectionLabel>CORE STACK & TOOLS</SectionLabel>
-          <h2>Modern Technologies For Resilient Systems</h2>
+          <SectionLabel>{t.techStack.label}</SectionLabel>
+          <h2>{t.techStack.title}</h2>
         </div>
         <div className={styles.techGrid}>
           {technologies.map((technology) => {
@@ -341,18 +265,15 @@ export default function AboutPageContent() {
       {/* Leadership / Founder Section */}
       <motion.section className={styles.sectionBox} {...fadeUp}>
         <div className={styles.sectionHeader}>
-          <SectionLabel>STUDIO LEADERSHIP</SectionLabel>
-          <h2>Engineering Leadership & Vision</h2>
-          <p>
-            Virtanis is led by Dhia Eddine Guettaf, an AI engineer and full-stack systems
-            architect dedicated to building digital platforms that drive real-world impact.
-          </p>
+          <SectionLabel>{t.leadership.label}</SectionLabel>
+          <h2>{t.leadership.title}</h2>
+          <p>{t.leadership.subtitle}</p>
         </div>
         <article className={styles.founderCard}>
           <div className={styles.founderPortrait}>
             <Image
               src="/myPicture.png"
-              alt="Dhia Eddine Guettaf, Founder of Virtanis"
+              alt={isFr ? "Dhia Eddine Guettaf, Fondateur de Virtanis" : "Dhia Eddine Guettaf, Founder of Virtanis"}
               fill
               sizes="(max-width: 900px) 92vw, 420px"
               className={styles.founderImage}
@@ -361,23 +282,23 @@ export default function AboutPageContent() {
           </div>
 
           <div className={styles.founderInfo}>
-            <span className={styles.founderLabel}>Studio Leadership</span>
-            <h3>{founder.name}</h3>
-            <strong>{founder.role}</strong>
-            <p>{founder.description}</p>
+            <span className={styles.founderLabel}>{t.leadership.badge}</span>
+            <h3>{founderData.name}</h3>
+            <strong>{founderData.role}</strong>
+            <p>{founderData.description}</p>
 
             <div className={styles.founderDetails}>
               <span>
                 <MapPin size={15} />
-                {founder.location}
+                {founderData.location}
               </span>
               <span>
                 <Award size={15} />
-                {founder.experience}
+                {founderData.experience}
               </span>
               <span>
                 <Mail size={15} />
-                {founder.email}
+                {founderData.email}
               </span>
             </div>
 
@@ -401,9 +322,9 @@ export default function AboutPageContent() {
 
       <div className={styles.container}>
         <PageCTA
-          heading="Let's Build Something Exceptional"
-          description="Ready to elevate your digital product with intelligent engineering and high-value design? Let's discuss your project."
-          primaryText="Start Your Project"
+          heading={t.cta.heading}
+          description={t.cta.description}
+          primaryText={t.cta.primaryText}
           primaryHref="/contact"
         />
       </div>

@@ -83,6 +83,77 @@ export interface AboutTranslation {
     availability: AboutCredential;
   };
 }
+export interface AboutPageFeature {
+  title: string;
+  description: string;
+}
+
+export interface AboutPageValue {
+  title: string;
+  description: string;
+}
+
+export interface AboutPageStep {
+  step: string;
+  title: string;
+  description: string;
+}
+
+export interface AboutPageTechnology {
+  name: string;
+}
+
+export interface AboutPageFounder {
+  name: string;
+  role: string;
+  experience: string;
+  description: string;
+}
+
+export interface AboutPageTranslation {
+  hero: {
+    label: string;
+    titlePrefix: string;
+    titleAccent: string;
+    titleSuffix: string;
+    description: string;
+  };
+  ethos: {
+    label: string;
+    title: string;
+    p1: string;
+    p2: string;
+    features: AboutPageFeature[];
+  };
+  pillars: {
+    label: string;
+    title: string;
+    values: AboutPageValue[];
+  };
+  methodology: {
+    label: string;
+    title: string;
+    description: string;
+    startProject: string;
+    steps: AboutPageStep[];
+  };
+  techStack: {
+    label: string;
+    title: string;
+  };
+  leadership: {
+    label: string;
+    title: string;
+    subtitle: string;
+    badge: string;
+    founder: AboutPageFounder;
+  };
+  cta: {
+    heading: string;
+    description: string;
+    primaryText: string;
+  };
+}
 
 export interface ContactTranslation {
   sectionLabel: string;
@@ -142,6 +213,7 @@ export interface TranslationDictionary {
   skills: SkillsTranslation;
   projects: ProjectsTranslation;
   about: AboutTranslation;
+  aboutPage: AboutPageTranslation;
   contact: ContactTranslation;
   footer: FooterTranslation;
 }
@@ -304,6 +376,123 @@ export const translations: Record<Locale, TranslationDictionary> = {
         engineering: { label: "Engineering", value: "AI-Native & Zero-Latency" },
         delivery: { label: "Delivery", value: "Worldwide" },
         availability: { label: "Availability", value: "Available to Work" },
+      },
+    },
+    aboutPage: {
+      hero: {
+        label: "ABOUT VIRTANIS",
+        titlePrefix: "Engineering ",
+        titleAccent: "Intelligent Digital",
+        titleSuffix: " Systems For The Future",
+        description:
+          "Virtanis is an elite digital engineering studio. We partner with ambitious companies worldwide to architect, design, and deploy scalable software platforms, custom AI systems, and immersive digital experiences.",
+      },
+      ethos: {
+        label: "THE VIRTANIS ETHOS",
+        title: "Architecting High-Value Digital Solutions",
+        p1: "Virtanis was established with a singular objective: to build intelligent software and web platforms that simplify complexity, scale effortlessly, and leave a lasting impression on end users.",
+        p2: "We believe great software is where computational engineering meets uncompromising design aesthetics. Every line of code and every interaction is crafted with precision.",
+        features: [
+          {
+            title: "Our Mission",
+            description:
+              "To engineer robust, high-performance digital systems and AI-powered platforms that deliver measurable market advantage for visionary brands.",
+          },
+          {
+            title: "Our Vision",
+            description:
+              "To be the premier digital engineering studio globally recognized for architectural perfection, intelligent automation, and luxury UX.",
+          },
+        ],
+      },
+      pillars: {
+        label: "OUR PILLARS",
+        title: "The Engineering Principles We Live By",
+        values: [
+          {
+            title: "Engineering Rigor",
+            description:
+              "Zero compromise on code quality, latency, scalability, and system architecture.",
+          },
+          {
+            title: "AI-First Innovation",
+            description:
+              "Leveraging state-of-the-art machine intelligence to automate and augment complex workflows.",
+          },
+          {
+            title: "Apple-Grade Design",
+            description:
+              "Minimalist, intuitive, and tactile interfaces that make interacting with technology effortless.",
+          },
+          {
+            title: "Global Partnership",
+            description:
+              "Transparent, collaborative execution from initial discovery to worldwide cloud deployment.",
+          },
+        ],
+      },
+      methodology: {
+        label: "OUR METHODOLOGY",
+        title: "From Blueprint To Global Production",
+        description:
+          "Our execution pipeline is transparent, agile, and engineered for high-velocity product delivery without sacrificing code quality or security.",
+        startProject: "Start Your Project",
+        steps: [
+          {
+            step: "01",
+            title: "Discover & Strategy",
+            description:
+              "Comprehensive analysis of business objectives, user requirements, and technical roadmaps.",
+          },
+          {
+            step: "02",
+            title: "System Architecture",
+            description:
+              "Blueprint design of cloud environments, database schemas, and intelligent API topologies.",
+          },
+          {
+            step: "03",
+            title: "Spatial & UI Design",
+            description:
+              "Crafting minimalist design systems, user flows, and interactive high-fidelity prototypes.",
+          },
+          {
+            step: "04",
+            title: "Full-Stack Build",
+            description:
+              "Writing clean, modular, and typed code with modern frontend and backend frameworks.",
+          },
+          {
+            step: "05",
+            title: "Scale & Deploy",
+            description:
+              "Automated CI/CD release, global CDN caching, telemetry monitoring, and continuous scaling.",
+          },
+        ],
+      },
+      techStack: {
+        label: "CORE STACK & TOOLS",
+        title: "Modern Technologies For Resilient Systems",
+      },
+      leadership: {
+        label: "STUDIO LEADERSHIP",
+        title: "Engineering Leadership & Vision",
+        subtitle:
+          "Virtanis is led by Dhia Eddine Guettaf, an AI engineer and full-stack systems architect dedicated to building digital platforms that drive real-world impact.",
+        badge: "Studio Leadership",
+        founder: {
+          name: "Dhia Eddine Guettaf",
+          role: "Founder & Lead Architect",
+          experience: "Full-Spectrum Engineering",
+          description:
+            "AI engineer, full-stack systems architect, and digital product craftsman. Dedicated to uniting machine intelligence with architectural precision and world-class product design for ambitious companies.",
+        },
+      },
+      cta: {
+        heading: "Let's Build Something Exceptional",
+        description:
+          "Ready to elevate your digital product with intelligent engineering and high-value design? Let's discuss your project.",
+        primaryText: "Start Your Project",
       },
     },
     contact: {
@@ -516,6 +705,123 @@ export const translations: Record<Locale, TranslationDictionary> = {
         engineering: { label: "Ingénierie", value: "Native IA & Zéro Latence" },
         delivery: { label: "Déploiement", value: "À l'Échelle Mondiale" },
         availability: { label: "Disponibilité", value: "Disponible pour Projets" },
+      },
+    },
+    aboutPage: {
+      hero: {
+        label: "À PROPOS DE VIRTANIS",
+        titlePrefix: "Ingénierie de Systèmes ",
+        titleAccent: "Numériques Intelligents",
+        titleSuffix: " Pour Demain",
+        description:
+          "Virtanis est un studio d'ingénierie numérique d'élite. Nous collaborons avec des entreprises ambitieuses à travers le monde pour concevoir, développer et déployer des plateformes logicielles évolutives, des systèmes d'IA sur mesure et des expériences immersives.",
+      },
+      ethos: {
+        label: "L'ESPRIT VIRTANIS",
+        title: "Concevoir des Solutions Numériques à Haute Valeur",
+        p1: "Virtanis a été fondé avec un objectif clair : développer des logiciels intelligents et des plateformes web qui simplifient la complexité, évoluent sans contrainte et marquent durablement leurs utilisateurs.",
+        p2: "Nous sommes convaincus que l'excellence logicielle réside dans la rencontre entre ingénierie algorithmique de pointe et esthétique sans compromis. Chaque ligne de code et chaque interaction sont conçues avec minutie.",
+        features: [
+          {
+            title: "Notre Mission",
+            description:
+              "Concevoir des systèmes numériques robustes et performants et des plateformes propulsées par l'IA apportant un avantage stratégique décisif aux marques visionnaires.",
+          },
+          {
+            title: "Notre Vision",
+            description:
+              "Être le studio d'ingénierie numérique de référence mondiale, reconnu pour sa rigueur architecturale, l'automatisation intelligente et l'élégance de ses expériences utilisateurs.",
+          },
+        ],
+      },
+      pillars: {
+        label: "NOS PILIERS",
+        title: "Nos Principes Fondateurs d'Ingénierie",
+        values: [
+          {
+            title: "Rigueur d'Ingénierie",
+            description:
+              "Zéro compromis sur la qualité du code, la latence, la scalabilité et l'architecture des systèmes.",
+          },
+          {
+            title: "Innovation Centrée sur l'IA",
+            description:
+              "Exploiter l'intelligence machine de pointe pour automatiser et décupler la puissance des flux métiers complexes.",
+          },
+          {
+            title: "Design de Niveau Apple",
+            description:
+              "Des interfaces épurées, intuitives et tactiles qui rendent l'interaction avec la technologie naturelle et fluide.",
+          },
+          {
+            title: "Partenariat Global",
+            description:
+              "Une exécution transparente et collaborative, de la phase de cadrage stratégique jusqu'au déploiement mondial dans le cloud.",
+          },
+        ],
+      },
+      methodology: {
+        label: "NOTRE MÉTHODOLOGIE",
+        title: "Du Schéma Directeur à la Production Mondiale",
+        description:
+          "Notre processus d'exécution est transparent, agile et optimisé pour des déploiements rapides et fiables, sans jamais sacrifier la sécurité ni la maintenabilité.",
+        startProject: "Lancer Votre Projet",
+        steps: [
+          {
+            step: "01",
+            title: "Découverte & Stratégie",
+            description:
+              "Analyse approfondie de vos objectifs métiers, des attentes utilisateurs et définition de la feuille de route technique.",
+          },
+          {
+            step: "02",
+            title: "Architecture Système",
+            description:
+              "Conception sur mesure des environnements cloud, schémas de bases de données et topologies d'API résilientes.",
+          },
+          {
+            step: "03",
+            title: "Design Spatial & UI",
+            description:
+              "Création de systèmes de design minimalistes, de parcours utilisateurs fluides et de prototypes haute fidélité.",
+          },
+          {
+            step: "04",
+            title: "Développement Full-Stack",
+            description:
+              "Écriture d'un code propre, modulaire et typé avec les technologies frontend et backend les plus performantes.",
+          },
+          {
+            step: "05",
+            title: "Échelle & Déploiement",
+            description:
+              "Intégration et déploiement continus (CI/CD), mise en cache CDN mondiale, monitoring télémétrique et montée en charge.",
+          },
+        ],
+      },
+      techStack: {
+        label: "STACK & OUTILS CLÉS",
+        title: "Technologies Modernes pour Systèmes Résilients",
+      },
+      leadership: {
+        label: "DIRECTION DU STUDIO",
+        title: "Vision & Leadership Technique",
+        subtitle:
+          "Virtanis est dirigé par Dhia Eddine Guettaf, ingénieur IA et architecte de systèmes full-stack dédié à la création de plateformes numériques à fort impact.",
+        badge: "Direction du Studio",
+        founder: {
+          name: "Dhia Eddine Guettaf",
+          role: "Fondateur & Architecte Principal",
+          experience: "Ingénierie Système Complète",
+          description:
+            "Ingénieur en intelligence artificielle, architecte de systèmes full-stack et artisan de produits numériques. Passionné par l'alliance entre rigueur algorithmique, précision logicielle et design haut de gamme pour les entreprises exigeantes.",
+        },
+      },
+      cta: {
+        heading: "Bâtissons Quelque Chose d'Exceptionnel",
+        description:
+          "Prêt à élever votre produit numérique grâce à une ingénierie intelligente et un design prestigieux ? Échangeons sur votre projet.",
+        primaryText: "Lancer Votre Projet",
       },
     },
     contact: {
