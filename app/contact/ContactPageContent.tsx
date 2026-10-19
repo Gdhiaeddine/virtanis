@@ -2,7 +2,6 @@
 
 import { FormEvent, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -19,6 +18,11 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import siteData from "../data/site.json";
+import {
+  getTranslations,
+  Locale,
+  ContactPageTranslation,
+} from "../data/translations";
 import styles from "./ContactPageContent.module.css";
 
 const fadeUp = {
@@ -39,13 +43,6 @@ const staggerItem = {
   whileInView: { opacity: 1, y: 0 },
   transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
 };
-
-const contactInfo = [
-  { icon: Mail, label: "Email", value: siteData.contact.email, href: `mailto:${siteData.contact.email}` },
-  { icon: Phone, label: "Phone", value: siteData.contact.phone, href: `tel:${siteData.contact.phone.replace(/\s+/g, "")}` },
-  { icon: MapPin, label: "Location", value: siteData.contact.location },
-  { icon: Clock, label: "Working Hours", value: siteData.contact.workingHours },
-];
 
 function LinkedInIcon() {
   return (
@@ -72,27 +69,44 @@ function BehanceIcon() {
 }
 
 const socialLinks = [
-  { icon: LinkedInIcon, label: "LinkedIn", href: siteData.socialLinks.find((l) => l.label === "LinkedIn")?.href || "#" },
-  { icon: InstagramIcon, label: "Instagram", href: siteData.socialLinks.find((l) => l.label === "Instagram")?.href || "#" },
-  { icon: BehanceIcon, label: "Behance", href: siteData.socialLinks.find((l) => l.label === "Behance")?.href || "#" },
+  {
+    icon: LinkedInIcon,
+    label: "LinkedIn",
+    href: siteData.socialLinks.find((l) => l.label === "LinkedIn")?.href || "#",
+  },
+  {
+    icon: InstagramIcon,
+    label: "Instagram",
+    href: siteData.socialLinks.find((l) => l.label === "Instagram")?.href || "#",
+  },
+  {
+    icon: BehanceIcon,
+    label: "Behance",
+    href: siteData.socialLinks.find((l) => l.label === "Behance")?.href || "#",
+  },
   { icon: Mail, label: "Email", href: `mailto:${siteData.contact.email}` },
 ];
 
-const CAPABILITIES = [
-  { icon: Zap, label: "Sub-24h Response" },
-  { icon: ShieldCheck, label: "NDA Protected" },
-  { icon: Globe2, label: "Global Reach" },
-  { icon: CheckCircle2, label: "Direct Access" },
-];
+const HERO_BADGE_ICONS = [Zap, ShieldCheck, Globe2, CheckCircle2];
 
 /* ─── Hero Section ─── */
-function HeroSection() {
+function HeroSection({
+  t,
+  isFr,
+}: {
+  t: ContactPageTranslation["hero"];
+  isFr: boolean;
+}) {
   return (
     <section className={styles.hero} aria-labelledby="contact-title">
       <div className={styles.heroBg} aria-hidden="true">
         <Image
           src="/contact-hero.webp"
-          alt="Virtanis Contact Atmosphere Background"
+          alt={
+            isFr
+              ? "Fond d'ambiance de contact Virtanis"
+              : "Virtanis Contact Atmosphere Background"
+          }
           fill
           priority
           sizes="100vw"
@@ -107,23 +121,24 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span className={styles.sectionLabel}>INITIATE ENGAGEMENT</span>
+          <span className={styles.sectionLabel}>{t.label}</span>
 
           <h1 id="contact-title" className={styles.title}>
-            Let&apos;s Build Something{" "}
-            <span className={styles.serifAccent}>Extraordinary.</span>
+            {t.titlePrefix}
+            <span className={styles.serifAccent}>{t.titleAccent}</span>
           </h1>
 
-          <p className={styles.description}>
-            Have a landmark project in mind, require enterprise-grade engineering, or want to discuss a strategic digital partnership? Virtanis is ready to deliver.
-          </p>
+          <p className={styles.description}>{t.description}</p>
 
           <div className={styles.buttons}>
             <a href="#contact-hub" className={styles.primaryButton}>
-              Explore Contact Hub <ArrowRight size={15} />
+              {t.exploreHub} <ArrowRight size={15} />
             </a>
-            <a href={`mailto:${siteData.contact.email}`} className={styles.secondaryButton}>
-              Email Directly <ArrowRight size={15} />
+            <a
+              href={`mailto:${siteData.contact.email}`}
+              className={styles.secondaryButton}
+            >
+              {t.emailDirectly} <ArrowRight size={15} />
             </a>
           </div>
 
@@ -133,12 +148,15 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
           >
-            {CAPABILITIES.map((badge) => (
-              <div key={badge.label} className={styles.badge}>
-                <badge.icon size={14} className={styles.badgeIcon} />
-                <span>{badge.label}</span>
-              </div>
-            ))}
+            {t.badges.map((badge, idx) => {
+              const Icon = HERO_BADGE_ICONS[idx] || CheckCircle2;
+              return (
+                <div key={badge.label} className={styles.badge}>
+                  <Icon size={14} className={styles.badgeIcon} />
+                  <span>{badge.label}</span>
+                </div>
+              );
+            })}
           </motion.div>
         </motion.div>
       </div>
@@ -147,9 +165,42 @@ function HeroSection() {
 }
 
 /* ─── Unified Contact Hub ─── */
-function ContactHub() {
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+function ContactHub({
+  t,
+  isFr,
+}: {
+  t: ContactPageTranslation;
+  isFr: boolean;
+}) {
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
   const [statusMessage, setStatusMessage] = useState("");
+
+  const contactInfo = [
+    {
+      icon: Mail,
+      label: t.channels.items.email.label,
+      value: siteData.contact.email,
+      href: `mailto:${siteData.contact.email}`,
+    },
+    {
+      icon: Phone,
+      label: t.channels.items.phone.label,
+      value: siteData.contact.phone,
+      href: `tel:${siteData.contact.phone.replace(/\s+/g, "")}`,
+    },
+    {
+      icon: MapPin,
+      label: t.channels.items.location.label,
+      value: t.channels.items.location.value,
+    },
+    {
+      icon: Clock,
+      label: t.channels.items.workingHours.label,
+      value: t.channels.items.workingHours.value,
+    },
+  ];
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -168,34 +219,38 @@ function ContactHub() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Something went wrong.");
+        throw new Error(data.error || t.form.status.error);
       }
 
       setSubmitStatus("success");
-      setStatusMessage("Your message has been received. Our team will get back to you shortly!");
+      setStatusMessage(t.form.status.success);
       form.reset();
     } catch (error) {
       setSubmitStatus("error");
       setStatusMessage(
-        error instanceof Error
-          ? error.message
-          : "Could not send your message. Please try again.",
+        error instanceof Error ? error.message : t.form.status.error
       );
     }
   };
 
   return (
-    <section className={styles.hubSection} id="contact-hub" aria-label="Contact Channels and Project Form">
+    <section
+      className={styles.hubSection}
+      id="contact-hub"
+      aria-label={
+        isFr
+          ? "Canaux de contact et formulaire de projet"
+          : "Contact Channels and Project Form"
+      }
+    >
       <div className={styles.container}>
         <div className={styles.hubGrid}>
           {/* Left Column — Channels & Social Matrix */}
           <motion.div className={styles.leftCol} {...fadeUp}>
             <div className={styles.colHeader}>
-              <span className={styles.sectionLabel}>DIRECT CHANNELS</span>
-              <h2 className={styles.colTitle}>Reach Virtanis Directly</h2>
-              <p className={styles.colDesc}>
-                Connect through our primary communication channels or social profiles for immediate response.
-              </p>
+              <span className={styles.sectionLabel}>{t.channels.label}</span>
+              <h2 className={styles.colTitle}>{t.channels.title}</h2>
+              <p className={styles.colDesc}>{t.channels.description}</p>
             </div>
 
             <motion.div
@@ -211,7 +266,15 @@ function ContactHub() {
                 return (
                   <motion.div key={item.label} variants={staggerItem}>
                     <CardWrapper
-                      {...(item.href ? { href: item.href, target: item.href.startsWith("http") ? "_blank" : undefined, rel: "noopener noreferrer" } : {})}
+                      {...(item.href
+                        ? {
+                            href: item.href,
+                            target: item.href.startsWith("http")
+                              ? "_blank"
+                              : undefined,
+                            rel: "noopener noreferrer",
+                          }
+                        : {})}
                       className={styles.infoCard}
                     >
                       <div className={styles.infoIcon}>
@@ -229,7 +292,9 @@ function ContactHub() {
 
             {/* Social Network Bar */}
             <div className={styles.socialBox}>
-              <span className={styles.socialBoxLabel}>CONNECT ACROSS PLATFORMS</span>
+              <span className={styles.socialBoxLabel}>
+                {t.channels.socialBoxLabel}
+              </span>
               <div className={styles.socialGrid}>
                 {socialLinks.map((link) => {
                   const Icon = link.icon;
@@ -255,11 +320,9 @@ function ContactHub() {
           <motion.div className={styles.rightCol} {...fadeUp}>
             <div className={styles.formCard}>
               <div className={styles.formHeader}>
-                <span className={styles.sectionLabel}>PROJECT INQUIRY</span>
-                <h2 className={styles.colTitle}>Start a Project</h2>
-                <p className={styles.colDesc}>
-                  Provide your project details below and our engineering leads will respond within 24 hours.
-                </p>
+                <span className={styles.sectionLabel}>{t.form.label}</span>
+                <h2 className={styles.colTitle}>{t.form.title}</h2>
+                <p className={styles.colDesc}>{t.form.description}</p>
               </div>
 
               <form className={styles.form} onSubmit={handleSubmit}>
@@ -267,14 +330,14 @@ function ContactHub() {
                   <div className={styles.fieldGroup}>
                     <label htmlFor="name" className={styles.fieldLabel}>
                       <User size={14} />
-                      <span>Your Name</span>
+                      <span>{t.form.labels.name}</span>
                     </label>
                     <input
                       type="text"
                       id="name"
                       name="name"
                       required
-                      placeholder="John Doe"
+                      placeholder={t.form.placeholders.name}
                       className={styles.input}
                     />
                   </div>
@@ -282,14 +345,14 @@ function ContactHub() {
                   <div className={styles.fieldGroup}>
                     <label htmlFor="email" className={styles.fieldLabel}>
                       <Mail size={14} />
-                      <span>Your Email</span>
+                      <span>{t.form.labels.email}</span>
                     </label>
                     <input
                       type="email"
                       id="email"
                       name="email"
                       required
-                      placeholder="john@example.com"
+                      placeholder={t.form.placeholders.email}
                       className={styles.input}
                     />
                   </div>
@@ -298,14 +361,14 @@ function ContactHub() {
                 <div className={styles.fieldGroup}>
                   <label htmlFor="subject" className={styles.fieldLabel}>
                     <FileText size={14} />
-                    <span>Subject / Domain</span>
+                    <span>{t.form.labels.subject}</span>
                   </label>
                   <input
                     type="text"
                     id="subject"
                     name="subject"
                     required
-                    placeholder="Web App Architecture, Mobile App, AI Integration..."
+                    placeholder={t.form.placeholders.subject}
                     className={styles.input}
                   />
                 </div>
@@ -313,14 +376,14 @@ function ContactHub() {
                 <div className={styles.fieldGroup}>
                   <label htmlFor="message" className={styles.fieldLabel}>
                     <MessageSquare size={14} />
-                    <span>Project Description</span>
+                    <span>{t.form.labels.message}</span>
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     required
                     rows={5}
-                    placeholder="Tell us about your project scope, goals, and target timeline..."
+                    placeholder={t.form.placeholders.message}
                     className={styles.textarea}
                   />
                 </div>
@@ -328,14 +391,16 @@ function ContactHub() {
                 <button
                   type="submit"
                   className={styles.submitButton}
-                  disabled={submitStatus === "sending" || submitStatus === "success"}
+                  disabled={
+                    submitStatus === "sending" || submitStatus === "success"
+                  }
                 >
                   <span>
                     {submitStatus === "sending"
-                      ? "Transmitting Message..."
+                      ? t.form.button.sending
                       : submitStatus === "success"
-                        ? "Message Delivered ✓"
-                        : "Submit Project Inquiry"}
+                        ? t.form.button.success
+                        : t.form.button.default}
                   </span>
                   {submitStatus === "idle" && <ArrowRight size={16} />}
                 </button>
@@ -360,8 +425,17 @@ function ContactHub() {
   );
 }
 
+interface ContactPageContentProps {
+  locale?: Locale;
+}
+
 /* ─── Main Page ─── */
-export default function ContactPageContent() {
+export default function ContactPageContent({
+  locale = "en",
+}: ContactPageContentProps = {}) {
+  const isFr = locale === "fr";
+  const t = getTranslations(locale).contactPage;
+
   return (
     <main className={styles.page}>
       <div className={styles.bgAtmosphere} aria-hidden="true">
@@ -372,8 +446,8 @@ export default function ContactPageContent() {
         <div className={styles.glowTwo} />
       </div>
 
-      <HeroSection />
-      <ContactHub />
+      <HeroSection t={t.hero} isFr={isFr} />
+      <ContactHub t={t} isFr={isFr} />
     </main>
   );
 }

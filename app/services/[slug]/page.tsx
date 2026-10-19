@@ -27,6 +27,11 @@ export async function generateMetadata({
     description: service.metaDescription,
     alternates: {
       canonical: `https://virtanis.com/services/${slug}`,
+      languages: {
+        en: `https://virtanis.com/services/${slug}`,
+        fr: `https://virtanis.com/fr/services/${slug}`,
+        "x-default": `https://virtanis.com/services/${slug}`,
+      },
     },
     openGraph: {
       type: "website",
@@ -110,7 +115,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="flex flex-col flex-1 bg-[#050505] text-white">
-        <ServiceDetailContent service={service} />
+        <ServiceDetailContent service={service} locale="en" />
       </div>
     </>
   );

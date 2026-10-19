@@ -4,14 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, Zap, Layers, Cpu } from "lucide-react";
+import { getTranslations, Locale } from "../../data/translations";
 import styles from "./ServicesHero.module.css";
 
-const CAPABILITIES = [
-  { icon: ShieldCheck, label: "Enterprise Security" },
-  { icon: Zap, label: "Sub-50ms Latency" },
-  { icon: Layers, label: "Scalable Architecture" },
-  { icon: Cpu, label: "AI & Full-Stack Mastery" },
-];
+const BADGE_ICONS = [ShieldCheck, Zap, Layers, Cpu];
 
 function mulberry32(seed: number) {
   return function () {
@@ -34,13 +30,28 @@ const PARTICLES = Array.from({ length: 24 }, (_, i) => ({
   opacity: rand() * 0.35 + 0.1,
 }));
 
-export default function ServicesHero() {
+interface ServicesHeroProps {
+  locale?: Locale;
+}
+
+export default function ServicesHero({ locale = "en" }: ServicesHeroProps = {}) {
+  const isFr = locale === "fr";
+  const t = getTranslations(locale).servicesPage.hero;
+
   return (
-    <section className={styles.hero} id="services-hero" aria-label="Services Overview">
+    <section
+      className={styles.hero}
+      id="services-hero"
+      aria-label={isFr ? "Aperçu des Services" : "Services Overview"}
+    >
       <div className={styles.heroBg} aria-hidden="true">
         <Image
           src="/services/hero-service.webp"
-          alt="Virtanis Services Architecture Background"
+          alt={
+            isFr
+              ? "Fond d'architecture des services Virtanis"
+              : "Virtanis Services Architecture Background"
+          }
           fill
           priority
           sizes="100vw"
@@ -78,27 +89,26 @@ export default function ServicesHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span className={styles.sectionLabel}>
-            SERVICE ARCHITECTURE & ENGINEERING
-          </span>
+          <span className={styles.sectionLabel}>{t.label}</span>
 
           <h1 className={styles.title}>
-            Full-Spectrum Digital <br />
-            <span className={styles.serifAccent}>Capabilities</span> For Global Scale
+            {t.titlePrefix}
+            <br />
+            <span className={styles.serifAccent}>{t.titleAccent}</span>
+            {t.titleSuffix}
           </h1>
 
-          <p className={styles.description}>
-            From mission-critical web platforms and cross-platform mobile systems to
-            production machine learning pipelines and immersive 3D interfaces — we architect
-            high-value digital solutions engineered for speed, security, and market dominance.
-          </p>
+          <p className={styles.description}>{t.description}</p>
 
           <div className={styles.buttons}>
             <a href="#services-grid" className={styles.primaryButton}>
-              Explore Capabilities <ArrowRight size={15} />
+              {t.exploreBtn} <ArrowRight size={15} />
             </a>
-            <Link href="/contact" className={styles.secondaryButton}>
-              Initiate Project <ArrowRight size={15} />
+            <Link
+              href={isFr ? "/fr#contact" : "/contact"}
+              className={styles.secondaryButton}
+            >
+              {t.initiateBtn} <ArrowRight size={15} />
             </Link>
           </div>
 
@@ -108,12 +118,15 @@ export default function ServicesHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
           >
-            {CAPABILITIES.map((badge) => (
-              <div key={badge.label} className={styles.badge}>
-                <badge.icon size={14} className={styles.badgeIcon} />
-                <span>{badge.label}</span>
-              </div>
-            ))}
+            {t.badges.map((badge, idx) => {
+              const Icon = BADGE_ICONS[idx] || ShieldCheck;
+              return (
+                <div key={badge.label} className={styles.badge}>
+                  <Icon size={14} className={styles.badgeIcon} />
+                  <span>{badge.label}</span>
+                </div>
+              );
+            })}
           </motion.div>
         </motion.div>
       </div>

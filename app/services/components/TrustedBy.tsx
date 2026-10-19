@@ -1,6 +1,8 @@
 "use client";
+
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { getTranslations, Locale } from "../../data/translations";
 import styles from "./TrustedBy.module.css";
 
 const PARTNERS = [
@@ -8,9 +10,19 @@ const PARTNERS = [
   { name: "Golden Hills", logo: "/partners/golden-hills.png" },
 ];
 
-export default function TrustedBy() {
+interface TrustedByProps {
+  locale?: Locale;
+}
+
+export default function TrustedBy({ locale = "en" }: TrustedByProps = {}) {
+  const isFr = locale === "fr";
+  const t = getTranslations(locale).servicesPage.trustedBy;
+
   return (
-    <section className={styles.trustedBy} aria-label="Trusted Enterprise Partners">
+    <section
+      className={styles.trustedBy}
+      aria-label={isFr ? "Partenaires d'entreprise de confiance" : "Trusted Enterprise Partners"}
+    >
       <div className={styles.container}>
         <motion.p
           className={styles.label}
@@ -19,7 +31,7 @@ export default function TrustedBy() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          TRUSTED BY ENTERPRISES, SCALE-UPS & GLOBAL FOUNDERS
+          {t.label}
         </motion.p>
         <div className={styles.logoRow}>
           {PARTNERS.map((partner, i) => (

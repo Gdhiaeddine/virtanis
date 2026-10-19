@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "https://virtanis.com/contact",
+    languages: {
+      en: "https://virtanis.com/contact",
+      fr: "https://virtanis.com/fr/contact",
+      "x-default": "https://virtanis.com/contact",
+    },
   },
   openGraph: {
     type: "website",
@@ -69,7 +74,7 @@ export default function ContactPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactJsonLd) }}
       />
       <div className="flex flex-col flex-1 bg-[#050505] text-white">
-        <ContactPageContent />
+        <ContactPageContent locale="en" />
       </div>
     </>
   );

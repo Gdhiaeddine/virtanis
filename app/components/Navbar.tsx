@@ -37,13 +37,13 @@ export default function Navbar() {
   const routeSection =
     pathname === "/about" || pathname === "/fr/about"
       ? "about"
-      : pathname === "/projects"
+      : pathname === "/projects" || pathname === "/fr/projects"
         ? "projects"
-        : pathname.startsWith("/services")
+        : pathname.startsWith("/services") || pathname.startsWith("/fr/services")
           ? "services"
-          : pathname === "/skills"
+          : pathname === "/skills" || pathname === "/fr/skills"
             ? "skills"
-            : pathname === "/contact"
+            : pathname === "/contact" || pathname === "/fr/contact"
               ? "contact"
               : null;
 
@@ -92,10 +92,10 @@ export default function Navbar() {
   const hrefFor = (id: string) => {
     if (id === "home") return isFr ? "/fr" : "/";
     if (id === "about") return isFr ? "/fr/about" : "/about";
-    if (id === "services") return "/services";
-    if (id === "projects") return "/projects";
-    if (id === "skills") return "/skills";
-    if (id === "contact") return "/contact";
+    if (id === "services") return isFr ? "/fr/services" : "/services";
+    if (id === "projects") return isFr ? "/fr/projects" : "/projects";
+    if (id === "skills") return isFr ? "/fr/skills" : "/skills";
+    if (id === "contact") return isFr ? "/fr/contact" : "/contact";
     return isFr ? `/fr#${id}` : `/#${id}`;
   };
 
@@ -103,8 +103,39 @@ export default function Navbar() {
 
   // Dynamic language switcher target based on current path
   const isAboutPage = pathname === "/about" || pathname === "/fr/about";
-  const enHref = isAboutPage ? "/about" : "/";
-  const frHref = isAboutPage ? "/fr/about" : "/fr";
+  const isSkillsPage = pathname === "/skills" || pathname === "/fr/skills";
+  const isProjectsPage = pathname === "/projects" || pathname === "/fr/projects";
+  const isServicesPage = pathname === "/services" || pathname === "/fr/services";
+  const isContactPage = pathname === "/contact" || pathname === "/fr/contact";
+  const isServiceDetailPage =
+    (pathname.startsWith("/services/") && pathname !== "/services") ||
+    (pathname.startsWith("/fr/services/") && pathname !== "/fr/services");
+  const serviceDetailSlug = isServiceDetailPage
+    ? pathname.replace(/^\/(?:fr\/)?services\//, "")
+    : "";
+
+  let enHref = "/";
+  let frHref = "/fr";
+
+  if (isAboutPage) {
+    enHref = "/about";
+    frHref = "/fr/about";
+  } else if (isSkillsPage) {
+    enHref = "/skills";
+    frHref = "/fr/skills";
+  } else if (isProjectsPage) {
+    enHref = "/projects";
+    frHref = "/fr/projects";
+  } else if (isServiceDetailPage) {
+    enHref = `/services/${serviceDetailSlug}`;
+    frHref = `/fr/services/${serviceDetailSlug}`;
+  } else if (isServicesPage) {
+    enHref = "/services";
+    frHref = "/fr/services";
+  } else if (isContactPage) {
+    enHref = "/contact";
+    frHref = "/fr/contact";
+  }
 
   return (
     <>
@@ -149,7 +180,7 @@ export default function Navbar() {
               </Link>
             </div>
 
-            <Link href="/contact" className={styles.ctaButton}>
+            <Link href={isFr ? "/fr/contact" : "/contact"} className={styles.ctaButton}>
               {t.cta} <ArrowRight size={14} />
             </Link>
             <button

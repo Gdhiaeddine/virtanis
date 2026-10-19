@@ -983,3 +983,949 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
       "Let's create a cloud and DevOps setup that makes your product faster to deploy, easier to monitor, and ready to scale.",
   },
 };
+
+export const SERVICES_DATA_FR: Record<string, ServiceDetail> = {
+  "web-development": {
+    slug: "web-development",
+    title: "Développement Web",
+    label: "DÉVELOPPEMENT WEB",
+    metaTitle: "Services de Développement Web",
+    metaDescription:
+      "Services de développement web haut de gamme par Virtanis. Nous concevons des sites et applications web modernes, réactifs, optimisés pour le SEO, sécurisés et performants pour les entreprises.",
+    heroTitle: "Sites Modernes.\nExpériences Puissantes.",
+    heroAccentWords: ["Sites Modernes."],
+    heroDescription:
+      "Nous concevons des sites web modernes, réactifs et ultra-performants qui propulsent la croissance des entreprises, captivent leur audience et concrétisent leurs ambitions numériques.",
+    heroImage: {
+      src: "/services/web-development.webp",
+      alt: "Aperçu de tableau de bord de développement web par Virtanis",
+    },
+    badges: [
+      "Performance Optimisée",
+      "Optimisé pour le SEO",
+      "Sécurisé & Fiable",
+      "Architecture Évolutive",
+    ],
+    stats: [
+      { value: "10+", label: "Projets Web Réalisés", iconName: "Award" },
+      { value: "100%", label: "Satisfaction Client", iconName: "Handshake" },
+      { value: "Rapide", label: "Focalisé Performance", iconName: "Zap" },
+      { value: "Support", label: "Assistance Continue 24/7", iconName: "Activity" },
+    ],
+    detailTitle: "Des Solutions Web Complètes Pour Votre Entreprise",
+    detailDescription:
+      "Des sites vitrines sur mesure aux applications web complexes, nous concevons des solutions de bout en bout adaptées à vos impératifs métiers.",
+    serviceCards: [
+      {
+        title: "Sites Web Sur Mesure",
+        description:
+          "Nous concevons des sites web uniques et contemporains qui valorisent votre image de marque et garantissent une expérience utilisateur remarquable.",
+        checklist: [
+          "Sites Entreprise",
+          "Pages d'Atterrissage (Landing Pages)",
+          "Sites Portfolios",
+          "Sites Institutionnels",
+        ],
+        iconName: "Globe",
+      },
+      {
+        title: "Applications Web",
+        description:
+          "Des applications web robustes et évolutives développées avec des technologies de pointe pour répondre à des besoins métiers complexes.",
+        checklist: [
+          "Applications SaaS",
+          "Tableaux de Bord",
+          "Panneaux d'Administration",
+          "Apps Web Métier",
+        ],
+        iconName: "Layout",
+      },
+      {
+        title: "Plateformes E-Commerce",
+        description:
+          "Boutiques en ligne optimisées conçues pour convertir les visiteurs en clients fidèles, avec des tunnels d'achat fluides et sécurisés.",
+        checklist: [
+          "Boutiques en Ligne",
+          "Passerelles de Paiement",
+          "Gestion des Stocks",
+          "Optimisation Conversion",
+        ],
+        iconName: "ShoppingCart",
+      },
+      {
+        title: "Maintenance & Évolution",
+        description:
+          "Support technique continu, mises à jour de sécurité et optimisations régulières pour garantir la pérennité de votre plateforme.",
+        checklist: [
+          "Mises à Jour Régulières",
+          "Surveillance Sécurité",
+          "Suivi des Performances",
+          "Sauvegardes Automatisées",
+        ],
+        iconName: "Headphones",
+      },
+    ],
+    technologies: [
+      { name: "Next.js", iconName: "Triangle" },
+      { name: "React", iconName: "Atom" },
+      { name: "TypeScript", iconName: "Code2" },
+      { name: "Tailwind CSS", iconName: "Sparkles" },
+      { name: "Node.js", iconName: "Server" },
+      { name: "PostgreSQL", iconName: "Database" },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Découverte",
+        description:
+          "Nous analysons vos besoins, vos cibles et vos objectifs pour définir une feuille de route claire et ambitieuse.",
+        iconName: "ClipboardCheck",
+      },
+      {
+        step: "02",
+        title: "Design & UI/UX",
+        description:
+          "Création de maquettes interactives et d'interfaces intuitives centrées sur l'utilisateur et l'image de votre marque.",
+        iconName: "Palette",
+      },
+      {
+        step: "03",
+        title: "Développement",
+        description:
+          "Écriture de code propre, maintenable et performant respectant les standards de l'industrie.",
+        iconName: "Code2",
+      },
+      {
+        step: "04",
+        title: "Tests & Recette",
+        description:
+          "Vérification rigoureuse des fonctionnalités, de la réactivité, de la compatibilité et de la sécurité.",
+        iconName: "ShieldCheck",
+      },
+      {
+        step: "05",
+        title: "Déploiement",
+        description:
+          "Mise en production sécurisée, optimisation du référencement et accompagnement au lancement.",
+        iconName: "Rocket",
+      },
+    ],
+    whyTitle: "Pourquoi Choisir Virtanis Pour Votre Projet Web",
+    whyCards: [
+      {
+        title: "Performance Maximale",
+        description:
+          "Des sites ultra-rapides conçus pour maximiser l'engagement, l'indexation SEO et les conversions.",
+        iconName: "Zap",
+      },
+      {
+        title: "Design Sur Mesure",
+        description:
+          "Des designs contemporains créés sur mesure pour refléter l'identité unique de votre entreprise.",
+        iconName: "Palette",
+      },
+      {
+        title: "Architecture Évolutive",
+        description:
+          "Une base technique solide prête à soutenir la croissance de votre entreprise et l'ajout de fonctionnalités.",
+        iconName: "Layers",
+      },
+      {
+        title: "Partenariat Durable",
+        description:
+          "Un accompagnement proactif à long terme pour faire évoluer votre écosystème digital en toute sérénité.",
+        iconName: "Users",
+      },
+    ],
+    ctaTitle: "Prêt À Concrétiser Votre Projet Web ?",
+    ctaDescription:
+      "Discutons de vos objectifs et bâtissons ensemble une présence numérique performante et mémorable.",
+  },
+  "mobile-development": {
+    slug: "mobile-development",
+    title: "Développement Mobile",
+    label: "DÉVELOPPEMENT MOBILE",
+    metaTitle: "Services de Développement Mobile",
+    metaDescription:
+      "Services d'ingénierie mobile par Virtanis. Conception et déploiement d'applications iOS et Android performantes, intuitives et évolutives.",
+    heroTitle: "Applications Mobiles.\nPerformance & Fluidité.",
+    heroAccentWords: ["Applications Mobiles."],
+    heroDescription:
+      "Nous concevons des applications mobiles iOS et Android performantes et ergonomiques qui allient fluidité native, design soigné et architecture cloud pérenne.",
+    heroImage: {
+      src: "/services/mobile-development.webp",
+      alt: "Aperçu d'application mobile sur smartphone par Virtanis",
+    },
+    badges: [
+      "iOS & Android",
+      "Expérience Fluide",
+      "Haute Sécurité",
+      "Prêt pour les Stores",
+    ],
+    stats: [
+      { value: "Multiplateforme", label: "Architecture Unifiée", iconName: "Smartphone" },
+      { value: "60 FPS", label: "Animations Fluides", iconName: "Zap" },
+      { value: "App Store", label: "Publication Conforme", iconName: "CheckCircle2" },
+      { value: "Sécurisé", label: "Chiffrement & Données", iconName: "ShieldCheck" },
+    ],
+    detailTitle: "Des Applications Mobiles Conçues Pour L'Excellence",
+    detailDescription:
+      "Du prototype interactif à la publication sur l'App Store et Google Play, nous développons des applications mobiles fiables, réactives et engageantes.",
+    serviceCards: [
+      {
+        title: "Développement Multiplateforme",
+        description:
+          "Une base de code unique et performante pour propulser simultanément votre application sur iOS et Android sans compromis.",
+        checklist: [
+          "React Native & Expo",
+          "Interface & Logique Unifiées",
+          "Coûts de Maintenance Réduits",
+          "Déploiements Accélérés",
+        ],
+        iconName: "Smartphone",
+      },
+      {
+        title: "Intégration d'APIs & Backend",
+        description:
+          "Connexion sécurisée à vos systèmes d'information, gestion du mode hors ligne et synchronisation en temps réel.",
+        checklist: [
+          "APIs REST & GraphQL",
+          "Synchronisation Offline",
+          "Authentification Sécurisée",
+          "Notifications Push",
+        ],
+        iconName: "Network",
+      },
+      {
+        title: "Publication & Conformité Stores",
+        description:
+          "Accompagnement rigoureux pour la validation, la soumission et l'approbation sur Apple App Store et Google Play Store.",
+        checklist: [
+          "Gestion des Comptes Développeur",
+          "Conformité des Politiques",
+          "Captures & Fiches Produits",
+          "Mises à Jour Régulières",
+        ],
+        iconName: "CheckCircle2",
+      },
+      {
+        title: "Maintenance & Télémétrie",
+        description:
+          "Surveillance proactive des plantages, analyses des performances et mises à jour continues selon l'évolution des OS.",
+        checklist: [
+          "Suivi des Crashs en Temps Réel",
+          "Optimisation Batterie & RAM",
+          "Mises à Jour Majeures OS",
+          "Support Technique Réactif",
+        ],
+        iconName: "Activity",
+      },
+    ],
+    technologies: [
+      { name: "React Native", iconName: "Atom" },
+      { name: "Expo", iconName: "Smartphone" },
+      { name: "TypeScript", iconName: "Code2" },
+      { name: "Tailwind CSS", iconName: "Sparkles" },
+      { name: "Firebase", iconName: "Flame" },
+      { name: "Redux Toolkit", iconName: "Layers" },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Spécification Mobile",
+        description:
+          "Analyse des cas d'usage mobiles, personas, parcours gestuels et contraintes techniques des appareils.",
+        iconName: "ClipboardCheck",
+      },
+      {
+        step: "02",
+        title: "Prototypage & UI/UX",
+        description:
+          "Design d'interfaces tactiles intuitives et ergonomiques respectant les directives Human Interface et Material Design.",
+        iconName: "Palette",
+      },
+      {
+        step: "03",
+        title: "Ingénierie & Intégration",
+        description:
+          "Développement agile avec tests unitaires, gestion d'état réactive et liaison aux services cloud.",
+        iconName: "Code2",
+      },
+      {
+        step: "04",
+        title: "Bancs d'Essais Réels",
+        description:
+          "Tests rigoureux sur un vaste échantillon de smartphones réels pour garantir fluidité et stabilité.",
+        iconName: "ShieldCheck",
+      },
+      {
+        step: "05",
+        title: "Déploiement & Stores",
+        description:
+          "Publication validée sur l'App Store et Google Play et suivi attentif des premiers utilisateurs.",
+        iconName: "Rocket",
+      },
+    ],
+    whyTitle: "Pourquoi Choisir Virtanis Pour Vos Applications Mobiles",
+    whyCards: [
+      {
+        title: "Fluidité Native",
+        description:
+          "Des interfaces ultra-réactives animées à 60 images par seconde pour un confort utilisateur irréprochable.",
+        iconName: "Zap",
+      },
+      {
+        title: "Mise en Marché Rapide",
+        description:
+          "Une approche multiplateforme moderne qui réduit drastiquement les délais de commercialisation sur iOS et Android.",
+        iconName: "Clock",
+      },
+      {
+        title: "Robustesse Opérationnelle",
+        description:
+          "Gestion impeccable des réseaux dégradés, du cache local et de la sécurité des données sensibles.",
+        iconName: "ShieldCheck",
+      },
+      {
+        title: "Suivi & Évolution",
+        description:
+          "Un accompagnement constant pour enrichir votre application au fil des retours de votre communauté.",
+        iconName: "Users",
+      },
+    ],
+    ctaTitle: "Donnez Vie À Votre Projet Mobile",
+    ctaDescription:
+      "Discutons de votre vision et créons une application mobile remarquable que vos utilisateurs adopteront au quotidien.",
+  },
+  "ai-ml": {
+    slug: "ai-ml",
+    title: "Intelligence Artificielle & ML",
+    label: "INTELLIGENCE ARTIFICIELLE & MACHINE LEARNING",
+    metaTitle: "Services d'Intelligence Artificielle & Machine Learning",
+    metaDescription:
+      "Solutions avancées d'intelligence artificielle et de machine learning par Virtanis. Automatisation intelligente, intégration de LLM, pipelines RAG et modèles prédictifs.",
+    heroTitle: "Intelligence Artificielle.\nSystèmes Intelligents.",
+    heroAccentWords: ["Intelligence Artificielle."],
+    heroDescription:
+      "Nous intégrons des capacités d'IA générative et de Machine Learning au cœur de vos logiciels pour automatiser vos processus et débloquer de nouveaux leviers de croissance.",
+    heroImage: {
+      src: "/services/ai-ml.webp",
+      alt: "Visualisation de réseau neuronal et modèles d'intelligence artificielle par Virtanis",
+    },
+    badges: [
+      "Intégration LLM & RAG",
+      "Modèles Prédictifs",
+      "Automatisation Intelligente",
+      "Protection des Données",
+    ],
+    stats: [
+      { value: "Sur Mesure", label: "Architectures Dédiées", iconName: "Brain" },
+      { value: "99.9%", label: "Disponibilité des APIs", iconName: "Activity" },
+      { value: "RAG", label: "Recherche Contextuelle", iconName: "Cpu" },
+      { value: "RGPD", label: "Données & Confidentialité", iconName: "ShieldCheck" },
+    ],
+    detailTitle: "Transformez Vos Données En Avantage Concurrentiel",
+    detailDescription:
+      "De l'intégration d'assistants conversationnels intelligents aux pipelines de données prédictifs, nous concevons des systèmes IA éthiques, fiables et à fort impact.",
+    serviceCards: [
+      {
+        title: "Intégration de LLM & Assistants IA",
+        description:
+          "Déploiement d'assistants intelligents sur mesure connectés à votre base de connaissances pour décupler la productivité de vos équipes.",
+        checklist: [
+          "Agents Conversationnels Métier",
+          "Recherche RAG & Embeddings",
+          "Synthèse & Analyse Automatisée",
+          "Intégration Multi-Modèles",
+        ],
+        iconName: "Bot",
+      },
+      {
+        title: "Pipelines de Machine Learning",
+        description:
+          "Conception et entraînement de modèles prédictifs adaptés à vos données pour anticiper les tendances et optimiser vos décisions.",
+        checklist: [
+          "Modèles de Classification & Régression",
+          "Détection d'Anomalies",
+          "Systèmes de Recommandation",
+          "Nettoyage & Préparation des Données",
+        ],
+        iconName: "Cpu",
+      },
+      {
+        title: "Automatisation Cognitive des Processus",
+        description:
+          "Remplacement des tâches manuelles répétitives par des flux de travail autonomes pilotés par l'intelligence artificielle.",
+        checklist: [
+          "Traitement Automatique de Documents",
+          "Extraction Structurée de Données",
+          "Workflows Décisionnels",
+          "Connexions ERP & CRM",
+        ],
+        iconName: "Workflow",
+      },
+      {
+        title: "Évaluation & Sécurisation IA",
+        description:
+          "Audit rigoureux de la précision des modèles, prévention des hallucinations, contrôle des biais et conformité réglementaire.",
+        checklist: [
+          "Garde-fous & Filtrage des Invites",
+          "Mesure des Hallucinations",
+          "Isolation des Données Privées",
+          "Monitoring des Coûts API",
+        ],
+        iconName: "ShieldCheck",
+      },
+    ],
+    technologies: [
+      { name: "Python", iconName: "Terminal" },
+      { name: "PyTorch", iconName: "Cpu" },
+      { name: "OpenAI API", iconName: "Bot" },
+      { name: "LangChain", iconName: "Network" },
+      { name: "Hugging Face", iconName: "Sparkles" },
+      { name: "Vector Databases", iconName: "Database" },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Cadrage & Cas d'Usage",
+        description:
+          "Identification des opportunités d'automatisation à plus forte valeur ajoutée pour votre organisation.",
+        iconName: "ClipboardCheck",
+      },
+      {
+        step: "02",
+        title: "Exploration des Données",
+        description:
+          "Audit, nettoyage et vectorisation de vos données pour garantir la fiabilité des réponses et prédictions.",
+        iconName: "Database",
+      },
+      {
+        step: "03",
+        title: "Architecture & Prototypage",
+        description:
+          "Développement d'un POC ciblé pour valider la précision, la latence et la viabilité économique.",
+        iconName: "Brain",
+      },
+      {
+        step: "04",
+        title: "Industrialisation Sécurisée",
+        description:
+          "Mise en place de garde-fous, gestion des clés, limitation de débit et monitoring continu.",
+        iconName: "ShieldCheck",
+      },
+      {
+        step: "05",
+        title: "Déploiement & Apprentissage",
+        description:
+          "Mise en service, intégration utilisateur et ajustement continu des invites et modèles.",
+        iconName: "Rocket",
+      },
+    ],
+    whyTitle: "Pourquoi Choisir Virtanis Pour Vos Projets IA",
+    whyCards: [
+      {
+        title: "Approche Pragmatique",
+        description:
+          "Nous concevons des solutions d'IA utiles et mesurables, résolvant de véritables problématiques d'entreprise.",
+        iconName: "Target",
+      },
+      {
+        title: "Confidentialité Absolue",
+        description:
+          "Vos données confidentielles et votre propriété intellectuelle ne sont jamais réutilisées pour entraîner des modèles publics.",
+        iconName: "Lock",
+      },
+      {
+        title: "Maîtrise des Coûts",
+        description:
+          "Optimisation intelligente du routage des requêtes pour préserver vos budgets de calcul.",
+        iconName: "Zap",
+      },
+      {
+        title: "Intégration Transparente",
+        description:
+          "Des APIs modernes qui se greffent harmonieusement sur votre pile technologique existante.",
+        iconName: "Layers",
+      },
+    ],
+    ctaTitle: "Prêt À Accélérer Avec L'Intelligence Artificielle ?",
+    ctaDescription:
+      "Explorons comment l'IA et le Machine Learning peuvent transformer vos opérations et créer une valeur durable.",
+  },
+  "ui-ux": {
+    slug: "ui-ux",
+    title: "Design UI/UX",
+    label: "DESIGN UI/UX",
+    metaTitle: "Services de Design UI/UX",
+    metaDescription:
+      "Conception d'interfaces et design d'expérience utilisateur par Virtanis. Design systems, wireframes, prototypes interactifs et audits d'ergonomie.",
+    heroTitle: "Design Épuré.\nExpériences Mémorables.",
+    heroAccentWords: ["Design Épuré."],
+    heroDescription:
+      "Nous façonnons des interfaces numériques élégantes, intuitives et centrées sur l'utilisateur, alliant rigueur esthétique et efficacité commerciale.",
+    heroImage: {
+      src: "/services/ui-ux.webp",
+      alt: "Maquettes d'interface utilisateur et design system par Virtanis",
+    },
+    badges: [
+      "Design Systems",
+      "Prototypage Figma",
+      "Accessibilité WCAG",
+      "Approche Centrée Utilisateur",
+    ],
+    stats: [
+      { value: "Sur Mesure", label: "Systèmes de Design", iconName: "Palette" },
+      { value: "WCAG", label: "Accessibilité Web", iconName: "Eye" },
+      { value: "Figma", label: "Prototypes Haute Fidélité", iconName: "Layout" },
+      { value: "Testé", label: "Validation Utilisateur", iconName: "CheckCircle2" },
+    ],
+    detailTitle: "L'Union Parfaite Entre Esthétique Et Fonctionnalité",
+    detailDescription:
+      "De la recherche utilisateur approfondie à la livraison d'un système de composants complet, nous concevons des produits digitaux désirables et faciles à adopter.",
+    serviceCards: [
+      {
+        title: "Recherche Utilisateur & Stratégie",
+        description:
+          "Compréhension fine des motivations, des freins et des attentes de vos utilisateurs pour orienter chaque décision de design.",
+        checklist: [
+          "Interviews Utilisateurs",
+          "Cartographie des Parcours",
+          "Personas Détaillés",
+          "Analyses Concurrentielles",
+        ],
+        iconName: "Search",
+      },
+      {
+        title: "Design d'Interface (UI)",
+        description:
+          "Création d'identités visuelles digitales modernes, de typographies équilibrées et de grilles de mise en page harmonieuses.",
+        checklist: [
+          "Maquettes Haute Fidélité",
+          "Systèmes Typographiques & Couleurs",
+          "Design Responsive",
+          "Iconographie Sur Mesure",
+        ],
+        iconName: "Palette",
+      },
+      {
+        title: "Design Systems & Composants",
+        description:
+          "Conception de bibliothèques modulaires documentées garantissant une cohérence absolue et accélérant le développement.",
+        checklist: [
+          "Bibliothèques de Tokens Design",
+          "Composants Réutilisables",
+          "Directives d'Accessibilité",
+          "Documentation pour Développeurs",
+        ],
+        iconName: "Layers",
+      },
+      {
+        title: "Prototypage & Tests d'Usabilité",
+        description:
+          "Modélisation de prototypes dynamiques pour valider les flux de navigation auprès d'utilisateurs réels avant tout codage.",
+        checklist: [
+          "Prototypes Interactifs Figma",
+          "Micro-Interactions",
+          "Sessions de Tests Utilisateurs",
+          "Itérations & Optimisations",
+        ],
+        iconName: "Smartphone",
+      },
+    ],
+    technologies: [
+      { name: "Figma", iconName: "Palette" },
+      { name: "Design Tokens", iconName: "Sparkles" },
+      { name: "Tailwind CSS", iconName: "Code2" },
+      { name: "Storybook", iconName: "BookOpen" },
+      { name: "Framer Motion", iconName: "Wand2" },
+      { name: "Directives WCAG", iconName: "ShieldCheck" },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Immersion & Audit",
+        description:
+          "Analyse de votre écosystème, étude des retours utilisateurs et identification des points de friction majeurs.",
+        iconName: "ClipboardCheck",
+      },
+      {
+        step: "02",
+        title: "Architecture de l'Information",
+        description:
+          "Structuration claire de la navigation, des arborescences de contenu et des parcours clés.",
+        iconName: "Network",
+      },
+      {
+        step: "03",
+        title: "Wireframing & Maquettes",
+        description:
+          "Conception d'écrans basse puis haute fidélité incarnant la vision moderne de votre marque.",
+        iconName: "Layout",
+      },
+      {
+        step: "04",
+        title: "Systématisation & Design System",
+        description:
+          "Mise en place de la nomenclature, des variables de style et des états de composants.",
+        iconName: "Layers",
+      },
+      {
+        step: "05",
+        title: "Passation Technique",
+        description:
+          "Documentation exhaustive et collaboration étroite avec les ingénieurs pour une intégration pixel-perfect.",
+        iconName: "Rocket",
+      },
+    ],
+    whyTitle: "Pourquoi Choisir Virtanis Pour Votre Design UI/UX",
+    whyCards: [
+      {
+        title: "Impact Visuel Immédiat",
+        description:
+          "Des designs distinctifs et soignés qui démarquent instantanément votre marque sur votre marché.",
+        iconName: "Sparkles",
+      },
+      {
+        title: "Orientation Conversion",
+        description:
+          "Chaque parcours est optimisé pour réduire l'effort cognitif et inciter à l'action.",
+        iconName: "TrendingUp",
+      },
+      {
+        title: "Alignement Dev Sans Friction",
+        description:
+          "Nos fichiers de design sont structurés en composants stricts, réduisant de moitié le temps d'intégration.",
+        iconName: "Code2",
+      },
+      {
+        title: "Inclusion & Accessibilité",
+        description:
+          "Des interfaces accessibles à tous, conformes aux meilleurs standards internationaux de contraste et de lisibilité.",
+        iconName: "CheckCircle2",
+      },
+    ],
+    ctaTitle: "Sublimez L'Expérience De Vos Utilisateurs",
+    ctaDescription:
+      "Co-créons une interface numérique mémorable qui renforce la confiance de vos clients et propulse vos conversions.",
+  },
+  "three-d-interactive": {
+    slug: "three-d-interactive",
+    title: "3D & Expériences Interactives",
+    label: "3D & EXPÉRIENCES INTERACTIVES",
+    metaTitle: "Expériences Web 3D & Interactives",
+    metaDescription:
+      "Développement d'expériences 3D immersives sur le web par Virtanis. Visualisations de produits, shaders WebGL, Three.js et animations interactives captivantes.",
+    heroTitle: "Expériences 3D.\nImmersion & Réalisme.",
+    heroAccentWords: ["Expériences 3D."],
+    heroDescription:
+      "Nous concevons des univers visuels tridimensionnels et des animations WebGL interactives qui captivent l'attention et subliment vos produits.",
+    heroImage: {
+      src: "/services/three-d-interactive.webp",
+      alt: "Rendu 3D interactif et shaders WebGL par Virtanis",
+    },
+    badges: [
+      "Three.js & WebGL",
+      "Visualisation de Produits",
+      "Performance 60 FPS",
+      "Compatibilité Mobile",
+    ],
+    stats: [
+      { value: "Temps Réel", label: "Rendu Graphique Web", iconName: "Box" },
+      { value: "WebGL", label: "Shaders & Particules", iconName: "Sparkles" },
+      { value: "Optimisé", label: "Chargement Rapide", iconName: "Zap" },
+      { value: "Tous Écrans", label: "Support Tactile & Souris", iconName: "Smartphone" },
+    ],
+    detailTitle: "Repoussez Les Limites Du Web Avec La 3D Interactive",
+    detailDescription:
+      "De la mise en scène interactive de produits à des mondes immersifs explorables directement dans le navigateur sans plugin requis.",
+    serviceCards: [
+      {
+        title: "Configurateurs & Rendu Produit",
+        description:
+          "Permettez à vos clients d'inspecter, personnaliser et manipuler vos produits en 3D temps réel sous tous les angles.",
+        checklist: [
+          "Visualisation à 360 Degrés",
+          "Personnalisation de Matériaux",
+          "Éclairage Réaliste PBR",
+          "Aperçus Temps Réel Fluides",
+        ],
+        iconName: "Box",
+      },
+      {
+        title: "Sites Immersifs & Scrollytelling",
+        description:
+          "Des récits numériques interactifs où le défilement de l'utilisateur anime des scènes 3D et des effets cinématographiques.",
+        checklist: [
+          "Transitions de Caméra Dynamiques",
+          "Chorégraphie au Défilement",
+          "Effets de Shaders Sur Mesure",
+          "Immersion Sensorielle",
+        ],
+        iconName: "Compass",
+      },
+      {
+        title: "Optimisation des Actifs 3D",
+        description:
+          "Compression des maillages, optimisation des textures et techniques de LOD pour garantir un affichage instantané et fluide.",
+        checklist: [
+          "Compression glTF & Draco",
+          "Atlas de Textures Optimisés",
+          "Gestion Rigoureuse de la Mémoire",
+          "Fallback Dégradé pour Mobiles",
+        ],
+        iconName: "Zap",
+      },
+      {
+        title: "Intégration d'Expériences WebXR",
+        description:
+          "Préparation de vos scènes pour la réalité augmentée et virtuelle accessible depuis les navigateurs et smartphones récents.",
+        checklist: [
+          "Visualisation Réalité Augmentée",
+          "Compatibilité WebXR",
+          "Contrôles Spatiaux",
+          "Expériences Immersives Légères",
+        ],
+        iconName: "Eye",
+      },
+    ],
+    technologies: [
+      { name: "Three.js", iconName: "Box" },
+      { name: "React Three Fiber", iconName: "Atom" },
+      { name: "WebGL / GLSL", iconName: "Sparkles" },
+      { name: "Blender", iconName: "Palette" },
+      { name: "GSAP", iconName: "Wand2" },
+      { name: "glTF / Draco", iconName: "Layers" },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Concept & Scénarisation",
+        description:
+          "Élaboration de l'intention visuelle, des storyboards d'animation et de la direction artistique interactive.",
+        iconName: "ClipboardCheck",
+      },
+      {
+        step: "02",
+        title: "Modélisation & Optimisation 3D",
+        description:
+          "Création ou nettoyage des modèles 3D, des textures PBR et réduction de la complexité polygonale.",
+        iconName: "Box",
+      },
+      {
+        step: "03",
+        title: "Développement WebGL",
+        description:
+          "Programmation des scènes sous Three.js, des shaders personnalisés et de l'interactivité utilisateur.",
+        iconName: "Code2",
+      },
+      {
+        step: "04",
+        title: "Optimisation des Performances",
+        description:
+          "Profilage du framerate (FPS), allègement des draw calls et tests sur configurations variées.",
+        iconName: "ShieldCheck",
+      },
+      {
+        step: "05",
+        title: "Intégration & Déploiement",
+        description:
+          "Connexion harmonieuse au reste de votre application web et lancement public.",
+        iconName: "Rocket",
+      },
+    ],
+    whyTitle: "Pourquoi Choisir Virtanis Pour La 3D Interactive",
+    whyCards: [
+      {
+        title: "Rétention Visiteur Record",
+        description:
+          "L'interactivité 3D multiplie par trois le temps moyen passé par vos visiteurs sur vos pages.",
+        iconName: "Clock",
+      },
+      {
+        title: "Excellence Technique",
+        description:
+          "Nous combinons créativité artistique et optimisation algorithmique pointue pour préserver la fluidité.",
+        iconName: "Zap",
+      },
+      {
+        title: "Zéro Dépendance Lourde",
+        description:
+          "Tout fonctionne nativement dans le navigateur de l'utilisateur sans téléchargement d'application.",
+        iconName: "Globe",
+      },
+      {
+        title: "Impact de Marque Inoubliable",
+        description:
+          "Une différenciation radicale face à vos concurrents qui ancre durablement votre image de leader technologique.",
+        iconName: "Sparkles",
+      },
+    ],
+    ctaTitle: "Prêt À Éblouir Votre Audience Avec La 3D ?",
+    ctaDescription:
+      "Imaginons une expérience tridimensionnelle interactive qui donnera une dimension spectaculaire à votre projet.",
+  },
+  "cloud-devops": {
+    slug: "cloud-devops",
+    title: "Cloud & DevOps",
+    label: "CLOUD & DEVOPS",
+    metaTitle: "Services Cloud & DevOps",
+    metaDescription:
+      "Services d'infrastructure cloud et DevOps par Virtanis. Automatisation CI/CD, conteneurisation Docker, hébergement haute disponibilité et sécurité opérationnelle.",
+    heroTitle: "Infrastructures Cloud.\nStabilité & Déploiement Continu.",
+    heroAccentWords: ["Infrastructures Cloud."],
+    heroDescription:
+      "Nous concevons des infrastructures cloud sécurisées, évolutives et automatisées pour garantir une disponibilité maximale et accélérer vos cycles de livraison.",
+    heroImage: {
+      src: "/services/cloud-devops.webp",
+      alt: "Architecture d'infrastructure cloud et déploiement continu par Virtanis",
+    },
+    badges: [
+      "Pipelines CI/CD",
+      "Conteneurs Docker",
+      "Haute Disponibilité",
+      "Sécurité & Conformité",
+    ],
+    stats: [
+      { value: "99.9%", label: "Taux de Disponibilité", iconName: "ShieldCheck" },
+      { value: "Zéro Panne", label: "Déploiements Transparents", iconName: "Rocket" },
+      { value: "Automatisé", label: "Pipelines de Recette & Prod", iconName: "Workflow" },
+      { value: "24/7", label: "Monitoring & Alertes", iconName: "Activity" },
+    ],
+    detailTitle: "Une Infrastructure Moderne Pour Accélérer Votre Ingénierie",
+    detailDescription:
+      "De la configuration de conteneurs à la mise en œuvre de pipelines automatisés de test et de déploiement, nous sécurisons vos opérations logicielles.",
+    serviceCards: [
+      {
+        title: "Pipelines CI/CD & Déploiements Continus",
+        description:
+          "Automatisation intégrale de vos tests, builds et mises en production pour livrer sereinement plusieurs fois par jour.",
+        checklist: [
+          "GitHub Actions & GitLab CI",
+          "Environnements de Prévisualisation",
+          "Rollback Instantané Automatisé",
+          "Tests de Non-Régression",
+        ],
+        iconName: "Workflow",
+      },
+      {
+        title: "Conteneurisation & Orchestration",
+        description:
+          "Standardisation de vos environnements de développement et de production avec Docker pour éliminer les bugs de configuration.",
+        checklist: [
+          "Images Docker Optimisées & Légères",
+          "Gestion Multi-Environnements",
+          "Isolation Sécurisée des Services",
+          "Migration vers le Cloud Facilitée",
+        ],
+        iconName: "Layers",
+      },
+      {
+        title: "Hébergement Cloud & Architecture Serverless",
+        description:
+          "Sélection et paramétrage des meilleures plateformes cloud pour concilier performance, élasticité et contrôle des coûts.",
+        checklist: [
+          "Déploiements Vercel & AWS",
+          "Bases de Données Gérées",
+          "Réseaux CDN Mondiaux",
+          "Dimensionnement Automatique (Auto-scaling)",
+        ],
+        iconName: "Cloud",
+      },
+      {
+        title: "Supervision, Alertes & Sécurité",
+        description:
+          "Surveillance proactive de la disponibilité, centralisation des journaux d'erreurs et renforcement des protocoles de sécurité.",
+        checklist: [
+          "Monitoring de Disponibilité",
+          "Traçabilité des Erreurs",
+          "Audits de Performance",
+          "Durcissement de Sécurité & Clés",
+        ],
+        iconName: "Activity",
+      },
+    ],
+    technologies: [
+      { name: "Vercel", iconName: "Triangle" },
+      { name: "Docker", iconName: "Container" },
+      { name: "GitHub Actions", iconName: "GitBranch" },
+      { name: "Serveurs Linux", iconName: "Terminal" },
+      { name: "MongoDB", iconName: "Database" },
+      { name: "Monitoring", iconName: "Activity" },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Audit & Diagnostic",
+        description:
+          "Analyse approfondie de votre application, hébergement, environnements, risques et processus de livraison.",
+        iconName: "ClipboardCheck",
+      },
+      {
+        step: "02",
+        title: "Architecture Cloud",
+        description:
+          "Conception d'une infrastructure moderne, des règles d'accès, de la topologie réseau et des sauvegardes.",
+        iconName: "Network",
+      },
+      {
+        step: "03",
+        title: "Automatisation CI/CD",
+        description:
+          "Configuration des pipelines d'intégration continue, des prévisualisations et des étapes de recette.",
+        iconName: "Workflow",
+      },
+      {
+        step: "04",
+        title: "Durcissement & Sécurité",
+        description:
+          "Sécurisation des variables secrètes, droits stricts, en-têtes HTTP et plans de reprise d'activité.",
+        iconName: "ShieldCheck",
+      },
+      {
+        step: "05",
+        title: "Supervision & Observabilité",
+        description:
+          "Déploiement des tableaux de bord de surveillance et alertes pour détecter et résoudre tout incident.",
+        iconName: "Activity",
+      },
+    ],
+    whyTitle: "Pourquoi Choisir Virtanis Pour Votre Cloud & DevOps",
+    whyCards: [
+      {
+        title: "Déploiements Accélérés",
+        description:
+          "Les pipelines automatisés libèrent vos développeurs des tâches manuelles et préviennent les erreurs humaines.",
+        iconName: "Rocket",
+      },
+      {
+        title: "Disponibilité Sans Faille",
+        description:
+          "Infrastructures résilientes conçues avec sauvegardes automatiques, redondance et observabilité complète.",
+        iconName: "ShieldCheck",
+      },
+      {
+        title: "Fondations Évolutives",
+        description:
+          "Vos serveurs et bases de données s'adaptent sans heurt aux pics de trafic et à l'afflux de nouveaux utilisateurs.",
+        iconName: "Layers",
+      },
+      {
+        title: "Exploitation Transparente",
+        description:
+          "Des métriques limpides et une documentation exhaustive rendent vos systèmes faciles à maintenir.",
+        iconName: "FileText",
+      },
+    ],
+    ctaTitle: "Prêt À Consolider Votre Infrastructure ?",
+    ctaDescription:
+      "Bâtissons une architecture cloud et des processus DevOps qui accélèrent vos déploiements et garantissent une sérénité totale.",
+  },
+};
+
+export function getServiceData(slug: string, locale: "en" | "fr" = "en"): ServiceDetail | undefined {
+  if (locale === "fr") {
+    return SERVICES_DATA_FR[slug] || SERVICES_DATA[slug];
+  }
+  return SERVICES_DATA[slug];
+}

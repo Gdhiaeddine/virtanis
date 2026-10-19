@@ -9,6 +9,12 @@ import projectsData from "../components/projects.json";
 import PageCTA from "../components/PageCTA";
 import ProjectGalleryModal, { ModalProject } from "../components/ProjectGalleryModal";
 import ProjectDetailsModal from "../components/ProjectDetailsModal";
+import {
+  getTranslations,
+  Locale,
+  ProjectsPageTranslation,
+  ProjectsTranslation,
+} from "../data/translations";
 import styles from "./ProjectsPageContent.module.css";
 
 type Project = ModalProject & {
@@ -35,14 +41,6 @@ const projects = (projectsData as Project[]).sort((a, b) => {
   return statusOrder[a.status] - statusOrder[b.status];
 });
 
-const filterLabels: Record<"All" | Category, string> = {
-  All: "All Deployments",
-  ML: "AI & Machine Learning",
-  Web: "Web Platforms",
-  App: "Mobile Systems",
-  Design: "Spatial & UI/UX",
-};
-
 const filters: ("All" | Category)[] = ["All", "ML", "Web", "Design"];
 
 const fadeUp = {
@@ -53,13 +51,19 @@ const fadeUp = {
 };
 
 /* ─── Hero Section ─── */
-function ProjectHero() {
+function ProjectHero({
+  t,
+  isFr,
+}: {
+  t: ProjectsPageTranslation;
+  isFr: boolean;
+}) {
   return (
-    <section className={styles.hero} aria-label="Projects overview">
+    <section className={styles.hero} aria-label={isFr ? "Aperçu des réalisations" : "Projects overview"}>
       <div className={styles.heroBg} aria-hidden="true">
         <Image
           src="/projects/projects.png"
-          alt="Virtanis Projects Architecture Background"
+          alt={isFr ? "Fond d'architecture des projets Virtanis" : "Virtanis Projects Architecture Background"}
           fill
           priority
           sizes="100vw"
@@ -68,27 +72,23 @@ function ProjectHero() {
       </div>
 
       <div className={styles.heroContent}>
-        <span className={styles.sectionLabel}>
-          PROVEN PORTFOLIO & ARCHITECTURE
-        </span>
+        <span className={styles.sectionLabel}>{t.hero.label}</span>
 
         <h1>
-          Featured Production & <br />
-          <span className={styles.serifAccent}>Architectural</span> Deployments
+          {t.hero.titlePrefix}
+          <br />
+          <span className={styles.serifAccent}>{t.hero.titleAccent}</span>
+          {t.hero.titleSuffix}
         </h1>
 
-        <p className={styles.heroDescription}>
-          Explore high-impact digital platforms, mission-critical web applications,
-          machine learning systems, and precision UI/UX interfaces engineered by
-          Virtanis for world-class speed, security, and scale.
-        </p>
+        <p className={styles.heroDescription}>{t.hero.description}</p>
 
         <div className={styles.heroActions}>
           <a href="#projects-grid" className={styles.primaryButton}>
-            Explore Deployments <ArrowRight size={15} />
+            {t.hero.exploreBtn} <ArrowRight size={15} />
           </a>
-          <Link href="/contact" className={styles.secondaryButton}>
-            Initiate Project <ArrowRight size={15} />
+          <Link href={isFr ? "/fr#contact" : "/contact"} className={styles.secondaryButton}>
+            {t.hero.initiateBtn} <ArrowRight size={15} />
           </Link>
         </div>
       </div>
@@ -101,16 +101,18 @@ function ProjectFilters({
   activeFilter,
   setActiveFilter,
   projectCounts,
+  t,
 }: {
   activeFilter: "All" | Category;
   setActiveFilter: (filter: "All" | Category) => void;
   projectCounts: Record<string, number>;
+  t: ProjectsPageTranslation;
 }) {
   return (
     <motion.div
       className={styles.filterSection}
       role="tablist"
-      aria-label="Filter deployments by category"
+      aria-label={t.filterAria}
       {...fadeUp}
     >
       <div className={styles.filterScroller}>
@@ -126,7 +128,7 @@ function ProjectFilters({
               className={`${styles.filterButton} ${isActive ? styles.filterActive : ""}`}
               onClick={() => setActiveFilter(filter)}
             >
-              <span>{filterLabels[filter]}</span>
+              <span>{t.filterLabels[filter]}</span>
               <span className={styles.filterCount}>{count}</span>
             </button>
           );
@@ -137,7 +139,13 @@ function ProjectFilters({
 }
 
 /* ─── Status Indicator ─── */
-function StatusBadge({ status }: { status: Project["status"] }) {
+function StatusBadge({
+  status,
+  statusLabels,
+}: {
+  status: Project["status"];
+  statusLabels: ProjectsPageTranslation["statusLabels"];
+}) {
   const statusClass =
     status === "Live"
       ? styles.statusLive
@@ -147,10 +155,10 @@ function StatusBadge({ status }: { status: Project["status"] }) {
 
   const label =
     status === "Live"
-      ? "Live Deployment"
+      ? statusLabels.live
       : status === "Beta"
-        ? "Beta Preview"
-        : "In Development";
+        ? statusLabels.beta
+        : statusLabels.inProgress;
 
   return (
     <span className={styles.statusWrap}>
@@ -163,15 +171,32 @@ function StatusBadge({ status }: { status: Project["status"] }) {
 /* ─── Project Card (Interactive Gallery Enabled) ─── */
 function ProjectCard({
   project,
+  locale,
+  tPage,
+  tProjects,
   onOpenGallery,
   onOpenDetails,
 }: {
   project: Project;
+  locale: Locale;
+  tPage: ProjectsPageTranslation;
+  tProjects: ProjectsTranslation;
   onOpenGallery: (project: Project, index?: number) => void;
   onOpenDetails: (project: Project) => void;
 }) {
+  const isFr = locale === "fr";
   const images = project.images && project.images.length > 0 ? project.images : [project.image];
   const imageCount = images.length;
+
+  const projectTitle = tProjects.items[project.id]?.title || project.title;
+  const projectDesc = tProjects.items[project.id]?.description || project.description;
+  const localizedProject: Project = {
+    ...project,
+    title: projectTitle,
+    description: projectDesc,
+  };
+  const categoryLabel =
+    project.category === "ML" ? (isFr ? "IA / ML" : "AI / ML") : project.category;
 
   return (
     <motion.article
@@ -183,20 +208,28 @@ function ProjectCard({
     >
       <div
         className={styles.cardPreview}
-        onClick={() => onOpenGallery(project, 0)}
+        onClick={() => onOpenGallery(localizedProject, 0)}
         role="button"
         tabIndex={0}
-        aria-label={`Open ${project.title} gallery`}
+        aria-label={
+          isFr
+            ? `Ouvrir la galerie photo de ${projectTitle}`
+            : `Open ${projectTitle} gallery`
+        }
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            onOpenGallery(project, 0);
+            onOpenGallery(localizedProject, 0);
           }
         }}
       >
         <Image
           src={project.image}
-          alt={`${project.title} preview screenshot`}
+          alt={
+            isFr
+              ? `Capture d'écran de prévisualisation de ${projectTitle}`
+              : `${projectTitle} preview screenshot`
+          }
           fill
           sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 31vw"
           className={styles.previewImage}
@@ -204,37 +237,41 @@ function ProjectCard({
         <div className={styles.previewOverlay} />
 
         <div className={styles.previewBadges}>
-          <StatusBadge status={project.status} />
-          <span className={styles.categoryBadge}>{project.category}</span>
+          <StatusBadge status={project.status} statusLabels={tPage.statusLabels} />
+          <span className={styles.categoryBadge}>{categoryLabel}</span>
         </div>
 
         <div className={styles.previewFooter}>
           <span className={styles.imageCountBadge}>
             <Images size={12} />
             <span>
-              {imageCount} {imageCount === 1 ? "Photo" : "Photos"}
+              {imageCount} {imageCount === 1 ? tPage.photoLabel : tPage.photosLabel}
             </span>
           </span>
 
           <span className={styles.previewHint}>
             <Maximize2 size={12} />
-            <span>View Gallery</span>
+            <span>{tPage.viewGallery}</span>
           </span>
         </div>
       </div>
 
       <div className={styles.cardBody}>
-        <h2 className={styles.cardTitle}>{project.title}</h2>
-        
+        <h2 className={styles.cardTitle}>{projectTitle}</h2>
+
         <div className={styles.descWrap}>
-          <p className={styles.cardDescription}>{project.description}</p>
+          <p className={styles.cardDescription}>{projectDesc}</p>
           <button
             type="button"
             className={styles.showMoreBtn}
-            onClick={() => onOpenDetails(project)}
-            aria-label={`Show more details for ${project.title}`}
+            onClick={() => onOpenDetails(localizedProject)}
+            aria-label={
+              isFr
+                ? `Afficher plus de détails pour ${projectTitle}`
+                : `Show more details for ${projectTitle}`
+            }
           >
-            ... show more
+            {tPage.showMore}
           </button>
         </div>
 
@@ -254,12 +291,12 @@ function ProjectCard({
               rel="noopener noreferrer"
               className={styles.cardLink}
             >
-              <span>Launch Live Platform</span>
+              <span>{tPage.launchPlatform}</span>
               <ExternalLink size={14} className={styles.linkIcon} />
             </Link>
           ) : (
             <span className={styles.cardLinkDisabled}>
-              <span>Internal Enterprise System</span>
+              <span>{tPage.internalSystem}</span>
             </span>
           )}
         </div>
@@ -274,6 +311,9 @@ function ProjectsGrid({
   allVisible,
   setAllVisible,
   hasMore,
+  locale,
+  tPage,
+  tProjects,
   onOpenGallery,
   onOpenDetails,
 }: {
@@ -281,6 +321,9 @@ function ProjectsGrid({
   allVisible: boolean;
   setAllVisible: (value: boolean) => void;
   hasMore: boolean;
+  locale: Locale;
+  tPage: ProjectsPageTranslation;
+  tProjects: ProjectsTranslation;
   onOpenGallery: (project: Project, index?: number) => void;
   onOpenDetails: (project: Project) => void;
 }) {
@@ -288,7 +331,7 @@ function ProjectsGrid({
     <motion.section
       className={styles.gridSection}
       id="projects-grid"
-      aria-label="Project portfolio matrix"
+      aria-label={locale === "fr" ? "Matrice des projets du portfolio" : "Project portfolio matrix"}
       {...fadeUp}
     >
       <div className={styles.projectsGrid}>
@@ -296,6 +339,9 @@ function ProjectsGrid({
           <ProjectCard
             key={project.id}
             project={project}
+            locale={locale}
+            tPage={tPage}
+            tProjects={tProjects}
             onOpenGallery={onOpenGallery}
             onOpenDetails={onOpenDetails}
           />
@@ -309,7 +355,7 @@ function ProjectsGrid({
             className={styles.viewMoreButton}
             onClick={() => setAllVisible(!allVisible)}
           >
-            {allVisible ? "Show Less" : "View All"}
+            {allVisible ? tPage.showLess : tPage.viewMore}
             <ArrowRight
               size={15}
               className={`${styles.viewMoreIcon} ${allVisible ? styles.viewMoreIconUp : ""}`}
@@ -321,8 +367,19 @@ function ProjectsGrid({
   );
 }
 
+interface ProjectsPageContentProps {
+  locale?: Locale;
+}
+
 /* ─── Main Content ─── */
-export default function ProjectsPageContent() {
+export default function ProjectsPageContent({
+  locale = "en",
+}: ProjectsPageContentProps = {}) {
+  const isFr = locale === "fr";
+  const dict = getTranslations(locale);
+  const tPage = dict.projectsPage;
+  const tProjects = dict.projects;
+
   const [activeFilter, setActiveFilter] = useState<"All" | Category>("All");
   const [allVisible, setAllVisible] = useState(false);
 
@@ -369,7 +426,7 @@ export default function ProjectsPageContent() {
           <div className={styles.glowTwo} />
         </div>
 
-        <ProjectHero />
+        <ProjectHero t={tPage} isFr={isFr} />
 
         <div className={styles.container}>
           <ProjectFilters
@@ -379,6 +436,7 @@ export default function ProjectsPageContent() {
               setAllVisible(false);
             }}
             projectCounts={projectCounts}
+            t={tPage}
           />
 
           <ProjectsGrid
@@ -386,15 +444,18 @@ export default function ProjectsPageContent() {
             allVisible={allVisible}
             setAllVisible={setAllVisible}
             hasMore={hasMore}
+            locale={locale}
+            tPage={tPage}
+            tProjects={tProjects}
             onOpenGallery={handleOpenGallery}
             onOpenDetails={setDetailsProject}
           />
 
           <PageCTA
-            heading="Ready To Engineer Your Flagship Platform?"
-            description="Partner with Virtanis to architect, build, and deploy intelligent software designed for unmatched performance."
-            primaryText="Initiate Project"
-            primaryHref="/contact"
+            heading={tPage.cta.heading}
+            description={tPage.cta.description}
+            primaryText={tPage.cta.primaryText}
+            primaryHref={isFr ? "/fr#contact" : "/contact"}
           />
         </div>
       </main>
@@ -402,6 +463,7 @@ export default function ProjectsPageContent() {
       {/* Project Details Modal */}
       <ProjectDetailsModal
         project={detailsProject}
+        locale={locale}
         onClose={() => setDetailsProject(null)}
         onOpenGallery={(p, idx) => {
           setDetailsProject(null);
@@ -412,6 +474,7 @@ export default function ProjectsPageContent() {
       {/* Full-Page Gallery Lightbox Modal */}
       <ProjectGalleryModal
         project={galleryProject}
+        locale={locale}
         activeImageIndex={activeImageIndex}
         onClose={() => setGalleryProject(null)}
         onSelectImage={(idx) => setActiveImageIndex(idx)}

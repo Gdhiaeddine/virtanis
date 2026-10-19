@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "https://virtanis.com/skills",
+    languages: {
+      en: "https://virtanis.com/skills",
+      fr: "https://virtanis.com/fr/skills",
+      "x-default": "https://virtanis.com/skills",
+    },
   },
   openGraph: {
     type: "website",

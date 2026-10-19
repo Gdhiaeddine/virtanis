@@ -91,9 +91,13 @@ function renderTitleWithAccent(title: string, accentWords: string[] = []): React
 
 export default function ServiceDetailContent({
   service,
+  locale = "en",
 }: {
   service: ServiceDetail;
+  locale?: "en" | "fr";
 }) {
+  const isFr = locale === "fr";
+
   return (
     <main className={styles.page}>
       {/* Background Atmosphere */}
@@ -136,10 +140,10 @@ export default function ServiceDetailContent({
         )}
 
         <div className={styles.heroContainer}>
-          <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
+          <nav className={styles.breadcrumb} aria-label={isFr ? "Fil d'Ariane" : "Breadcrumb"}>
+            <Link href={isFr ? "/fr" : "/"}>{isFr ? "Accueil" : "Home"}</Link>
             <span>/</span>
-            <Link href="/services">Services</Link>
+            <Link href={isFr ? "/fr/services" : "/services"}>Services</Link>
             <span>/</span>
             <span aria-current="page">{service.title}</span>
           </nav>
@@ -150,7 +154,9 @@ export default function ServiceDetailContent({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className={styles.sectionLabel}>SERVICE SPECIFICATION</span>
+            <span className={styles.sectionLabel}>
+              {isFr ? "SPÉCIFICATION DU SERVICE" : "SERVICE SPECIFICATION"}
+            </span>
 
             <h1 id="service-title" className={styles.heroTitle}>
               {service.heroAccentWords
@@ -161,11 +167,17 @@ export default function ServiceDetailContent({
             <p className={styles.heroDescription}>{service.heroDescription}</p>
 
             <div className={styles.actions}>
-              <Link href="/contact" className={styles.primaryButton}>
-                Initiate Project <ArrowRight size={15} />
+              <Link
+                href={isFr ? "/fr/contact" : "/contact"}
+                className={styles.primaryButton}
+              >
+                {isFr ? "Lancer un Projet" : "Initiate Project"} <ArrowRight size={15} />
               </Link>
-              <Link href="/projects" className={styles.secondaryButton}>
-                Explore Deployments <ArrowRight size={15} />
+              <Link
+                href={isFr ? "/fr/projects" : "/projects"}
+                className={styles.secondaryButton}
+              >
+                {isFr ? "Découvrir les Projets" : "Explore Deployments"} <ArrowRight size={15} />
               </Link>
             </div>
 
@@ -186,7 +198,7 @@ export default function ServiceDetailContent({
         {/* Performance Statistics */}
         <motion.section
           className={styles.statsSection}
-          aria-label={`${service.title} statistics`}
+          aria-label={isFr ? `Statistiques de ${service.title}` : `${service.title} statistics`}
           {...fadeUp}
         >
           <div className={styles.statsGrid}>
@@ -210,7 +222,9 @@ export default function ServiceDetailContent({
           {...fadeUp}
         >
           <div className={styles.sectionHeader}>
-            <span className={styles.sectionLabel}>CAPABILITIES</span>
+            <span className={styles.sectionLabel}>
+              {isFr ? "CAPACITÉS" : "CAPABILITIES"}
+            </span>
             <h2 id="details-title" className={styles.sectionTitle}>
               {service.detailTitle}
             </h2>
@@ -227,7 +241,9 @@ export default function ServiceDetailContent({
                   <h3 className={styles.cardTitle}>{card.title}</h3>
                 </div>
                 <p className={styles.cardDescription}>{card.description}</p>
-                <div className={styles.checklistLabel}>KEY DELIVERABLES</div>
+                <div className={styles.checklistLabel}>
+                  {isFr ? "LIVRABLES CLÉS" : "KEY DELIVERABLES"}
+                </div>
                 <ul className={styles.checklist}>
                   {card.checklist.map((item) => (
                     <li key={item} className={styles.checkItem}>
@@ -251,12 +267,18 @@ export default function ServiceDetailContent({
           {...fadeUp}
         >
           <div className={styles.sectionHeader}>
-            <span className={styles.sectionLabel}>TECH STACK</span>
+            <span className={styles.sectionLabel}>
+              {isFr ? "STACK TECHNIQUE" : "TECH STACK"}
+            </span>
             <h2 id="tech-title" className={styles.sectionTitle}>
-              Engineered With Modern Industry Standards
+              {isFr
+                ? "Conçu Selon Les Meilleurs Standards Technologiques"
+                : "Engineered With Modern Industry Standards"}
             </h2>
             <p className={styles.sectionDescription}>
-              We leverage modern frameworks, cloud architectures, and specialized toolsets to guarantee optimal performance.
+              {isFr
+                ? "Nous nous appuyons sur des frameworks modernes, des architectures cloud pérennes et des outils éprouvés pour garantir des performances optimales."
+                : "We leverage modern frameworks, cloud architectures, and specialized toolsets to guarantee optimal performance."}
             </p>
           </div>
 
@@ -280,12 +302,18 @@ export default function ServiceDetailContent({
           {...fadeUp}
         >
           <div className={styles.sectionHeader}>
-            <span className={styles.sectionLabel}>EXECUTION PROCESS</span>
+            <span className={styles.sectionLabel}>
+              {isFr ? "CADRE D'EXÉCUTION" : "EXECUTION PROCESS"}
+            </span>
             <h2 id="process-title" className={styles.sectionTitle}>
-              A Systematic 5-Stage Delivery Framework
+              {isFr
+                ? "Un Cadre De Livraison Méthodique En 5 Étapes"
+                : "A Systematic 5-Stage Delivery Framework"}
             </h2>
             <p className={styles.sectionDescription}>
-              Designed for zero friction, predictable development velocity, and continuous deployment transparency.
+              {isFr
+                ? "Conçu pour éliminer les frictions, assurer une cadence prévisible et garantir une transparence totale lors des déploiements."
+                : "Designed for zero friction, predictable development velocity, and continuous deployment transparency."}
             </p>
           </div>
 
@@ -313,12 +341,16 @@ export default function ServiceDetailContent({
           {...fadeUp}
         >
           <div className={styles.sectionHeader}>
-            <span className={styles.sectionLabel}>STRATEGIC ADVANTAGE</span>
+            <span className={styles.sectionLabel}>
+              {isFr ? "AVANTAGE STRATÉGIQUE" : "STRATEGIC ADVANTAGE"}
+            </span>
             <h2 id="why-title" className={styles.sectionTitle}>
               {service.whyTitle}
             </h2>
             <p className={styles.sectionDescription}>
-              What sets our digital architecture and software delivery apart in today&apos;s competitive landscape.
+              {isFr
+                ? "Ce qui distingue notre ingénierie logicielle et notre accompagnement dans le paysage numérique contemporain."
+                : "What sets our digital architecture and software delivery apart in today's competitive landscape."}
             </p>
           </div>
 
@@ -341,10 +373,10 @@ export default function ServiceDetailContent({
         <PageCTA
           heading={service.ctaTitle}
           description={service.ctaDescription}
-          primaryText="Initiate Project"
-          primaryHref="/contact"
-          secondaryText="Explore Deployments"
-          secondaryHref="/projects"
+          primaryText={isFr ? "Lancer un Projet" : "Initiate Project"}
+          primaryHref={isFr ? "/fr/contact" : "/contact"}
+          secondaryText={isFr ? "Découvrir les Projets" : "Explore Deployments"}
+          secondaryHref={isFr ? "/fr/projects" : "/projects"}
         />
       </div>
     </main>

@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import ServicesHero from "./components/ServicesHero";
-import TrustedBy from "./components/TrustedBy";
-import ServicesGrid from "./components/ServicesGrid";
-import StatsBar from "./components/StatsBar";
-import ProcessTimeline from "./components/ProcessTimeline";
-import PageCTA from "../components/PageCTA";
+import ServicesPageContent from "./ServicesPageContent";
 
 export const metadata: Metadata = {
   title: "Service Architecture & Engineering Capabilities",
@@ -22,6 +17,11 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "https://virtanis.com/services",
+    languages: {
+      en: "https://virtanis.com/services",
+      fr: "https://virtanis.com/fr/services",
+      "x-default": "https://virtanis.com/services",
+    },
   },
   openGraph: {
     type: "website",
@@ -76,24 +76,7 @@ export default function ServicesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
       />
-      <div className="flex flex-col flex-1 bg-[#050505] text-white">
-        <ServicesHero />
-        <TrustedBy />
-        <ServicesGrid />
-        <StatsBar />
-        <ProcessTimeline />
-        <div className="w-[92%] max-w-[1380px] mx-auto pb-24 self-center">
-          <PageCTA
-            label="GET IN TOUCH"
-            heading="Ready To Architect Your Flagship Solution?"
-            description="Partner with Virtanis to engineer high-performance platforms, intelligent machine learning systems, and precision user interfaces."
-            primaryText="Initiate Project"
-            primaryHref="/contact"
-            secondaryText="Explore Deployments"
-            secondaryHref="/projects"
-          />
-        </div>
-      </div>
+      <ServicesPageContent locale="en" />
     </>
   );
 }
