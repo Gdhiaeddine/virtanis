@@ -135,7 +135,10 @@ export default function SkillsPageContent({ locale = "en" }: SkillsPageContentPr
                     ))}
                   </div>
 
-                  <Link href={`/services/${cat.slug}`} className={styles.exploreLink}>
+                  <Link
+                    href={isFr ? `/fr/services/${cat.slug}` : `/services/${cat.slug}`}
+                    className={styles.exploreLink}
+                  >
                     <span>{t.categories.exploreBlueprint}</span>
                     <ArrowRight size={13} className={styles.exploreArrow} />
                   </Link>

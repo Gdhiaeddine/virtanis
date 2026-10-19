@@ -199,6 +199,7 @@ interface SkillsProps {
 
 /* ─── Component ─── */
 export default function Skills({ locale = "en" }: SkillsProps) {
+  const isFr = locale === "fr";
   const t = getTranslations(locale).skills;
   const sectionRef = useRef<HTMLElement>(null);
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
@@ -346,7 +347,10 @@ export default function Skills({ locale = "en" }: SkillsProps) {
 
                 {/* Card Footer Link */}
                 <div className={styles.cardFooter}>
-                  <Link href={`/services/${solution.slug}`} className={styles.exploreLink}>
+                  <Link
+                    href={isFr ? `/fr/services/${solution.slug}` : `/services/${solution.slug}`}
+                    className={styles.exploreLink}
+                  >
                     <span>{t.exploreSolution}</span>
                     <span className={styles.exploreArrow}>→</span>
                   </Link>

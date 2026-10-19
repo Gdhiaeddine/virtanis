@@ -36,14 +36,17 @@ function ServiceCard({
   index,
   deliverablesHeader,
   exploreText,
+  locale = "en",
 }: {
   service: ServicesPageServiceItem;
   index: number;
   deliverablesHeader: string;
   exploreText: string;
+  locale?: Locale;
 }) {
   const Icon = ICON_MAP[service.slug] || Globe;
-  const href = `/services/${service.slug}`;
+  const isFr = locale === "fr";
+  const href = isFr ? `/fr/services/${service.slug}` : `/services/${service.slug}`;
 
   return (
     <motion.article
@@ -124,6 +127,7 @@ export default function ServicesGrid({ locale = "en" }: ServicesGridProps = {}) 
               index={i}
               deliverablesHeader={t.deliverablesHeader}
               exploreText={t.exploreService}
+              locale={locale}
             />
           ))}
         </div>
