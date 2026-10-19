@@ -28,35 +28,29 @@ function LogoMark() {
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [scrolledSection, setScrolledSection] = useState("home");
 
   const isFr = pathname === "/fr" || pathname.startsWith("/fr/");
   const locale: Locale = isFr ? "fr" : "en";
   const t = getTranslations(locale).navbar;
 
+  const routeSection =
+    pathname === "/about"
+      ? "about"
+      : pathname === "/projects"
+        ? "projects"
+        : pathname.startsWith("/services")
+          ? "services"
+          : pathname === "/skills"
+            ? "skills"
+            : pathname === "/contact"
+              ? "contact"
+              : null;
+
+  const activeSection = routeSection ?? scrolledSection;
+
   useEffect(() => {
-    if (pathname === "/about") {
-      setActiveSection("about");
-      return;
-    }
-
-    if (pathname === "/projects") {
-      setActiveSection("projects");
-      return;
-    }
-
-    if (pathname.startsWith("/services")) {
-      setActiveSection("services");
-      return;
-    }
-
-    if (pathname === "/skills") {
-      setActiveSection("skills");
-      return;
-    }
-
-    if (pathname === "/contact") {
-      setActiveSection("contact");
+    if (routeSection) {
       return;
     }
 
@@ -80,13 +74,13 @@ export default function Navbar() {
         { id: "home", top: Number.NEGATIVE_INFINITY }
       );
 
-      setActiveSection(current.id);
+      setScrolledSection(current.id);
     };
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [pathname]);
+  }, [pathname, routeSection]);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";

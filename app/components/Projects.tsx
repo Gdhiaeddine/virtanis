@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ExternalLink, Images, Maximize2 } from "lucide-react";
+import { getTranslations, Locale, ProjectsTranslation } from "../data/translations";
 import ProjectGalleryModal, { ModalProject } from "./ProjectGalleryModal";
 import ProjectDetailsModal from "./ProjectDetailsModal";
 import styles from "./Projects.module.css";
@@ -35,13 +36,6 @@ const PROJECTS: Project[] = (projectsData as Project[]).sort((a, b) => {
   return STATUS_ORDER[a.status] - STATUS_ORDER[b.status];
 });
 
-const filterLabels: Record<"All" | Category, string> = {
-  All: "All Deployments",
-  ML: "AI & Machine Learning",
-  Web: "Web Platforms",
-  App: "Mobile Systems",
-  Design: "Spatial & UI/UX",
-};
 
 const FILTERS: ("All" | Category)[] = ["All", "ML", "Web", "Design"];
 const INITIAL_COUNT = 6;
@@ -95,7 +89,13 @@ const HUD_CIRCLES = [
 ];
 
 /* ─── Status indicator ─── */
-function StatusBadge({ status }: { status: Project["status"] }) {
+function StatusBadge({
+  status,
+  statusLabels,
+}: {
+  status: Project["status"];
+  statusLabels: ProjectsTranslation["statusLabels"];
+}) {
   const statusClass =
     status === "Live"
       ? styles.statusLive
@@ -105,10 +105,10 @@ function StatusBadge({ status }: { status: Project["status"] }) {
 
   const label =
     status === "Live"
-      ? "Live Deployment"
+      ? statusLabels.live
       : status === "Beta"
-        ? "Beta Preview"
-        : "In Development";
+        ? statusLabels.beta
+        : statusLabels.inProgress;
 
   return (
     <span className={styles.statusWrap}>
@@ -122,16 +122,21 @@ function StatusBadge({ status }: { status: Project["status"] }) {
 function ProjectCard({
   project,
   index,
+  t,
   onOpenGallery,
   onOpenDetails,
 }: {
   project: Project;
   index: number;
+  t: ProjectsTranslation;
   onOpenGallery: (project: Project, index?: number) => void;
   onOpenDetails: (project: Project) => void;
 }) {
   const images = project.images && project.images.length > 0 ? project.images : [project.image];
   const imageCount = images.length;
+  const projectTitle = t.items[project.id]?.title || project.title;
+  const projectDesc = t.items[project.id]?.description || project.description;
+  const localized = { ...project, title: projectTitle, description: projectDesc };
 
   return (
     <article
@@ -140,20 +145,20 @@ function ProjectCard({
     >
       <div
         className={styles.cardPreview}
-        onClick={() => onOpenGallery(project, 0)}
+        onClick={() => onOpenGallery(localized, 0)}
         role="button"
         tabIndex={0}
-        aria-label={`Open ${project.title} photo gallery`}
+        aria-label={`Open ${projectTitle} photo gallery`}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            onOpenGallery(project, 0);
+            onOpenGallery(localized, 0);
           }
         }}
       >
         <Image
           src={project.image}
-          alt={`${project.title} preview screenshot`}
+          alt={`${projectTitle} preview screenshot`}
           fill
           sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 31vw"
           className={styles.previewImage}
@@ -161,7 +166,7 @@ function ProjectCard({
         <div className={styles.previewOverlay} />
 
         <div className={styles.previewBadges}>
-          <StatusBadge status={project.status} />
+          <StatusBadge status={project.status} statusLabels={t.statusLabels} />
           <span className={styles.categoryBadge}>{project.category}</span>
         </div>
 
@@ -169,29 +174,29 @@ function ProjectCard({
           <span className={styles.imageCountBadge}>
             <Images size={12} />
             <span>
-              {imageCount} {imageCount === 1 ? "Photo" : "Photos"}
+              {imageCount} {imageCount === 1 ? t.photoLabel : t.photosLabel}
             </span>
           </span>
 
           <span className={styles.previewHint}>
             <Maximize2 size={12} />
-            <span>View Gallery</span>
+            <span>{t.viewGallery}</span>
           </span>
         </div>
       </div>
 
       <div className={styles.cardBody}>
-        <h3 className={styles.cardTitle}>{project.title}</h3>
+        <h3 className={styles.cardTitle}>{projectTitle}</h3>
         
         <div className={styles.descWrap}>
-          <p className={styles.cardDescription}>{project.description}</p>
+          <p className={styles.cardDescription}>{projectDesc}</p>
           <button
             type="button"
             className={styles.showMoreBtn}
-            onClick={() => onOpenDetails(project)}
-            aria-label={`Show more details for ${project.title}`}
+            onClick={() => onOpenDetails(localized)}
+            aria-label={`Show more details for ${projectTitle}`}
           >
-            ... show more
+            {t.showMore}
           </button>
         </div>
 
@@ -211,12 +216,12 @@ function ProjectCard({
               rel="noopener noreferrer"
               className={styles.cardLink}
             >
-              <span>Launch Live Platform</span>
+              <span>{t.launchPlatform}</span>
               <ExternalLink size={14} className={styles.linkIcon} />
             </Link>
           ) : (
             <span className={styles.cardLinkDisabled}>
-              <span>Internal Enterprise System</span>
+              <span>{t.internalSystem}</span>
             </span>
           )}
         </div>
@@ -225,8 +230,13 @@ function ProjectCard({
   );
 }
 
+interface ProjectsProps {
+  locale?: Locale;
+}
+
 /* ─── Component ─── */
-export default function Projects() {
+export default function Projects({ locale = "en" }: ProjectsProps) {
+  const t = getTranslations(locale).projects;
   const sectionRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const [activeFilter, setActiveFilter] = useState<"All" | Category>("All");
@@ -363,15 +373,12 @@ export default function Projects() {
           <div
             className={`${styles.header} ${headerVisible ? styles.headerVisible : ""}`}
           >
-            <span className={styles.sectionLabel}>SELECTED PROJECTS</span>
+            <span className={styles.sectionLabel}>{t.sectionLabel}</span>
             <h2 className={styles.mainTitle}>
-              Building The Future Through Intelligent Digital Products
+              {t.mainTitle}
             </h2>
             <p className={styles.description}>
-              A curated portfolio of intelligent digital products, scalable
-              systems and AI solutions. Every project is engineered with precision
-              — blending advanced architecture, immersive experiences and modern
-              development to drive meaningful digital transformation.
+              {t.description}
             </p>
           </div>
 
@@ -393,7 +400,7 @@ export default function Projects() {
                   className={`${styles.filterBtn} ${isActive ? styles.filterActive : ""}`}
                   onClick={() => handleFilter(filter)}
                 >
-                  <span>{filterLabels[filter]}</span>
+                  <span>{t.filterLabels[filter]}</span>
                   <span className={styles.filterCount}>{count}</span>
                 </button>
               );
@@ -407,6 +414,7 @@ export default function Projects() {
                 key={project.id}
                 project={project}
                 index={index}
+                t={t}
                 onOpenGallery={handleOpenGallery}
                 onOpenDetails={setDetailsProject}
               />
@@ -421,7 +429,7 @@ export default function Projects() {
                 className={styles.viewMoreBtn}
                 onClick={() => (expanded ? handleShowLess() : setExpanded(true))}
               >
-                {expanded ? "Show Less" : "View More Projects"}
+                {expanded ? t.showLess : t.viewMore}
                 <span
                   className={`${styles.viewMoreIcon} ${
                     expanded ? styles.viewMoreIconUp : ""

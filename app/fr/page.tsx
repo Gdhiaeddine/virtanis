@@ -47,10 +47,10 @@ export default function FrenchHome() {
   return (
     <main className="flex flex-col flex-1">
       <Hero locale="fr" />
-      <Skills />
-      <Projects />
-      <About />
-      <Contact />
+      <Skills locale="fr" />
+      <Projects locale="fr" />
+      <About locale="fr" />
+      <Contact locale="fr" />
     </main>
   );
 }

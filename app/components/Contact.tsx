@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { getTranslations, Locale } from "../data/translations";
 import styles from "./Contact.module.css";
 import siteData from "../data/site.json";
 
@@ -75,14 +76,6 @@ function AvailabilityIcon() {
   );
 }
 
-function GitHubIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-    </svg>
-  );
-}
-
 function LinkedInIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -107,30 +100,7 @@ function BehanceIcon() {
   );
 }
 
-function DribbbleIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm10.12-10.358c-.35-.11-3.17-.953-6.384-.438 1.34 3.684 1.887 6.684 1.992 7.308a10.174 10.174 0 004.392-6.87zm-6.115 7.808c-.153-.9-.75-4.032-2.19-7.77l-.066.02c-5.79 2.015-7.86 6.025-8.04 6.4a10.15 10.15 0 006.29 2.166c1.42 0 2.77-.29 4-.816zm-11.62-2.58c.232-.4 3.045-5.055 8.332-6.765.135-.045.27-.084.405-.12-.26-.585-.54-1.167-.832-1.74C7.17 11.775 2.206 11.71 1.756 11.7l-.004.312c0 2.633.998 5.037 2.634 6.855zm-2.42-8.955c.46.008 4.683.026 9.477-1.248-1.698-3.018-3.53-5.558-3.8-5.928-2.868 1.35-5.01 3.99-5.676 7.17zM9.6 2.052c.282.38 2.145 2.914 3.822 6 3.645-1.365 5.19-3.44 5.373-3.702A10.12 10.12 0 0012 1.818c-.83 0-1.638.08-2.4.234zm10.335 3.483c-.218.29-1.91 2.493-5.724 4.04.24.49.47.985.68 1.485.08.18.15.36.22.53 3.41-.43 6.8.26 7.14.33-.02-2.42-.88-4.64-2.31-6.38z" />
-    </svg>
-  );
-}
 
-function ArrowRightIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="5" y1="12" x2="19" y2="12" />
-      <polyline points="12 5 19 12 12 19" />
-    </svg>
-  );
-}
-
-/* ─── Data ─── */
-const CONTACT_CARDS = [
-  { id: 0, label: "EMAIL", value: siteData.contact.email, icon: "email" },
-  { id: 1, label: "PHONE", value: siteData.contact.phone, icon: "phone" },
-  { id: 2, label: "LOCATION", value: siteData.contact.location, icon: "location" },
-  { id: 3, label: "AVAILABILITY", value: siteData.contact.availability, icon: "availability" },
-];
 
 const ICON_MAP: Record<string, React.FC> = {
   email: EmailIcon,
@@ -156,14 +126,26 @@ const SOCIAL_LINKS = siteData.socialLinks
 
 
 
+interface ContactProps {
+  locale?: Locale;
+}
+
 /* ─── Component ─── */
-export default function Contact() {
+export default function Contact({ locale = "en" }: ContactProps) {
+  const t = getTranslations(locale).contact;
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "sending" | "success" | "error"
   >("idle");
   const [statusMessage, setStatusMessage] = useState("");
+
+  const contactCards = [
+    { id: 0, label: t.cardLabels.email, value: siteData.contact.email, icon: "email" },
+    { id: 1, label: t.cardLabels.phone, value: siteData.contact.phone, icon: "phone" },
+    { id: 2, label: t.cardLabels.location, value: t.locationValue, icon: "location" },
+    { id: 3, label: t.cardLabels.availability, value: t.availabilityValue, icon: "availability" },
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -185,7 +167,7 @@ export default function Contact() {
     const formData = new FormData(form);
 
     setSubmitStatus("sending");
-    setStatusMessage("Sending your message...");
+    setStatusMessage(t.status.sending);
 
     try {
       const response = await fetch("/api/contact", {
@@ -198,18 +180,18 @@ export default function Contact() {
       const result = (await response.json()) as { error?: string };
 
       if (!response.ok) {
-        throw new Error(result.error || "Could not send your message.");
+        throw new Error(result.error || t.status.error);
       }
 
       form.reset();
       setSubmitStatus("success");
-      setStatusMessage("Message sent successfully.");
+      setStatusMessage(t.status.success);
     } catch (error) {
       setSubmitStatus("error");
       setStatusMessage(
         error instanceof Error
           ? error.message
-          : "Could not send your message. Please try again.",
+          : t.status.error,
       );
     }
   };
@@ -272,15 +254,15 @@ export default function Contact() {
       <div className={styles.container}>
         {/* Section Header */}
         <div className={`${isVisible ? styles.fadeInUp : ""}`}>
-          <span className={styles.sectionLabel}>CONTACT</span>
+          <span className={styles.sectionLabel}>{t.sectionLabel}</span>
         </div>
 
         <h2 className={`${styles.mainTitle} ${isVisible ? `${styles.fadeInUp} ${styles.fadeInUpDelay1}` : ""}`}>
-          Let&apos;s Create Intelligent Digital Experiences Together
+          {t.mainTitle}
         </h2>
 
         <p className={`${styles.description} ${isVisible ? `${styles.fadeInUp} ${styles.fadeInUpDelay2}` : ""}`}>
-          Whether you&apos;re a visionary startup, an enterprise seeking digital transformation, or an innovator with a bold idea — we partner with forward-thinking teams to architect intelligent systems, engineer scalable platforms, and deliver experiences that redefine industries.
+          {t.description}
         </p>
 
         {/* ── Main 2-Column Layout ── */}
@@ -288,12 +270,12 @@ export default function Contact() {
           {/* LEFT SIDE — Contact Information */}
           <div className={`${styles.leftSide} ${isVisible ? `${styles.fadeInUp} ${styles.fadeInUpDelay3}` : ""}`}>
             <p className={styles.introText}>
-              Open to innovative collaborations, intelligent software solutions, and futuristic digital projects. Let&apos;s engineer something extraordinary.
+              {t.introText}
             </p>
 
             {/* Contact Cards */}
             <div className={styles.contactCards}>
-              {CONTACT_CARDS.map((card) => {
+              {contactCards.map((card) => {
                 const IconComponent = ICON_MAP[card.icon];
                 return (
                   <div key={card.id} className={styles.contactCard}>
@@ -309,7 +291,7 @@ export default function Contact() {
 
             {/* Social Links */}
             <div className={styles.socialArea}>
-              <span className={styles.socialLabel}>Connect</span>
+              <span className={styles.socialLabel}>{t.socialLabel}</span>
               <div className={styles.socialLinks}>
                 {SOCIAL_LINKS.map((social) => {
                   const SocialIcon = social.icon;
@@ -328,44 +310,37 @@ export default function Contact() {
                 })}
               </div>
             </div>
-
-            {/* Status Indicator 
-            <div className={styles.statusIndicator}>
-              <div className={styles.statusDot} />
-              <span className={styles.statusText}>Currently Available For New Projects</span>
-            </div>
-            */}
           </div>
 
           {/* RIGHT SIDE — Contact Form */}
           <div className={`${styles.rightSide} ${isVisible ? `${styles.fadeInUp} ${styles.fadeInUpDelay4}` : ""}`}>
             <div className={styles.formContainer}>
-              <h3 className={styles.formTitle}>Start a Project</h3>
-              <p className={styles.formSubtitle}>Tell us about your vision and we&apos;ll bring it to life.</p>
+              <h3 className={styles.formTitle}>{t.formTitle}</h3>
+              <p className={styles.formSubtitle}>{t.formSubtitle}</p>
 
               <form className={styles.form} onSubmit={handleSubmit}>
                 {/* Name & Email Row */}
                 <div className={styles.formRow}>
                   <div className={styles.inputGroup}>
-                    <label className={styles.inputLabel} htmlFor="contact-name">Full Name</label>
+                    <label className={styles.inputLabel} htmlFor="contact-name">{t.labels.name}</label>
                     <input
                       id="contact-name"
                       name="name"
                       type="text"
                       className={styles.input}
-                      placeholder="John Doe"
+                      placeholder={t.placeholders.name}
                       autoComplete="name"
                       required
                     />
                   </div>
                   <div className={styles.inputGroup}>
-                    <label className={styles.inputLabel} htmlFor="contact-email">Email Address</label>
+                    <label className={styles.inputLabel} htmlFor="contact-email">{t.labels.email}</label>
                     <input
                       id="contact-email"
                       name="email"
                       type="email"
                       className={styles.input}
-                      placeholder="john@company.com"
+                      placeholder={t.placeholders.email}
                       autoComplete="email"
                       required
                     />
@@ -374,25 +349,25 @@ export default function Contact() {
 
                 {/* Subject Input */}
                 <div className={styles.inputGroup}>
-                  <label className={styles.inputLabel} htmlFor="contact-subject">Subject</label>
+                  <label className={styles.inputLabel} htmlFor="contact-subject">{t.labels.subject}</label>
                   <input
                     id="contact-subject"
                     name="subject"
                     type="text"
                     className={styles.input}
-                    placeholder="Project Inquiry, Partnership, Engineering Request..."
+                    placeholder={t.placeholders.subject}
                     required
                   />
                 </div>
 
                 {/* Message */}
                 <div className={styles.inputGroup}>
-                  <label className={styles.inputLabel} htmlFor="contact-message">Message</label>
+                  <label className={styles.inputLabel} htmlFor="contact-message">{t.labels.message}</label>
                   <textarea
                     id="contact-message"
                     name="message"
                     className={styles.textarea}
-                    placeholder="Tell us about your project, goals, and timeline..."
+                    placeholder={t.placeholders.message}
                     rows={5}
                     required
                   />
@@ -406,10 +381,10 @@ export default function Contact() {
                 >
                   <span>
                     {submitStatus === "sending"
-                      ? "Sending..."
+                      ? t.button.sending
                       : submitStatus === "success"
-                        ? "Message sent!"
-                        : "Send Message"}
+                        ? t.button.success
+                        : t.button.default}
                   </span>
                 </button>
                 {statusMessage && (

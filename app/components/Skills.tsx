@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { getTranslations, Locale } from "../data/translations";
 import styles from "./Skills.module.css";
 
 /* ─── Data ─── */
@@ -192,8 +193,13 @@ const HUD_CIRCLES = [
   { id: 2, size: "160px", top: "50%", left: "2%", duration: "22s", delay: "-14s" },
 ];
 
+interface SkillsProps {
+  locale?: Locale;
+}
+
 /* ─── Component ─── */
-export default function Skills() {
+export default function Skills({ locale = "en" }: SkillsProps) {
+  const t = getTranslations(locale).skills;
   const sectionRef = useRef<HTMLElement>(null);
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -289,13 +295,9 @@ export default function Skills() {
       <div className={styles.container}>
         {/* Header */}
         <div className={styles.header}>
-          <span className={styles.sectionLabel}>DIGITAL CAPABILITIES</span>
-          <h2 className={styles.mainTitle}>Full-Spectrum Digital Engineering Solutions</h2>
-          <p className={styles.description}>
-            Virtanis engineers end-to-end digital solutions that power industry-leading businesses.
-            From intelligent AI systems and high-throughput web applications to native mobile platforms,
-            spatial UI/UX design, and cloud infrastructure — we build for performance, scale, and prestige.
-          </p>
+          <span className={styles.sectionLabel}>{t.sectionLabel}</span>
+          <h2 className={styles.mainTitle}>{t.mainTitle}</h2>
+          <p className={styles.description}>{t.description}</p>
         </div>
 
         {/* Solutions Grid */}
@@ -324,10 +326,14 @@ export default function Skills() {
                 </div>
 
                 {/* Title */}
-                <h3 className={styles.cardTitle}>{solution.title}</h3>
+                <h3 className={styles.cardTitle}>
+                  {t.solutions[solution.slug]?.title || solution.title}
+                </h3>
 
                 {/* Description */}
-                <p className={styles.cardDescription}>{solution.description}</p>
+                <p className={styles.cardDescription}>
+                  {t.solutions[solution.slug]?.description || solution.description}
+                </p>
 
                 {/* Technologies */}
                 <div className={styles.techTags}>
@@ -341,7 +347,7 @@ export default function Skills() {
                 {/* Card Footer Link */}
                 <div className={styles.cardFooter}>
                   <Link href={`/services/${solution.slug}`} className={styles.exploreLink}>
-                    <span>Explore Solution</span>
+                    <span>{t.exploreSolution}</span>
                     <span className={styles.exploreArrow}>→</span>
                   </Link>
                 </div>

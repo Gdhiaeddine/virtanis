@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback } from "react";
+import { getTranslations, Locale } from "../data/translations";
 import styles from "./Footer.module.css";
 
 /* ─── Deterministic random for particles ─── */
@@ -28,18 +29,42 @@ const PARTICLES = Array.from({ length: 12 }, (_, i) => ({
   opacity: rand() * 0.25 + 0.08,
 }));
 
-const NAV_LINKS = ["Home", "About", "Services", "Skills", "Projects", "Contact"];
+const FOOTER_NAV_ITEMS = [
+  { id: "home", key: "home" as const },
+  { id: "about", key: "about" as const },
+  { id: "services", key: "services" as const },
+  { id: "skills", key: "skills" as const },
+  { id: "projects", key: "projects" as const },
+  { id: "contact", key: "contact" as const },
+];
 
-export default function Footer() {
+interface FooterProps {
+  locale?: Locale;
+}
+
+export default function Footer({ locale: propLocale }: FooterProps = {}) {
   const pathname = usePathname();
+  const isFr = propLocale === "fr" || pathname === "/fr" || pathname.startsWith("/fr/");
+  const locale: Locale = propLocale ?? (isFr ? "fr" : "en");
+  const t = getTranslations(locale).footer;
+
+  const hrefFor = (id: string) => {
+    if (id === "home") return isFr ? "/fr" : "/";
+    if (id === "services") return "/services";
+    if (id === "about") return "/about";
+    if (id === "projects") return "/projects";
+    if (id === "skills") return "/skills";
+    if (id === "contact") return "/contact";
+    return isFr ? `/fr#${id}` : `/#${id}`;
+  };
 
   const handleNavClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
-      const isServices = link.toLowerCase() === "services";
-      const isAbout = link.toLowerCase() === "about";
-      const isProjects = link.toLowerCase() === "projects";
-      const isSkills = link.toLowerCase() === "skills";
-      const isContact = link.toLowerCase() === "contact";
+    (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+      const isServices = id === "services";
+      const isAbout = id === "about";
+      const isProjects = id === "projects";
+      const isSkills = id === "skills";
+      const isContact = id === "contact";
       if (
         isServices ||
         isAbout ||
@@ -56,7 +81,6 @@ export default function Footer() {
       }
       
       e.preventDefault();
-      const id = link.toLowerCase();
       const el = document.getElementById(id);
       if (el) {
         el.scrollIntoView({ behavior: "smooth" });
@@ -105,7 +129,7 @@ export default function Footer() {
         <div className={styles.footerContent}>
           {/* LEFT SECTION — Logo, Brand name, Copyright */}
           <div className={styles.leftSection}>
-            <Link href="/" className={styles.logoArea}>
+            <Link href={isFr ? "/fr" : "/"} className={styles.logoArea}>
               <Image
                 src="/logo.png"
                 alt="Virtanis"
@@ -117,35 +141,20 @@ export default function Footer() {
               <span className={styles.logoText}>VIRTANIS</span>
             </Link>
             <span className={styles.copyright} suppressHydrationWarning>
-              &copy; {new Date().getFullYear()} Virtanis. All Rights Reserved.
+              &copy; {new Date().getFullYear()} Virtanis. {t.rightsReserved}
             </span>
-
           </div>
 
           {/* RIGHT SECTION — Navigation Links (like navbar) */}
           <div className={styles.rightSection}>
-            {NAV_LINKS.map((link) => (
+            {FOOTER_NAV_ITEMS.map((item) => (
               <Link
-                key={link}
-                href={
-                  link.toLowerCase() === "home"
-                    ? "/"
-                    : link.toLowerCase() === "services"
-                      ? "/services"
-                      : link.toLowerCase() === "about"
-                        ? "/about"
-                        : link.toLowerCase() === "projects"
-                          ? "/projects"
-                          : link.toLowerCase() === "skills"
-                            ? "/skills"
-                            : link.toLowerCase() === "contact"
-                              ? "/contact"
-                              : `/#${link.toLowerCase()}`
-                }
+                key={item.id}
+                href={hrefFor(item.id)}
                 className={styles.navLink}
-                onClick={(e) => handleNavClick(e, link)}
+                onClick={(e) => handleNavClick(e, item.id)}
               >
-                {link}
+                {t.items[item.key]}
               </Link>
             ))}
           </div>

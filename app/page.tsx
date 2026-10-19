@@ -47,10 +47,10 @@ export default function Home() {
   return (
     <main className="flex flex-col flex-1">
       <Hero locale="en" />
-      <Skills />
-      <Projects />
-      <About />
-      <Contact />
+      <Skills locale="en" />
+      <Projects locale="en" />
+      <About locale="en" />
+      <Contact locale="en" />
     </main>
   );
 }

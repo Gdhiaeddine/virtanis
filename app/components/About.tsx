@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import siteData from "../data/site.json";
+import { getTranslations, Locale } from "../data/translations";
 import styles from "./About.module.css";
 
 function mulberry32(seed: number) {
@@ -50,32 +50,6 @@ const HUD_CIRCLES = [
   { id: 2, size: "160px", top: "50%", left: "2%", duration: "18s", delay: "-10s" },
 ];
 
-const CREDENTIAL_CARDS = [
-  {
-    id: 0,
-    label: "Focus",
-    value: "Enterprise & Scale",
-    icon: "experience",
-  },
-  {
-    id: 1,
-    label: "Engineering",
-    value: "AI-Native & Zero-Latency",
-    icon: "tech",
-  },
-  {
-    id: 2,
-    label: "Delivery",
-    value: "Worldwide",
-    icon: "location",
-  },
-  {
-    id: 3,
-    label: "Availability",
-    value: "Available to Work",
-    icon: "availability",
-  },
-];
 
 function ExperienceIcon() {
   return (
@@ -152,7 +126,40 @@ const ICON_MAP: Record<string, React.FC> = {
   availability: AvailabilityIcon,
 };
 
-export default function About() {
+interface AboutProps {
+  locale?: Locale;
+}
+
+export default function About({ locale = "en" }: AboutProps) {
+  const t = getTranslations(locale).about;
+
+  const credentialCards = [
+    {
+      id: 0,
+      label: t.credentials.focus.label,
+      value: t.credentials.focus.value,
+      icon: "experience",
+    },
+    {
+      id: 1,
+      label: t.credentials.engineering.label,
+      value: t.credentials.engineering.value,
+      icon: "tech",
+    },
+    {
+      id: 2,
+      label: t.credentials.delivery.label,
+      value: t.credentials.delivery.value,
+      icon: "location",
+    },
+    {
+      id: 3,
+      label: t.credentials.availability.label,
+      value: t.credentials.availability.value,
+      icon: "availability",
+    },
+  ];
+
   return (
     <section className={styles.about} id="about">
       {/* Background atmosphere */}
@@ -275,21 +282,19 @@ export default function About() {
 
         {/* CENTER COLUMN — Agency Philosophy Content */}
         <div className={styles.centerColumn}>
-          <span className={styles.sectionLabel}>THE VIRTANIS STANDARD</span>
+          <span className={styles.sectionLabel}>{t.sectionLabel}</span>
 
           <h2 className={styles.mainTitle}>
-            Architecting Tomorrow&apos;s High-Value Digital Infrastructure
+            {t.mainTitle}
           </h2>
 
           <p className={styles.description}>
-            Virtanis is an elite digital engineering studio combining computational intelligence,
-            architectural rigor, and world-class product design. We partner with fast-growing startups
-            and global enterprises to design, build, and deploy digital platforms that redefine industries.
+            {t.description}
           </p>
 
           {/* CTA Button */}
           <Link href="/about" className={styles.ctaButton}>
-            Explore Agency
+            {t.ctaButton}
           </Link>
         </div>
 
@@ -297,7 +302,7 @@ export default function About() {
         <div className={styles.rightColumn}>
           <div className={styles.credentialsPanel}>
             <div className={styles.credentialsGrid}>
-              {CREDENTIAL_CARDS.map((card) => {
+              {credentialCards.map((card) => {
                 const IconComponent = ICON_MAP[card.icon];
                 return (
                   <div key={card.id} className={styles.credentialCard}>
