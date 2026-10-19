@@ -9,7 +9,12 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-
+/agent-skills
+/ui-ux-pro-max-skill
+AGENTS.md
+CLAUDE.md
+/.agents
+/logs
 # testing
 /coverage
 

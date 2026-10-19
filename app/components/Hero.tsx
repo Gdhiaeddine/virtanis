@@ -2,9 +2,16 @@
 
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight } from "lucide-react";
+import { getTranslations, Locale } from "../data/translations";
 import styles from "./Hero.module.css";
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  locale?: Locale;
+}
+
+export default function HeroSection({ locale = "en" }: HeroSectionProps) {
+  const t = getTranslations(locale).hero;
+
   return (
     <section className={styles.hero} id="home">
       <div className={styles.background} aria-hidden="true">
@@ -31,18 +38,17 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Digital Agency • AI & Engineering
+            {t.badge}
           </motion.div>
 
           <h1 className={styles.title}>
-            Architecting <span className={styles.serifAccent}>Intelligent Digital</span>{" "}
-            Systems & Modern Platforms
+            {t.titlePrefix}
+            <span className={styles.serifAccent}>{t.titleAccent}</span>
+            {t.titleSuffix}
           </h1>
 
           <p className={styles.description}>
-            Virtanis is an elite digital engineering studio. We architect high-performance
-            web ecosystems, scalable mobile platforms, intelligent AI systems, and 3D digital experiences
-            for industry leaders and visionary founders worldwide.
+            {t.description}
           </p>
 
           <motion.div
@@ -52,10 +58,10 @@ export default function HeroSection() {
             transition={{ duration: 0.65, delay: 0.28 }}
           >
             <a href="#contact" className={styles.primaryButton}>
-              Start a Project <ArrowRight size={17} />
+              {t.primaryCta} <ArrowRight size={17} />
             </a>
             <a href="#services" className={styles.secondaryButton}>
-              Explore Solutions <ArrowRight size={17} />
+              {t.secondaryCta} <ArrowRight size={17} />
             </a>
           </motion.div>
         </motion.div>
@@ -67,7 +73,7 @@ export default function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.8 }}
       >
-        <span>SCROLL TO EXPLORE</span>
+        <span>{t.scrollIndicator}</span>
         <ArrowDown size={18} />
       </motion.div>
     </section>

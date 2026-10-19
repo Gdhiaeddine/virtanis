@@ -11,6 +11,11 @@ export const metadata: Metadata = {
     "Virtanis is a next-generation digital agency building intelligent AI systems, enterprise web platforms, and mobile apps. Engineer your digital future today.",
   alternates: {
     canonical: "https://virtanis.com",
+    languages: {
+      en: "https://virtanis.com",
+      fr: "https://virtanis.com/fr",
+      "x-default": "https://virtanis.com",
+    },
   },
   openGraph: {
     title: "Virtanis | Next-Generation Digital Agency & AI Engineering",
@@ -19,6 +24,7 @@ export const metadata: Metadata = {
     url: "https://virtanis.com",
     siteName: "Virtanis",
     type: "website",
+    locale: "en_US",
     images: [
       {
         url: "/og-image.png",
@@ -40,7 +46,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="flex flex-col flex-1">
-      <Hero />
+      <Hero locale="en" />
       <Skills />
       <Projects />
       <About />

@@ -5,9 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { getTranslations, Locale } from "../data/translations";
 import styles from "./Navbar.module.css";
 
-const NAV_LINKS = ["Home", "About", "Skills", "Projects", "Services", "Contact"];
+const NAV_ITEMS = [
+  { id: "home", key: "home" as const },
+  { id: "about", key: "about" as const },
+  { id: "skills", key: "skills" as const },
+  { id: "projects", key: "projects" as const },
+  { id: "services", key: "services" as const },
+  { id: "contact", key: "contact" as const },
+];
 
 function LogoMark() {
   return (
@@ -20,56 +28,59 @@ function LogoMark() {
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("Home");
+  const [activeSection, setActiveSection] = useState("home");
+
+  const isFr = pathname === "/fr" || pathname.startsWith("/fr/");
+  const locale: Locale = isFr ? "fr" : "en";
+  const t = getTranslations(locale).navbar;
 
   useEffect(() => {
     if (pathname === "/about") {
-      setActiveSection("About");
+      setActiveSection("about");
       return;
     }
 
     if (pathname === "/projects") {
-      setActiveSection("Projects");
+      setActiveSection("projects");
       return;
     }
 
     if (pathname.startsWith("/services")) {
-      setActiveSection("Services");
+      setActiveSection("services");
       return;
     }
 
     if (pathname === "/skills") {
-      setActiveSection("Skills");
+      setActiveSection("skills");
       return;
     }
 
     if (pathname === "/contact") {
-      setActiveSection("Contact");
+      setActiveSection("contact");
       return;
     }
 
     const onScroll = () => {
-      const sections = NAV_LINKS.filter(
-        (link) =>
-          link !== "About" &&
-          link !== "Services" &&
-          link !== "Projects" &&
-          link !== "Skills" &&
-          link !== "Contact"
-      ).map((link) => {
-        const id = link.toLowerCase();
-        const el = document.getElementById(id);
-        if (!el) return { link, top: Number.NEGATIVE_INFINITY };
-        return { link, top: el.getBoundingClientRect().top };
+      const sections = NAV_ITEMS.filter(
+        (item) =>
+          item.id !== "about" &&
+          item.id !== "services" &&
+          item.id !== "projects" &&
+          item.id !== "skills" &&
+          item.id !== "contact"
+      ).map((item) => {
+        const el = document.getElementById(item.id);
+        if (!el) return { id: item.id, top: Number.NEGATIVE_INFINITY };
+        return { id: item.id, top: el.getBoundingClientRect().top };
       });
 
       const current = sections.reduce(
         (closest, section) =>
           section.top <= 120 && section.top > closest.top ? section : closest,
-        { link: "Home", top: Number.NEGATIVE_INFINITY }
+        { id: "home", top: Number.NEGATIVE_INFINITY }
       );
 
-      setActiveSection(current.link);
+      setActiveSection(current.id);
     };
 
     onScroll();
@@ -84,20 +95,15 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
-  const hrefFor = (link: string) =>
-    link === "Home"
-      ? "/"
-      : link === "Services"
-        ? "/services"
-        : link === "About"
-          ? "/about"
-          : link === "Projects"
-            ? "/projects"
-            : link === "Skills"
-              ? "/skills"
-              : link === "Contact"
-                ? "/contact"
-                : `/#${link.toLowerCase()}`;
+  const hrefFor = (id: string) => {
+    if (id === "home") return isFr ? "/fr" : "/";
+    if (id === "services") return "/services";
+    if (id === "about") return "/about";
+    if (id === "projects") return "/projects";
+    if (id === "skills") return "/skills";
+    if (id === "contact") return "/contact";
+    return isFr ? `/fr#${id}` : `/#${id}`;
+  };
 
   const closeMenu = () => setMobileOpen(false);
 
@@ -105,28 +111,47 @@ export default function Navbar() {
     <>
       <nav className={styles.navbar}>
         <div className={styles.container}>
-          <Link href="/" className={styles.logoLink} onClick={closeMenu}>
+          <Link href={isFr ? "/fr" : "/"} className={styles.logoLink} onClick={closeMenu}>
             <LogoMark />
             <span className={styles.logoText}>VIRTANIS</span>
           </Link>
 
           <div className={styles.center}>
-            {NAV_LINKS.map((link) => (
+            {NAV_ITEMS.map((item) => (
               <Link
-                key={link}
-                href={hrefFor(link)}
+                key={item.id}
+                href={hrefFor(item.id)}
                 className={`${styles.navLink} ${
-                  activeSection === link ? styles.navLinkActive : ""
+                  activeSection === item.id ? styles.navLinkActive : ""
                 }`}
               >
-                {link}
+                {t.items[item.key]}
               </Link>
             ))}
           </div>
 
           <div className={styles.right}>
+            <div className={styles.langSwitcher} role="group" aria-label={t.switchAria}>
+              <Link
+                href="/"
+                className={`${styles.langBtn} ${!isFr ? styles.langBtnActive : ""}`}
+                aria-label="English"
+                aria-current={!isFr ? "page" : undefined}
+              >
+                EN
+              </Link>
+              <Link
+                href="/fr"
+                className={`${styles.langBtn} ${isFr ? styles.langBtnActive : ""}`}
+                aria-label="Français"
+                aria-current={isFr ? "page" : undefined}
+              >
+                FR
+              </Link>
+            </div>
+
             <Link href="/contact" className={styles.ctaButton}>
-              Let&apos;s Work Together <ArrowRight size={14} />
+              {t.cta} <ArrowRight size={14} />
             </Link>
             <button
               className={`${styles.hamburger} ${mobileOpen ? styles.hamburgerOpen : ""}`}
@@ -144,16 +169,33 @@ export default function Navbar() {
       </nav>
 
       <div className={`${styles.overlay} ${mobileOpen ? styles.overlayOpen : ""}`}>
-        {NAV_LINKS.map((link) => (
+        {NAV_ITEMS.map((item) => (
           <Link
-            key={link}
-            href={hrefFor(link)}
+            key={item.id}
+            href={hrefFor(item.id)}
             className={styles.overlayLink}
             onClick={closeMenu}
           >
-            {link}
+            {t.items[item.key]}
           </Link>
         ))}
+
+        <div className={styles.mobileLangSwitcher} role="group" aria-label={t.switchAria}>
+          <Link
+            href="/"
+            className={`${styles.mobileLangBtn} ${!isFr ? styles.mobileLangBtnActive : ""}`}
+            onClick={closeMenu}
+          >
+            EN
+          </Link>
+          <Link
+            href="/fr"
+            className={`${styles.mobileLangBtn} ${isFr ? styles.mobileLangBtnActive : ""}`}
+            onClick={closeMenu}
+          >
+            FR
+          </Link>
+        </div>
       </div>
     </>
   );
