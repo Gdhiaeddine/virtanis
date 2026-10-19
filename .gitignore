@@ -15,6 +15,7 @@ AGENTS.md
 CLAUDE.md
 /.agents
 /logs
+/tasks
 # testing
 /coverage
 

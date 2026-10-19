@@ -1,6 +1,5 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 const RECIPIENT_EMAIL = "guettafdhiaeddine@gmail.com";
 const FROM_EMAIL = "onboarding@resend.dev";
@@ -132,6 +131,8 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   if (!isSameOriginContactRequest(request)) {
     return Response.json(
