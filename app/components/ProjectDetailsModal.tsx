@@ -4,21 +4,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Images, ArrowUpRight } from "lucide-react";
+import { X, Images, ArrowUpRight } from "lucide-react";
+import { getTranslations, Locale } from "../data/translations";
 import styles from "./ProjectDetailsModal.module.css";
 import { ModalProject } from "./ProjectGalleryModal";
 
 interface ProjectDetailsModalProps {
   project: ModalProject | null;
+  locale?: Locale;
   onClose: () => void;
   onOpenGallery?: (project: ModalProject, index?: number) => void;
 }
 
 export default function ProjectDetailsModal({
   project,
+  locale = "en",
   onClose,
   onOpenGallery,
 }: ProjectDetailsModalProps) {
+  const t = getTranslations(locale).projects;
+  const isFr = locale === "fr";
+
   // Keyboard navigation & scroll locking
   useEffect(() => {
     if (!project) return;
@@ -48,10 +54,12 @@ export default function ProjectDetailsModal({
 
   const statusLabel =
     project.status === "Live"
-      ? "Live Deployment"
+      ? t.statusLabels.live
       : project.status === "Beta"
-        ? "Beta Preview"
-        : "In Development";
+        ? t.statusLabels.beta
+        : t.statusLabels.inProgress;
+
+  const categoryLabel = project.category === "ML" ? (isFr ? "IA / ML" : "AI / ML") : project.category;
 
   const images =
     project.images && project.images.length > 0
@@ -93,7 +101,7 @@ export default function ProjectDetailsModal({
                 <h2 id="project-details-title" className={styles.projectTitle}>
                   {project.title}
                 </h2>
-                <span className={styles.categoryBadge}>{project.category}</span>
+                <span className={styles.categoryBadge}>{categoryLabel}</span>
                 <span className={styles.statusWrap}>
                   <span className={`${styles.statusDot} ${statusClass}`} />
                   <span>{statusLabel}</span>
@@ -105,7 +113,7 @@ export default function ProjectDetailsModal({
               type="button"
               className={styles.closeButton}
               onClick={onClose}
-              aria-label="Close project details"
+              aria-label={isFr ? "Fermer les détails du projet" : "Close project details"}
             >
               <X size={18} />
             </button>
@@ -119,7 +127,7 @@ export default function ProjectDetailsModal({
               onClick={handleBannerClick}
               role="button"
               tabIndex={0}
-              aria-label={`Open ${project.title} photo gallery`}
+              aria-label={isFr ? `Ouvrir la galerie photo de ${project.title}` : `Open ${project.title} photo gallery`}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
@@ -129,7 +137,7 @@ export default function ProjectDetailsModal({
             >
               <Image
                 src={project.image}
-                alt={`${project.title} preview screenshot`}
+                alt={isFr ? `Capture d'écran de ${project.title}` : `${project.title} preview screenshot`}
                 fill
                 sizes="(max-width: 768px) 94vw, 680px"
                 className={styles.bannerImage}
@@ -139,20 +147,20 @@ export default function ProjectDetailsModal({
               <div className={styles.bannerPrompt}>
                 <Images size={13} />
                 <span>
-                  View Gallery ({imageCount} {imageCount === 1 ? "Photo" : "Photos"})
+                  {t.viewGallery} ({imageCount} {imageCount === 1 ? t.photoLabel : t.photosLabel})
                 </span>
               </div>
             </div>
 
             {/* Description Section */}
             <section className={styles.section}>
-              <span className={styles.sectionLabel}>Full Overview</span>
+              <span className={styles.sectionLabel}>{isFr ? "Vue d'ensemble" : "Full Overview"}</span>
               <p className={styles.fullDescription}>{project.description}</p>
             </section>
 
             {/* Tech Stack Tags */}
             <section className={styles.section}>
-              <span className={styles.sectionLabel}>Technologies & Stack</span>
+              <span className={styles.sectionLabel}>{isFr ? "Technologies & Stack" : "Technologies & Stack"}</span>
               <div className={styles.techGrid}>
                 {project.technologies.map((tech) => (
                   <span key={tech} className={styles.techPill}>
@@ -173,7 +181,7 @@ export default function ProjectDetailsModal({
                   rel="noopener noreferrer"
                   className={styles.launchButton}
                 >
-                  <span>Launch Live Platform</span>
+                  <span>{t.launchPlatform}</span>
                   <ArrowUpRight size={15} />
                 </Link>
               )}
@@ -185,7 +193,7 @@ export default function ProjectDetailsModal({
                   onClick={() => onOpenGallery(project, 0)}
                 >
                   <Images size={14} />
-                  <span>View Photos</span>
+                  <span>{isFr ? "Voir les photos" : "View Photos"}</span>
                 </button>
               )}
             </div>
@@ -195,7 +203,7 @@ export default function ProjectDetailsModal({
               className={styles.dismissButton}
               onClick={onClose}
             >
-              Close
+              {isFr ? "Fermer" : "Close"}
             </button>
           </footer>
         </motion.div>

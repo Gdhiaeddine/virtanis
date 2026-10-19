@@ -235,7 +235,63 @@ export const translations: Record<Locale, TranslationDictionary> = {
       internalSystem: "Internal Enterprise System",
       viewMore: "View More Projects",
       showLess: "Show Less",
-      items: {},
+      items: {
+        10: {
+          title: "STI Corporate Website",
+          description:
+            "STI corporate website showcasing Ooredoo recharge credit, prepaid SIM cards, wholesale solutions, and partner services across Algeria. Built with Next.js and Tailwind CSS, it delivers a modern, fast, and fully responsive experience with a premium telecom design and intuitive navigation.",
+        },
+        7: {
+          title: "Hotel Management System",
+          description:
+            "A comprehensive hotel management platform for handling reservations, room allocation, guest information, billing, and daily hotel operations efficiently.",
+        },
+        9: {
+          title: "KAZELEC Corporate Website",
+          description:
+            "KAZELEC corporate website showcasing prefabricated transformer substations, electrical equipment, services, and completed projects. Built with Next.js and Tailwind CSS, it delivers a modern, fast, and fully responsive experience with a premium industrial design and intuitive navigation.",
+        },
+        2: {
+          title: "Golden Hills Hotel Website",
+          description:
+            "Golden Hills Hotel presentation website showcasing its rooms, services, and relaxation spaces. Built with Next.js and styled using Tailwind CSS, it delivers a modern, fast, and fully responsive interface with smooth navigation and an immersive visual experience.",
+        },
+        4: {
+          title: "House Rent Predictor Germany",
+          description:
+            "Machine Learning application that predicts rental prices in Germany based on real estate features such as location, size, and number of rooms. The goal is to provide fast and accurate housing price estimation using an AI model.",
+        },
+        5: {
+          title: "Customer Churn Prediction System",
+          description:
+            "An AI-powered customer churn prediction system that analyzes user behavior and predicts the likelihood of customer attrition, enabling proactive retention actions.",
+        },
+        6: {
+          title: "Movie Recommendation System",
+          description:
+            "A machine learning-powered recommendation system that suggests movies based on user preferences, genres, ratings, and similarity analysis to enhance content discovery.",
+        },
+        8: {
+          title: "HOCO Algeria — Premium Ecommerce Website",
+          description:
+            "A modern ecommerce website for HOCO Algeria, built to showcase and sell premium phone accessories with a clean responsive design.",
+        },
+        0: {
+          title: "Website Sodimfel",
+          description:
+            "Industrial electrical solutions platform showcasing transformers, substations, power distribution systems, and engineering services through a modern enterprise-grade web experience.",
+        },
+        1: {
+          title: "E-commerce Website – Groupe MTFC",
+          description:
+            "E-commerce website for Groupe MTFC, specialized in selling home appliances and household items. Developed with React and Laravel, providing a smooth user experience and efficient product and order management.",
+        },
+        3: {
+          title: "APL Tech — Futuristic Gaming PC Store Website",
+          description:
+            "A modern and immersive e-commerce website designed for gamers. APL Tech offers a futuristic experience with a sleek dark and purple aesthetic, allowing users to explore, customize, and build their own gaming PCs.",
+        },
+      },
     },
     about: {
       sectionLabel: "THE VIRTANIS STANDARD",

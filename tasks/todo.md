@@ -37,3 +37,14 @@
 - [x] Task 9: Localize Contact Section (`Contact.tsx`) <!-- id: 9 -->
   - Translated contact info channels, availability badge, form fields, placeholders, subject choices, status messages, and FAQ items (EN and FR)
 
+- [x] Task 10: Localize Footer (`Footer.tsx`) <!-- id: 10 -->
+  - Localized logo link (`/` vs `/fr`), copyright notice ("All Rights Reserved." vs "Tous droits réservés."), and navigation link labels (EN and FR)
+
+- [x] Task 11: Localize Project Cards & Modals (`Projects.tsx`, `ProjectDetailsModal.tsx`, `ProjectGalleryModal.tsx`) <!-- id: 11 -->
+  - Populated all project titles & descriptions in both English and French in `translations.ts`
+  - Localized category badges (`IA / ML` vs `AI / ML`), status badges, photo count badges, gallery hints, and CTAs
+  - Localized Project Details Modal (overview, tech stack, gallery trigger, launch button, dismiss button, and ARIA labels)
+  - Localized Project Gallery Modal (title, status, counter, image viewer ARIA labels, and live project link)
+
+
+

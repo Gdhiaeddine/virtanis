@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, ExternalLink, Images } from "lucide-react";
+import { getTranslations, Locale } from "../data/translations";
 import styles from "./ProjectGalleryModal.module.css";
 
 export interface ModalProject {
@@ -21,6 +22,7 @@ export interface ModalProject {
 
 interface ProjectGalleryModalProps {
   project: ModalProject | null;
+  locale?: Locale;
   activeImageIndex: number;
   onClose: () => void;
   onSelectImage: (index: number) => void;
@@ -28,10 +30,14 @@ interface ProjectGalleryModalProps {
 
 export default function ProjectGalleryModal({
   project,
+  locale = "en",
   activeImageIndex,
   onClose,
   onSelectImage,
 }: ProjectGalleryModalProps) {
+  const t = getTranslations(locale).projects;
+  const isFr = locale === "fr";
+
   const images = project?.images && project.images.length > 0 ? project.images : project ? [project.image] : [];
   const total = images.length;
   const currentImage = images[activeImageIndex] || images[0];
@@ -77,10 +83,12 @@ export default function ProjectGalleryModal({
 
   const statusLabel =
     project.status === "Live"
-      ? "Live Deployment"
+      ? t.statusLabels.live
       : project.status === "Beta"
-        ? "Beta Preview"
-        : "In Development";
+        ? t.statusLabels.beta
+        : t.statusLabels.inProgress;
+
+  const categoryLabel = project.category === "ML" ? (isFr ? "IA / ML" : "AI / ML") : project.category;
 
   return (
     <AnimatePresence>
@@ -93,7 +101,7 @@ export default function ProjectGalleryModal({
         onClick={onClose}
         role="dialog"
         aria-modal="true"
-        aria-label={`${project.title} Gallery`}
+        aria-label={isFr ? `${project.title} - Galerie` : `${project.title} Gallery`}
       >
         <div className={styles.modalContainer} onClick={(e) => e.stopPropagation()}>
           {/* Top Bar */}
@@ -101,7 +109,7 @@ export default function ProjectGalleryModal({
             <div className={styles.headerLeft}>
               <div className={styles.titleRow}>
                 <h2 className={styles.projectTitle}>{project.title}</h2>
-                <span className={styles.categoryBadge}>{project.category}</span>
+                <span className={styles.categoryBadge}>{categoryLabel}</span>
                 <span className={styles.statusWrap}>
                   <span className={`${styles.statusDot} ${statusClass}`} />
                   <span>{statusLabel}</span>
@@ -121,7 +129,7 @@ export default function ProjectGalleryModal({
                 type="button"
                 className={styles.closeButton}
                 onClick={onClose}
-                aria-label="Close gallery"
+                aria-label={isFr ? "Fermer la galerie" : "Close gallery"}
               >
                 <X size={18} />
               </button>
@@ -135,7 +143,7 @@ export default function ProjectGalleryModal({
                 type="button"
                 className={`${styles.navButton} ${styles.prevButton}`}
                 onClick={handlePrev}
-                aria-label="Previous image"
+                aria-label={isFr ? "Image précédente" : "Previous image"}
               >
                 <ChevronLeft size={24} />
               </button>
@@ -153,7 +161,7 @@ export default function ProjectGalleryModal({
                 >
                   <Image
                     src={currentImage}
-                    alt={`${project.title} screenshot ${activeImageIndex + 1}`}
+                    alt={isFr ? `${project.title} capture ${activeImageIndex + 1}` : `${project.title} screenshot ${activeImageIndex + 1}`}
                     fill
                     sizes="(max-width: 1400px) 94vw, 1300px"
                     className={styles.mainImage}
@@ -168,7 +176,7 @@ export default function ProjectGalleryModal({
                 type="button"
                 className={`${styles.navButton} ${styles.nextButton}`}
                 onClick={handleNext}
-                aria-label="Next image"
+                aria-label={isFr ? "Image suivante" : "Next image"}
               >
                 <ChevronRight size={24} />
               </button>
@@ -178,7 +186,7 @@ export default function ProjectGalleryModal({
           {/* Bottom Bar: Thumbnails & Meta */}
           <footer className={styles.footer}>
             {total > 1 && (
-              <div className={styles.thumbnailTrack} role="tablist" aria-label="Gallery thumbnails">
+              <div className={styles.thumbnailTrack} role="tablist" aria-label={isFr ? "Miniatures de la galerie" : "Gallery thumbnails"}>
                 {images.map((img, idx) => {
                   const isActive = idx === activeImageIndex;
                   return (
@@ -192,7 +200,7 @@ export default function ProjectGalleryModal({
                     >
                       <Image
                         src={img}
-                        alt={`${project.title} thumbnail ${idx + 1}`}
+                        alt={isFr ? `${project.title} miniature ${idx + 1}` : `${project.title} thumbnail ${idx + 1}`}
                         fill
                         sizes="90px"
                         className={styles.thumbImage}
@@ -219,7 +227,7 @@ export default function ProjectGalleryModal({
                   rel="noopener noreferrer"
                   className={styles.launchBtn}
                 >
-                  <span>Launch Live Platform</span>
+                  <span>{t.launchPlatform}</span>
                   <ExternalLink size={14} />
                 </Link>
               )}

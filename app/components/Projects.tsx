@@ -123,20 +123,24 @@ function ProjectCard({
   project,
   index,
   t,
+  locale = "en",
   onOpenGallery,
   onOpenDetails,
 }: {
   project: Project;
   index: number;
   t: ProjectsTranslation;
+  locale?: Locale;
   onOpenGallery: (project: Project, index?: number) => void;
   onOpenDetails: (project: Project) => void;
 }) {
+  const isFr = locale === "fr";
   const images = project.images && project.images.length > 0 ? project.images : [project.image];
   const imageCount = images.length;
   const projectTitle = t.items[project.id]?.title || project.title;
   const projectDesc = t.items[project.id]?.description || project.description;
   const localized = { ...project, title: projectTitle, description: projectDesc };
+  const categoryLabel = project.category === "ML" ? (isFr ? "IA / ML" : "AI / ML") : project.category;
 
   return (
     <article
@@ -148,7 +152,7 @@ function ProjectCard({
         onClick={() => onOpenGallery(localized, 0)}
         role="button"
         tabIndex={0}
-        aria-label={`Open ${projectTitle} photo gallery`}
+        aria-label={isFr ? `Ouvrir la galerie photo de ${projectTitle}` : `Open ${projectTitle} photo gallery`}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
@@ -158,7 +162,7 @@ function ProjectCard({
       >
         <Image
           src={project.image}
-          alt={`${projectTitle} preview screenshot`}
+          alt={isFr ? `Capture d'écran de ${projectTitle}` : `${projectTitle} preview screenshot`}
           fill
           sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 31vw"
           className={styles.previewImage}
@@ -167,7 +171,7 @@ function ProjectCard({
 
         <div className={styles.previewBadges}>
           <StatusBadge status={project.status} statusLabels={t.statusLabels} />
-          <span className={styles.categoryBadge}>{project.category}</span>
+          <span className={styles.categoryBadge}>{categoryLabel}</span>
         </div>
 
         <div className={styles.previewFooter}>
@@ -194,7 +198,7 @@ function ProjectCard({
             type="button"
             className={styles.showMoreBtn}
             onClick={() => onOpenDetails(localized)}
-            aria-label={`Show more details for ${projectTitle}`}
+            aria-label={isFr ? `Afficher plus de détails pour ${projectTitle}` : `Show more details for ${projectTitle}`}
           >
             {t.showMore}
           </button>
@@ -415,6 +419,7 @@ export default function Projects({ locale = "en" }: ProjectsProps) {
                 project={project}
                 index={index}
                 t={t}
+                locale={locale}
                 onOpenGallery={handleOpenGallery}
                 onOpenDetails={setDetailsProject}
               />
@@ -455,6 +460,7 @@ export default function Projects({ locale = "en" }: ProjectsProps) {
       {/* Project Details Modal */}
       <ProjectDetailsModal
         project={detailsProject}
+        locale={locale}
         onClose={() => setDetailsProject(null)}
         onOpenGallery={(p, idx) => {
           setDetailsProject(null);
@@ -465,6 +471,7 @@ export default function Projects({ locale = "en" }: ProjectsProps) {
       {/* Full-Page Gallery Lightbox Modal */}
       <ProjectGalleryModal
         project={galleryProject}
+        locale={locale}
         activeImageIndex={activeImageIndex}
         onClose={() => setGalleryProject(null)}
         onSelectImage={(idx) => setActiveImageIndex(idx)}
