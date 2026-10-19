@@ -11,6 +11,8 @@
 !.yarn/versions
 /agent-skills
 /ui-ux-pro-max-skill
+/skills
+/.skills
 AGENTS.md
 CLAUDE.md
 /.agents
