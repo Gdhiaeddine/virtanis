@@ -48,16 +48,25 @@ export function SplashScreen() {
     // document.body.style.overflow) can't clobber the lock.
     const rootEl = document.documentElement
     const previousOverflow = rootEl.style.overflow
-    rootEl.style.overflow = "hidden"
-
-    const timer = setTimeout(() => setVisible(false), SPLASH_DURATION)
-
-    return () => {
-      clearTimeout(timer)
+    const unlock = () => {
       // Only restore our own lock (avoid clobbering any newer one).
       if (rootEl.style.overflow === "hidden") {
         rootEl.style.overflow = previousOverflow
       }
+    }
+    rootEl.style.overflow = "hidden"
+
+    // Release the scroll lock when the splash ends — not on unmount, which
+    // would never fire (the component stays mounted for the page's lifetime)
+    // and left scrolling permanently blocked on first visit.
+    const timer = setTimeout(() => {
+      unlock()
+      setVisible(false)
+    }, SPLASH_DURATION)
+
+    return () => {
+      clearTimeout(timer)
+      unlock()
     }
   }, [])
 
