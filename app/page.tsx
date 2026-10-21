@@ -4,6 +4,7 @@ import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import About from "./components/About";
 import Contact from "./components/Contact";
+import { SplashScreen } from "@/components/ui/splash-screen";
 
 export const metadata: Metadata = {
   title: "Virtanis | Next-Generation Digital Agency & AI Engineering",
@@ -46,6 +47,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="flex flex-col flex-1">
+      <SplashScreen />
       <Hero locale="en" />
       <Skills locale="en" />
       <Projects locale="en" />
