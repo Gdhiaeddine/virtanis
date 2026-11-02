@@ -244,8 +244,8 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center">
-          <NavigationMenu className="bg-black/60 border border-white/20 p-2.5 px-4 rounded-full backdrop-blur-md">
-            <NavigationMenuList className="flex gap-2">
+          <NavigationMenu className="bg-black/60 border border-white/20 p-1 px-2 xl:p-2 xl:px-3 2xl:p-2.5 2xl:px-4 rounded-full backdrop-blur-md">
+            <NavigationMenuList className="flex gap-1 xl:gap-1.5 2xl:gap-2">
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id;
                 return (
@@ -257,7 +257,7 @@ export default function Navbar() {
                           navHideUntil.current = Date.now() + 2000;
                         }}
                         className={cn(
-                          "inline-flex items-center justify-center px-6 py-2.5 text-base rounded-full transition-all duration-300 tracking-wide leading-none select-none",
+                          "inline-flex items-center justify-center whitespace-nowrap px-2 py-1.5 text-xs rounded-full transition-all duration-300 tracking-wide leading-none select-none xl:px-4 xl:py-2 xl:text-sm 2xl:px-5 2xl:py-2",
                           isActive
                             ? "bg-white text-black shadow-lg font-bold"
                             : "text-zinc-100 hover:text-white font-medium hover:bg-white/15"
@@ -310,7 +310,7 @@ export default function Navbar() {
           {/* Desktop Collaborate Button (Hero-01 style) */}
           <Button
             asChild
-            className="hidden md:inline-flex relative text-base font-semibold rounded-full h-11 p-1 ps-6 pe-14 group transition-all duration-500 hover:ps-14 hover:pe-6 w-fit overflow-hidden cursor-pointer bg-white text-black hover:bg-zinc-100 shadow-md"
+            className="hidden md:inline-flex relative text-sm font-semibold rounded-full h-10 p-1 ps-5 pe-12 group transition-all duration-500 hover:ps-14 hover:pe-6 w-fit overflow-hidden cursor-pointer bg-white text-black hover:bg-zinc-100 shadow-md xl:h-11 xl:ps-6 xl:pe-14 xl:text-base"
           >
             <Link href={isFr ? "/fr/contact" : "/contact"}>
               <span className="relative z-10 transition-all duration-500 font-semibold tracking-tight">
