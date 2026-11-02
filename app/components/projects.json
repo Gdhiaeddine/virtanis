@@ -1,5 +1,28 @@
 [
   {
+    "id": 11,
+    "title": "CarePredict AI — Clinical Triage & Predictive System for Diabetic Readmissions",
+    "category": "ML",
+    "description": "Problem Statement:\nEarly hospital readmissions among diabetic patients cost billions of euros annually and represent a leading cause of preventable mortality. Most ML models in this domain suffer from data leakage or generate excessive false alerts to be viable for healthcare practitioners.\n\nDeveloped Solution:\nEnd-to-end design, training, and deployment of a rigorous Machine Learning pipeline on a cohort of over 100,000 hospital stays (Diabetes 130-US Hospitals):\n• Absolute methodological rigor: Strict patient-level split (GroupShuffleSplit) eliminating 100% of data leakage across repeated stays, with realistic evaluation on an un-censored cohort.\n• Longitudinal feature engineering: Modeling temporal dynamics (length-of-stay acceleration, organ comorbidity accumulation, emergency visit history) and ablation selection proving 25 engineered features outperform 73 raw features.\n• Operational clinical triage: 3-tier risk system (Green, Amber, Red) achieving 47.0% precision on the Top-1% high-risk tier (a 4.2x lift over the 11.1% natural base rate).\n• Production deployment: High-concurrency async REST API (FastAPI), interactive clinician decision dashboard (Streamlit), Docker containerization, and automated keep-alive ping for 24/7 uptime on Render.\n\n🛠️ Technologies & Stack:\n• ML & Algorithms: Python, LightGBM, XGBoost, Scikit-Learn, Imbalanced-Learn (SMOTE)\n• Data Engineering & Math: Pandas, NumPy, GroupShuffleSplit, ColumnTransformer, StandardScaler, OneHotEncoder\n• Explainability & Evaluation: SHAP (TreeSHAP), Precision-Recall AUC (PR-AUC), ROC-AUC, Matplotlib, Seaborn\n• Backend & REST API: FastAPI, Uvicorn, Pydantic, HTTPX, Starlette\n• Frontend UI: Streamlit (Interactive Clinical Decision Support Dashboard)",
+    "technologies": [
+      "Python",
+      "LightGBM",
+      "XGBoost",
+      "Scikit-Learn",
+      "FastAPI",
+      "Streamlit",
+      "Docker",
+      "SHAP",
+      "SMOTE"
+    ],
+    "status": "Live",
+    "image": "/projects/care-predict.webp",
+    "images": [
+      "/projects/care-predict.webp"
+    ],
+    "link": "https://carepredict-ccga.onrender.com"
+  },
+  {
     "id": 10,
     "title": "Sti Corporate Website",
     "category": "Web",
