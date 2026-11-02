@@ -1244,6 +1244,11 @@ export const translations: Record<Locale, TranslationDictionary> = {
       viewMore: "Voir Plus de Projets",
       showLess: "Voir Moins",
       items: {
+        11: {
+          title: "CarePredict AI — Système Prédictif & Triage Clinique des Réadmissions Diabétiques",
+          description:
+            "Problématique :\nLes réadmissions hospitalières précoces chez les patients diabétiques représentent un coût annuel de plusieurs milliards d'euros et une cause majeure de mortalité évitable. Dans ce domaine, la plupart des modèles de ML souffrent de fuites de données (data leakage) ou génèrent trop de fausses alertes pour être exploitables par les soignants.\n\nSolution développée :\nConception, entraînement et déploiement d'un pipeline de Machine Learning rigoureux sur une cohorte de plus de 100 000 séjours hospitaliers (Diabetes 130-US Hospitals) :\n• Rigueur méthodologique absolue : Découpage strict au niveau patient (GroupShuffleSplit) éliminant 100% des fuites entre séjours multiples, et évaluation honnête sur cohorte réelle non-censurée.\n• Ingénierie de variables longitudinales : Modélisation de la dynamique temporelle (accélération de la durée de séjour, croissance des comorbidités d'organes, historique des urgences) et sélection par ablation prouvant que 25 variables ciblées surpassent 73 variables brutes.\n• Triage clinique opérationnel : Mise en place d'un système à 3 paliers (Vert, Orange, Rouge) permettant d'atteindre 47.0% de précision sur le Top-1% (soit un Lift de ×4.2 par rapport au taux naturel de 11.1%).\n• Déploiement en production : API REST asynchrone (FastAPI), tableau de bord interactif pour soignants (Streamlit), conteneurisation Docker et système d'auto-ping pour maintien d'activité 24/7 sur Render.\n\n🛠️ Technologies Utilisées :\n• Machine Learning & Algorithmes : Python, LightGBM, XGBoost, Scikit-Learn, Imbalanced-Learn (SMOTE)\n• Ingénierie des Données & Maths : Pandas, NumPy, GroupShuffleSplit, ColumnTransformer, StandardScaler, OneHotEncoder\n• Explicabilité & Évaluation : SHAP (TreeSHAP), Precision-Recall AUC (PR-AUC), ROC-AUC, Matplotlib, Seaborn\n• Backend & API REST : FastAPI, Uvicorn, Pydantic, HTTPX, Starlette\n• Interface Utilisateur : Streamlit (Dashboard interactif d'aide à la décision)",
+        },
         10: {
           title: "Site Corporate STI",
           description:
