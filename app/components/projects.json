@@ -1,5 +1,28 @@
 [
   {
+    "id": 12,
+    "title": "HospFlow AI — Multi-Horizon Hospital Bed Occupancy & Capacity Pressure Forecasting System",
+    "category": "ML",
+    "description": "Problem Statement:\nHospital bed saturation during seasonal peaks causes severe strain on emergency departments and clinical workflows. Classical recursive forecasting models compound errors over extended horizons, limiting operational planning and proactive bed allocation.\n\nDeveloped Solution:\nHospFlow AI is an end-to-end Machine Learning decision-support system for hospital capacity management, trained on real-world daily census records from NHS England (UEC Daily SitRep):\n• Direct multi-horizon strategy: Separately models occupied and available beds to capture winter escalation bed flexibility while preventing error compounding across forecast horizons.\n• Capacity pressure triage: Automated 4-tier pressure classification (Normal, Moderate, High, Critical ≥ 92%), 95% uncertainty interval quantification, and dynamic surge bed requirement estimation.\n• Temporal ML validation & audit: Walk-Forward Cross-Validation (5 rolling folds), formal verification against data leakage, and rigorous benchmarking against statistical baselines (SARIMA, Holt-Winters, rolling averages).\n• Full-stack production deployment: High-performance FastAPI backend microservices and an interactive 7-page Streamlit dashboard featuring NHS Trust analytics, delayed discharge monitoring, and a What-If operational crisis simulator.\n\n🛠️ Technologies & Stack:\n• ML & Time Series: Python, XGBoost, LightGBM, Scikit-Learn, Statsmodels (SARIMA, Holt-Winters)\n• Data Processing & Feature Engineering: Pandas, NumPy, Scipy, Openpyxl, Cyclic calendar encodings, Rolling windows & Lags (1–28 days)\n• ML Validation & Serialization: Walk-Forward CV (5 folds), Joblib\n• Backend & REST API: FastAPI, Uvicorn, Pydantic\n• Frontend UI & Dataviz: Streamlit (7-page interactive operational dashboard, dynamic gauge charts, uncertainty intervals, What-If crisis simulator)",
+    "technologies": [
+      "Python",
+      "LightGBM",
+      "XGBoost",
+      "Scikit-Learn",
+      "FastAPI",
+      "Streamlit",
+      "Statsmodels",
+      "Pandas",
+      "Time Series"
+    ],
+    "status": "Live",
+    "image": "/projects/hospflow.webp",
+    "images": [
+      "/projects/hospflow.webp"
+    ],
+    "link": "https://hospflow-ai.streamlit.app"
+  },
+  {
     "id": 11,
     "title": "CarePredict AI — Clinical Triage & Predictive System for Diabetic Readmissions",
     "category": "ML",
@@ -35,14 +58,12 @@
       "Postgresql",
       "SEO Optimization"
     ],
-    
     "status": "Live",
     "image": "/projects/sti-landing.webp",
     "images": [
       "/projects/sti-landing.webp",
       "/projects/sti-ooredoo.webp",
       "/projects/sti-vivo.webp"
-
     ],
     "link": "https://sti.dz"
   },
