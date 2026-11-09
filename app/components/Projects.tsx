@@ -26,15 +26,7 @@ interface Project extends ModalProject {
 
 import projectsData from "./projects.json";
 
-const STATUS_ORDER: Record<Project["status"], number> = {
-  "Live": 0,
-  "Beta": 1,
-  "In Progress": 2,
-};
-
-const PROJECTS: Project[] = (projectsData as Project[]).sort((a, b) => {
-  return STATUS_ORDER[a.status] - STATUS_ORDER[b.status];
-});
+const PROJECTS: Project[] = projectsData as Project[];
 
 
 const FILTERS: ("All" | Category)[] = ["All", "ML", "Web", "Design"];

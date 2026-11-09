@@ -1,5 +1,29 @@
 [
   {
+    "id": 7,
+    "title": "Hotel Management System",
+    "category": "Web",
+    "description": "A comprehensive hotel management platform for handling reservations, room allocation, guest information, billing, and daily hotel operations efficiently.",
+    "technologies": [
+      "Next js",
+      "Laravel",
+      "Realtime Websocket",
+      "Postgresql",
+      "Tailwind",
+      "Docker"
+    ],
+    "status": "Beta",
+    "image": "/projects/erp/erp-dashboard.webp",
+    "images": [
+      "/projects/erp/erp-dashboard.webp",
+      "/projects/erp/erp-reservation.webp",
+      "/projects/erp/erp-hebergement.webp",
+      "/projects/erp/erp-piscine.webp",
+      "/projects/erp/erp-reunion.webp",
+      "/projects/erp/erp-centre.webp"
+    ]
+  },
+  {
     "id": 13,
     "title": "MedicalVision AI — Clinical Decision Support System for Chest Radiographs (NIH ChestX-ray14)",
     "category": "ML",
@@ -90,30 +114,6 @@
       "/projects/sti-vivo.webp"
     ],
     "link": "https://sti.dz"
-  },
-  {
-    "id": 7,
-    "title": "Hotel Management System",
-    "category": "Web",
-    "description": "A comprehensive hotel management platform for handling reservations, room allocation, guest information, billing, and daily hotel operations efficiently.",
-    "technologies": [
-      "Next js",
-      "Laravel",
-      "Realtime Websocket",
-      "Postgresql",
-      "Tailwind",
-      "Docker"
-    ],
-    "status": "Beta",
-    "image": "/projects/erp/erp-dashboard.webp",
-    "images": [
-      "/projects/erp/erp-dashboard.webp",
-      "/projects/erp/erp-reservation.webp",
-      "/projects/erp/erp-hebergement.webp",
-      "/projects/erp/erp-piscine.webp",
-      "/projects/erp/erp-reunion.webp",
-      "/projects/erp/erp-centre.webp"
-    ]
   },
   {
     "id": 9,

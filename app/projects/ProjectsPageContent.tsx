@@ -31,15 +31,7 @@ type Project = ModalProject & {
 
 type Category = "ML" | "Web" | "App" | "Design";
 
-const statusOrder: Record<Project["status"], number> = {
-  Live: 0,
-  Beta: 1,
-  "In Progress": 2,
-};
-
-const projects = (projectsData as Project[]).sort((a, b) => {
-  return statusOrder[a.status] - statusOrder[b.status];
-});
+const projects = projectsData as Project[];
 
 const filters: ("All" | Category)[] = ["All", "ML", "Web", "Design"];
 
