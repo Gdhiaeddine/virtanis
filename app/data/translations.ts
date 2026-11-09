@@ -548,7 +548,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
             "STI corporate website showcasing Ooredoo recharge credit, prepaid SIM cards, wholesale solutions, and partner services across Algeria. Built with Next.js and Tailwind CSS, it delivers a modern, fast, and fully responsive experience with a premium telecom design and intuitive navigation.",
         },
         7: {
-          title: "Hotel Management System",
+          title: "Hotel Management ERP — Real-Time Hospitality & Operations Management Platform",
           description:
             "A comprehensive hotel management platform for handling reservations, room allocation, guest information, billing, and daily hotel operations efficiently.",
         },
@@ -1275,7 +1275,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
             "Site institutionnel de STI mettant en avant le crédit de recharge Ooredoo, les cartes SIM prépayées, les solutions de gros et les services partenaires en Algérie. Développé avec Next.js et Tailwind CSS, il offre une expérience moderne, rapide et réactive avec un design télécom haut de gamme.",
         },
         7: {
-          title: "Système de Gestion Hôtelière",
+          title: "ERP de Gestion Hôtelière — Plateforme Complète d'Opérations & Réservations en Temps Réel",
           description:
             "Plateforme complète de gestion hôtelière pour administrer efficacement les réservations, l'attribution des chambres, les données des clients, la facturation et les opérations quotidiennes.",
         },
