@@ -1,5 +1,29 @@
 [
   {
+    "id": 13,
+    "title": "MedicalVision AI — Clinical Decision Support System for Chest Radiographs (NIH ChestX-ray14)",
+    "category": "ML",
+    "description": "Problem Statement:\nIn chest radiography, multiple pathologies exhibit overlapping visual manifestations or frequent comorbidity (notably cardiac dilation and basal pleural effusion), inducing frequent cross-pathology false positives in standard AI models.\n\nDeveloped Solution & Technical Innovations:\nMedicalVision AI is an end-to-end Computer Vision & Deep Learning clinical decision support system trained on the NIH ChestX-ray14 dataset:\n• Disentangled Representation Learning: Development of an asymmetric contrastive loss (DisentangledBCEWithLogitsLoss) explicitly penalizing cross-anatomical confusion, suppressing parasitic false positive probabilities to < 5% on pure pathology cases.\n• Visual Explainability (XAI - Grad-CAM): Instantaneous generation of overlaid thermo-anatomical heatmaps with automated connected-component contour segmentation and salient bounding box extraction for suspicious lesions.\n• Cardio-Pleural Differential Diagnosis Module: Real-time computation of a cardio-pleural separation metric (Δcardio-eff) paired with a synchronized dual-panel comparative viewer (cardiac silhouette vs. costophrenic angles).\n• Clinical Reliability & Calibration: Platt Scaling probabilistic calibration guaranteeing positive Brier Skill Scores (BSS > 0) alongside epistemic uncertainty estimation via Monte Carlo Dropout to secure borderline clinical decisions.\n• Methodological Rigor: Strict zero-leakage patient-disjoint cohort evaluation with 3,000 clustered patient bootstrap iterations and supervised lesion detection via Faster R-CNN trained on NIH expert radiologist annotations.\n\n📊 Measured Benchmark Results:\n• Macro ROC-AUC: 0.7857 (+8.8 pp gain over global baseline)\n• Macro Recall: 66.85% at high-sensitivity clinical screening threshold\n• Spatial Correlation: Pearson r = -0.577 confirming orthogonal spatial visual attention between cardiac border and pleural recesses\n\n🛠️ Technologies & Stack:\n• Deep Learning & Vision: Python, PyTorch, Torchvision, DenseNet-121, ConvNeXt-Tiny, ResNet-50-FPN\n• Explainability & Detection: Grad-CAM, SciPy, Faster R-CNN (NIH expert annotations)\n• Advanced Modeling: Asymmetric Contrastive Margin Loss, Platt Scaling, Monte Carlo Dropout\n• Frontend UI: Streamlit (Interactive Clinical Decision Support Dashboard)",
+    "technologies": [
+      "Python",
+      "PyTorch",
+      "Torchvision",
+      "DenseNet-121",
+      "ConvNeXt-Tiny",
+      "Faster R-CNN",
+      "Grad-CAM",
+      "SciPy",
+      "Contrastive Loss",
+      "Streamlit"
+    ],
+    "status": "Live",
+    "image": "/projects/medicalvision.webp",
+    "images": [
+      "/projects/medicalvision.webp"
+    ],
+    "link": "https://huggingface.co/spaces/dhia19000/MedicalVision"
+  },
+  {
     "id": 12,
     "title": "HospFlow AI — Multi-Horizon Hospital Bed Occupancy & Capacity Pressure Forecasting System",
     "category": "ML",
