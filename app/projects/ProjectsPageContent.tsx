@@ -33,7 +33,7 @@ type Category = "ML" | "Web" | "App" | "Design";
 
 const projects = projectsData as Project[];
 
-const filters: ("All" | Category)[] = ["All", "ML", "Web", "Design"];
+const filters: ("All" | Category)[] = ["All", "ML", "Web", "App", "Design"];
 
 const fadeUp = {
   initial: { opacity: 0, y: 28 },
@@ -188,7 +188,11 @@ function ProjectCard({
     description: projectDesc,
   };
   const categoryLabel =
-    project.category === "ML" ? (isFr ? "IA / ML" : "AI / ML") : project.category;
+    project.category === "ML"
+      ? (isFr ? "IA / ML" : "AI / ML")
+      : project.category === "App"
+        ? (isFr ? "Application" : "Desktop App")
+        : project.category;
 
   return (
     <motion.article

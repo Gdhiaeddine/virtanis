@@ -510,7 +510,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
         All: "All Deployments",
         ML: "AI & Machine Learning",
         Web: "Web Platforms",
-        App: "Mobile Systems",
+        App: "Applications & Desktop",
         Design: "Spatial & UI/UX",
       },
       statusLabels: {
@@ -527,6 +527,11 @@ export const translations: Record<Locale, TranslationDictionary> = {
       viewMore: "View More Projects",
       showLess: "Show Less",
       items: {
+        14: {
+          title: "VCheque Studio — Bank Cheque Printing & Management Platform (Algeria)",
+          description:
+            "Problem Statement:\nPreparing, calibrating, and printing bank cheques across multiple financial institutions in Algeria frequently leads to paper waste, alignment discrepancies, and manual errors in French legal monetary grammar.\n\nDeveloped Solution & Key Capabilities:\nVCheque Studio is a lightweight, high-precision desktop application engineered for Algerian businesses, finance departments, and professionals to prepare, visually calibrate, print, and track bank cheques with millimeter accuracy:\n• Intelligent Data Input: Automatic conversion of monetary amounts (DZD) into French words conforming to Algerian banking grammar rules, currency formatting with centimes, and one-click support for crossed / non-endorsable cheques.\n• Millimeter Visual Calibration: Interactive drag-and-drop and coordinate-based (X, Y in mm) visual calibration editor with grid overlays and background cheque scan templates to align fields precisely to paper dimensions.\n• Preconfigured Algerian Bank Templates: Built-in layout presets for major banks across Algeria (BNA, BEA, CPA, BADR, BDL, CNEP, Algérie Poste, BNP Paribas El Djazaïr, Société Générale, Al Baraka, El Salam, and others).\n• High-Precision Printing Engine: True 1:1 scale CSS rendering and printer margin compensation engine tailored for standard office inkjet and laser printers.\n• Local History & Records: Embedded SQLite storage and history tracking with instant search, multi-criteria filters, status management (Printed, Saved), and dashboard analytics.\n• Licensing & Security: Hardware-bound machine registration and cryptographic validation using Ed25519 signatures with native Windows registry integration.\n\n🛠️ Technologies & Stack:\n• Desktop Architecture & Systems: Tauri v2, Rust, Winreg, RFD (Native File Dialogs), NSIS Installer\n• Frontend & Rendering: Next.js, TypeScript, Tailwind CSS, 1:1 Scale Print CSS Engine\n• Database & Persistence: SQLite (tauri-plugin-sql), Supabase Sync",
+        },
         13: {
           title: "MedicalVision AI — Clinical Decision Support System for Chest Radiographs (NIH ChestX-ray14)",
           description:
@@ -874,7 +879,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
         All: "All Deployments",
         ML: "AI & Machine Learning",
         Web: "Web Platforms",
-        App: "Mobile Systems",
+        App: "Applications & Desktop",
         Design: "Spatial & UI/UX",
       },
       statusLabels: {
@@ -1237,7 +1242,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
         All: "Tous les Déploiements",
         ML: "IA & Machine Learning",
         Web: "Plateformes Web",
-        App: "Systèmes Mobiles",
+        App: "Applications & Desktop",
         Design: "Design Spatial & UI/UX",
       },
       statusLabels: {
@@ -1254,6 +1259,11 @@ export const translations: Record<Locale, TranslationDictionary> = {
       viewMore: "Voir Plus de Projets",
       showLess: "Voir Moins",
       items: {
+        14: {
+          title: "VCheque Studio — Impression & Gestion de Chèques Bancaires (Algérie)",
+          description:
+            "Problématique résolue :\nLa préparation, le calibrage et l'impression de chèques bancaires auprès des différentes institutions financières en Algérie sont souvent sources d'erreurs d'alignement, de gaspillage de formules de chèques et d'anomalies manuelles dans la transcription des montants en toutes lettres.\n\nSolutions & Fonctionnalités clés :\nVCheque Studio est une application de bureau moderne, légère et haute précision conçue pour les entreprises, professionnels et directions financières en Algérie afin de préparer, calibrer, imprimer et tracer les chèques bancaires avec une précision millimétrique :\n• Saisie Intelligente des Données : Conversion automatique des montants (DZD) en toutes lettres en français selon les règles grammaticales bancaires algériennes, gestion des centimes et émission en un clic de chèques barrés / non endossables.\n• Éditeur de Calibrage Visuel Millimétrique : Système de calibrage interactif par glisser-déposer et coordonnées précises (X, Y en mm) avec grille de repères et modèles scannés en arrière-plan pour un alignement parfait sur chaque chéquier.\n• Gabarits Préconfigurés des Banques Algériennes : Profils prêts à l'emploi pour les principales banques d'Algérie (BNA, BEA, CPA, BADR, BDL, CNEP, Algérie Poste, BNP Paribas El Djazaïr, Société Générale, Al Baraka, El Salam, etc.).\n• Moteur d'Impression Haute Fidélité : Rendu CSS à l'échelle réelle 1:1 avec compensation dynamique des marges d'impression pour imprimantes laser et jet d'encre standard.\n• Historique Local & Gestion des Registres : Base de données locale SQLite avec recherche instantanée, filtres multicritères, gestion des statuts (Imprimé, Enregistré) et statistiques au tableau de bord.\n• Sécurité & Système de Licence : Enregistrement machine lié au matériel et validation cryptographique par signatures Ed25519 avec intégration dans le registre Windows.\n\n🛠️ Technologies Utilisées :\n• Architecture Desktop & Système : Tauri v2, Rust, Winreg, RFD (Boîtes de dialogue natives), Installateur NSIS\n• Frontend & Rendu : Next.js, TypeScript, Tailwind CSS, Moteur d'impression CSS 1:1\n• Base de Données & Persistance : SQLite (tauri-plugin-sql), Synchronisation Supabase",
+        },
         13: {
           title: "MedicalVision AI — Système d'Aide à la Décision Clinique pour Radiographies Thoraciques (NIH ChestX-ray14)",
           description:
@@ -1601,7 +1611,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
         All: "Tous les Déploiements",
         ML: "IA & Machine Learning",
         Web: "Plateformes Web",
-        App: "Systèmes Mobiles",
+        App: "Applications & Desktop",
         Design: "Spatial & UI/UX",
       },
       statusLabels: {

@@ -1,5 +1,29 @@
 [
   {
+    "id": 14,
+    "title": "VCheque Studio — Bank Cheque Printing & Management Platform (Algeria)",
+    "category": "App",
+    "description": "Problem Statement:\nPreparing, calibrating, and printing bank cheques across multiple financial institutions in Algeria frequently leads to paper waste, alignment discrepancies, and manual errors in French legal monetary grammar.\n\nDeveloped Solution & Key Capabilities:\nVCheque Studio is a lightweight, high-precision desktop application engineered for Algerian businesses, finance departments, and professionals to prepare, visually calibrate, print, and track bank cheques with millimeter accuracy:\n• Intelligent Data Input: Automatic conversion of monetary amounts (DZD) into French words conforming to Algerian banking grammar rules, currency formatting with centimes, and one-click support for crossed / non-endorsable cheques.\n• Millimeter Visual Calibration: Interactive drag-and-drop and coordinate-based (X, Y in mm) visual calibration editor with grid overlays and background cheque scan templates to align fields precisely to paper dimensions.\n• Preconfigured Algerian Bank Templates: Built-in layout presets for major banks across Algeria (BNA, BEA, CPA, BADR, BDL, CNEP, Algérie Poste, BNP Paribas El Djazaïr, Société Générale, Al Baraka, El Salam, and others).\n• High-Precision Printing Engine: True 1:1 scale CSS rendering and printer margin compensation engine tailored for standard office inkjet and laser printers.\n• Local History & Records: Embedded SQLite storage and history tracking with instant search, multi-criteria filters, status management (Printed, Saved), and dashboard analytics.\n• Licensing & Security: Hardware-bound machine registration and cryptographic validation using Ed25519 signatures with native Windows registry integration.\n\n🛠️ Technologies & Stack:\n• Desktop Architecture & Systems: Tauri v2, Rust, Winreg, RFD (Native File Dialogs), NSIS Installer\n• Frontend & Rendering: Next.js, TypeScript, Tailwind CSS, 1:1 Scale Print CSS Engine\n• Database & Persistence: SQLite (tauri-plugin-sql), Supabase Sync",
+    "technologies": [
+      "Tauri v2",
+      "Rust",
+      "Next js",
+      "TypeScript",
+      "SQLite",
+      "tauri-plugin-sql",
+      "Winreg",
+      "RFD",
+      "NSIS",
+      "Supabase"
+    ],
+    "status": "Live",
+    "image": "/projects/vcheque/landing.webp",
+    "images": [
+      "/projects/vcheque/landing.webp",
+      "/projects/vcheque/app.webp"
+    ]
+  },
+  {
     "id": 7,
     "title": "Hotel Management ERP — Real-Time Hospitality & Operations Management Platform",
     "category": "Web",

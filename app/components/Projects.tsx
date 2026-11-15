@@ -29,7 +29,7 @@ import projectsData from "./projects.json";
 const PROJECTS: Project[] = projectsData as Project[];
 
 
-const FILTERS: ("All" | Category)[] = ["All", "ML", "Web", "Design"];
+const FILTERS: ("All" | Category)[] = ["All", "ML", "Web", "App", "Design"];
 const INITIAL_COUNT = 6;
 
 /* ─── Deterministic particle generator ─── */
@@ -132,7 +132,12 @@ function ProjectCard({
   const projectTitle = t.items[project.id]?.title || project.title;
   const projectDesc = t.items[project.id]?.description || project.description;
   const localized = { ...project, title: projectTitle, description: projectDesc };
-  const categoryLabel = project.category === "ML" ? (isFr ? "IA / ML" : "AI / ML") : project.category;
+  const categoryLabel =
+    project.category === "ML"
+      ? (isFr ? "IA / ML" : "AI / ML")
+      : project.category === "App"
+        ? (isFr ? "Application" : "Desktop App")
+        : project.category;
 
   return (
     <article

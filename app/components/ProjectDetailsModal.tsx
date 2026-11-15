@@ -59,7 +59,12 @@ export default function ProjectDetailsModal({
         ? t.statusLabels.beta
         : t.statusLabels.inProgress;
 
-  const categoryLabel = project.category === "ML" ? (isFr ? "IA / ML" : "AI / ML") : project.category;
+  const categoryLabel =
+    project.category === "ML"
+      ? (isFr ? "IA / ML" : "AI / ML")
+      : project.category === "App"
+        ? (isFr ? "Application" : "Desktop App")
+        : project.category;
 
   const images =
     project.images && project.images.length > 0
