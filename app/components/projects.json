@@ -1,5 +1,30 @@
 [
   {
+    "id": 15,
+    "title": "MedStruct — Biomedical Abstract Structurer & Rhetorical Role Classification Platform",
+    "category": "ML",
+    "description": "Problem Statement:\nNavigating dense, unstructured biomedical abstracts in clinical research and systematic literature reviews creates significant cognitive friction and synthesis bottlenecks for clinicians and researchers. Existing NLP extraction models often suffer from calibration drift, sequence order hallucinations (e.g., misclassifying intermediate objectives as background or early methods as results), and overconfident mispredictions that carry unacceptable risk in medical evidence synthesis.\n\nDeveloped Solution & Key Capabilities:\nMedStruct is an end-to-end, high-precision NLP application and interactive research platform engineered to automatically segment, classify, and reconstruct scientific and clinical abstracts into standard rhetorical discourse sections (Background, Objective, Methods, Results, Conclusions):\n• Hierarchical & Biomedical Transformer Inference: Multi-tier inference engine leveraging domain-specific contextual language models (BioBERT, SciBERT, Hierarchical Sentence Transformers) alongside an ultra-fast, zero-GPU CPU fallback baseline (TF-IDF + Logistic Regression).\n• Order-Aware Markov Transition Smoothing: Forward-backward sequence decoding algorithm incorporating empirical RCT discourse transition priors (log T, log S, log P) to eliminate discourse role inversions and preserve rhetorical flow across the abstract.\n• Temperature Calibration & Error Abstention: Dev-calibrated Platt/temperature scaling coupled with role-specific confidence thresholds (targeting ≥ 90% precision) that gracefully flags ambiguous sentences as ⚠️ NEEDS REVIEW instead of forcing uncertain predictions.\n• Chronological Structured Reconstruction: Real-time semantic visualizer that chronologically reassembles free-form abstracts into structured, color-coded medical research sections with live confidence indicators.\n• Interactive Sentence-by-Sentence Breakdown: Tabular audit trail displaying per-sentence raw model outputs, Markov-smoothed labels, progress-bar confidence ratings, and review flags.\n• Empirical Benchmark & Ablation Dashboard: Built-in model evaluation suite visualizing Macro-F1 comparisons across architectures, context-window ablations (w=0 through full abstract), and low-resource data efficiency curves.\n• Clinical Data Export: One-click extraction of structured findings and sentence-level annotations into formatted JSON, CSV, and clinical reporting formats.\n\n🛠️ Technologies & Stack:\n• Deep Learning & Transformers: PyTorch, Hugging Face Transformers, BioBERT, SciBERT, Hierarchical Context Models\n• Statistical NLP & Classical ML: Scikit-Learn, HMM / Forward-Backward Markov Sequence Smoothing, TF-IDF, Logistic Regression\n• Post-Processing & Precision Toolkit: Platt / Temperature Scaling, Calibrated Selective Abstention Engine, NumPy, SciPy\n• Application Architecture & UI: Streamlit, Pandas, Custom Component Styling (CSS)\n• Benchmark & Data Engineering: PubMed 20k RCT Dataset, Joblib Serializer, Automated Gold-Standard Evaluation Pipeline",
+    "technologies": [
+      "Python",
+      "PyTorch",
+      "BioBERT",
+      "SciBERT",
+      "Streamlit",
+      "Scikit-Learn",
+      "HMM",
+      "Temperature Calibration",
+      "PubMed 20k RCT",
+      "NLP",
+      "Pandas"
+    ],
+    "status": "Live",
+    "image": "/projects/medstruct.webp",
+    "images": [
+      "/projects/medstruct.webp"
+    ],
+    "link": "https://nlp-text-virtanis.streamlit.app/"
+  },
+  {
     "id": 14,
     "title": "VCheque Studio — Bank Cheque Printing & Management Platform (Algeria)",
     "category": "App",
